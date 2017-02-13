@@ -8,6 +8,7 @@ public class TasksLoader : MonoBehaviour
 {
     public List<string> Tasks = new List<string>();
     public List<Color> Colors = new List<Color>();
+    public List<Color> TextColors = new List<Color>();
     public GameObject TaskPrefab;
     public string ObjectName = "Task";
     public float distance = 30f;
@@ -21,15 +22,18 @@ public class TasksLoader : MonoBehaviour
 
     void Start()
     {
-        for (int i=0; i<3; i++)
+        for (int i=0; i < 3; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
             gameobject.name = ObjectName + i.ToString();
             gameobject.transform.localScale = Vector3.one;
 
             var color = Colors[i % Colors.Count];
+            var textColor = TextColors[i % TextColors.Count];
             gameobject.transform.FindChild("Background").GetComponent<Image>().color = color;
             gameobject.transform.FindChild("Toggle").FindChild("Background").GetComponent<Image>().color = color;
+            gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
+            gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
 
             gameobject.transform.localPosition = position;
             position = position - distance * transform.up;
