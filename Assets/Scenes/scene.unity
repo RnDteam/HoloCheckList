@@ -373,7 +373,7 @@ MonoBehaviour:
   ObjectName: Task
   distance: 30
   TextToSpeech: {fileID: 1189927092}
-  AutomaticMode: 1
+  AutomaticMode: 0
   taskNumberText: {fileID: 62636704}
 --- !u!1 &519257654
 GameObject:
@@ -471,7 +471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 64, y: -24.8}
+  m_AnchoredPosition: {x: 58, y: -24.8}
   m_SizeDelta: {x: 576, y: 236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519257660
@@ -788,7 +788,8 @@ MonoBehaviour:
     Keywords:
     - Check
     - Complete
-    - Completed
+    - Sahmen
+    - Seamoon
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -810,6 +811,7 @@ MonoBehaviour:
     - Read
     - What's next
     - Habah
+    - likroh
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -830,6 +832,7 @@ MonoBehaviour:
     Keywords:
     - Uncheck
     - Mark incomplete
+    - beatool
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -849,6 +852,8 @@ MonoBehaviour:
   - MethodPurpose: Hide
     Keywords:
     - Hide
+    - Hastair
+    - Haster
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -868,6 +873,8 @@ MonoBehaviour:
   - MethodPurpose: Show
     Keywords:
     - Show
+    - Hatzeg
+    - Hatzaig
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -926,7 +933,7 @@ MonoBehaviour:
         PublicKeyToken=null
   - MethodPurpose: Reset app
     Keywords:
-    - Reset app
+    - Reset
     Response:
       m_PersistentCalls:
         m_Calls:

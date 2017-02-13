@@ -124,6 +124,7 @@ public class TasksLoader : MonoBehaviour
 
     public void SayCurrentTask()
     {
+        Debug.Log("say task");
         var text = GetCurrentTask();
         if (text == string.Empty)
         {
