@@ -161,13 +161,13 @@ public class TasksLoader : MonoBehaviour
     public void Hide()
     {
         Debug.Log("Hide");
-        gameObject.SetActive(false);
+        transform.parent.parent.GetComponent<Canvas>().enabled = false;
     }
 
     public void Show()
     {
         Debug.Log("Show");
-        gameObject.SetActive(true);
+        transform.parent.parent.GetComponent<Canvas>().enabled = true;
     }
 
     public void TurnOnAutomaticMode()

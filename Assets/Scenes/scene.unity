@@ -1267,6 +1267,7 @@ MonoBehaviour:
     Keywords:
     - Automatic
     - Auto
+    - Otomutt
     Response:
       m_PersistentCalls:
         m_Calls:
@@ -1287,6 +1288,7 @@ MonoBehaviour:
     Keywords:
     - Manual
     - Man
+    - Yadani
     Response:
       m_PersistentCalls:
         m_Calls:
