@@ -23,6 +23,7 @@ public class TasksLoader : MonoBehaviour
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
+    public VoiceManager voice;
 
     void Start()
     {
@@ -130,7 +131,7 @@ public class TasksLoader : MonoBehaviour
         {
             text = "All done. Good job.";
         }
-        //TextToSpeech.SpeakText(text);
+        voice.PlayAudio(currentTask);
     }
 
     public void Hide()
@@ -147,13 +148,13 @@ public class TasksLoader : MonoBehaviour
 
     public void TurnOnAutomaticMode()
     {
-        //TextToSpeech.SpeakText("Automatic mode");
+        TextToSpeech.SpeakText("Automatic mode");
         AutomaticMode = true;
     }
 
     public void TurnOffAutomaticMode()
     {
-        //TextToSpeech.SpeakText("Manual mode");
+        TextToSpeech.SpeakText("Manual mode");
         AutomaticMode = false;
     }
 
