@@ -332,6 +332,8 @@ MonoBehaviour:
   - Wake up
   - Brush teeth
   - Drink coffee
+  - Eat breakfast
+  - Save the world
   Colors:
   - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
   - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
@@ -342,6 +344,7 @@ MonoBehaviour:
   ObjectName: Task
   distance: 30
   TextToSpeech: {fileID: 1189927092}
+  AutomaticMode: 0
 --- !u!1 &519257654
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,15 +856,15 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - MethodPurpose: Select Task
+  - MethodPurpose: Automatic mode
     Keywords:
-    - Task one
+    - Automatic
     Response:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
+          m_MethodName: TurnOnAutomaticMode
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -872,171 +875,19 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - MethodPurpose: Select Task
+  - MethodPurpose: Manual mode
     Keywords:
-    - Task two
+    - Manual
     Response:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
+          m_MethodName: TurnOffAutomaticMode
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task three
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task four
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 4
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task five
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 5
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task six
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 6
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task seven
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 7
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task eight
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 8
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task nine
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 9
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-  - MethodPurpose: Select Task
-    Keywords:
-    - Task ten
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 354827426}
-          m_MethodName: SelectTask
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 10
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0

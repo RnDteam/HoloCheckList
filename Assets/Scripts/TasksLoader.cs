@@ -20,6 +20,8 @@ public class TasksLoader : MonoBehaviour
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
 
+    public bool AutomaticMode = false;
+
     void Start()
     {
         for (int i=0; i < 3; i++)
@@ -34,7 +36,7 @@ public class TasksLoader : MonoBehaviour
             gameobject.transform.FindChild("Toggle").FindChild("Background").GetComponent<Image>().color = color;
             gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
             gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
-
+            
             gameobject.transform.localPosition = position;
             position = position - distance * transform.up;
             gameobject.AddComponent<InteractableTask>();
@@ -42,7 +44,6 @@ public class TasksLoader : MonoBehaviour
             TaskGameObjects.Add(gameobject);
         }
         UpdateTaskNames();
-
     }
 
     private void UpdateTaskNames()
@@ -79,7 +80,7 @@ public class TasksLoader : MonoBehaviour
 
     private string GetCurrentTask()
     {
-        if (currentTask < Tasks.Count)
+        if (currentTask < Tasks.Count && !lastTaskComplete)
             return Tasks[currentTask];
         return string.Empty;
     }
@@ -95,6 +96,10 @@ public class TasksLoader : MonoBehaviour
             lastTaskComplete = true;
         }
         UpdateTaskNames();
+        if (AutomaticMode)
+        {
+            SayCurrentTask();
+        }
     }
 
     public void Uncheck()
@@ -108,6 +113,10 @@ public class TasksLoader : MonoBehaviour
             currentTask--;
         }
         UpdateTaskNames();
+        if (AutomaticMode)
+        {
+            SayCurrentTask();
+        }
     }
 
     public void SayCurrentTask()
@@ -132,13 +141,16 @@ public class TasksLoader : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void SelectTask(int index)
+    public void TurnOnAutomaticMode()
     {
-        //transform.Find(TaskStatus.ToArray()[index - 1].Key).GetComponent<InteractableTask>().Designate();
+        Debug.Log("Automatic mode");
+        AutomaticMode = true;
+    }
 
-        //var taskKey = TaskStatus.ElementAt(index - 1).Key;
-        //TaskStatus[taskKey] = !TaskStatus[taskKey];
-        //transform.Find(taskKey).GetComponent<InteractableTask>().OnSelect();
+    public void TurnOffAutomaticMode()
+    {
+        Debug.Log("Manual mode");
+        AutomaticMode = false;
     }
 }
 
