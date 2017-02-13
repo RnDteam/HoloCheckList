@@ -14,76 +14,101 @@ public class TasksLoader : MonoBehaviour
 
     public TextToSpeechManager TextToSpeech;
 
-    public Dictionary<string, bool> TaskStatus = new Dictionary<string, bool>();
-
+    private int currentTask = 0;
+    private bool lastTaskComplete = false;
     private Vector3 position = Vector3.zero;
-    private int counter = 0;
+    private List<GameObject> TaskGameObjects = new List<GameObject>();
 
     void Start()
     {
-        foreach (var task in Tasks)
+        for (int i=0; i<3; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
-            gameobject.name = ObjectName + counter.ToString();
+            gameobject.name = ObjectName + i.ToString();
             gameobject.transform.localScale = Vector3.one;
 
-            var color = Colors[counter % Colors.Count];
+            var color = Colors[i % Colors.Count];
             gameobject.transform.FindChild("Background").GetComponent<Image>().color = color;
             gameobject.transform.FindChild("Toggle").FindChild("Background").GetComponent<Image>().color = color;
 
-            gameobject.transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Format("{0}. {1}", counter + 1, task);
             gameobject.transform.localPosition = position;
             position = position - distance * transform.up;
             gameobject.AddComponent<InteractableTask>();
-            counter++;
+            
+            TaskGameObjects.Add(gameobject);
+        }
+        UpdateTaskNames();
 
-            TaskStatus.Add(gameobject.name, false);
+    }
+
+    private void UpdateTaskNames()
+    {
+        var text = string.Empty;
+        if (currentTask > 0)
+        {
+            text = string.Format("{0}. {1}", currentTask, Tasks.ElementAt(currentTask - 1));
+            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
+        }
+        else
+        {
+            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
+        }
+        TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
+
+        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Format("{0}. {1}", currentTask + 1, Tasks.ElementAt(currentTask));
+
+        text = string.Empty;
+        if (currentTask < Tasks.Count - 1)
+        {
+            text = string.Format("{0}. {1}", currentTask + 2, Tasks.ElementAt(currentTask + 1));
+        }
+        TaskGameObjects.ElementAt(2).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
+
+        if (lastTaskComplete)
+        {
+            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
+        } else
+        {
+            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
         }
     }
 
-    private string GetNextTask()
+    private string GetCurrentTask()
     {
-        for (int i = 0; i < Tasks.Count; i++)
-        {
-            if (!TaskStatus.ElementAt(i).Value)
-            {
-                return Tasks[i];
-            }
-        }
+        if (currentTask < Tasks.Count)
+            return Tasks[currentTask];
         return string.Empty;
     }
 
     public void Check()
     {
-        foreach (var task in TaskStatus)
+        if (currentTask < Tasks.Count - 1)
         {
-            if (!task.Value)
-            {
-                TaskStatus[task.Key] = true;
-                Debug.Log(task.Key);
-                transform.Find(task.Key).GetComponent<InteractableTask>().OnSelect();
-                return;
-            }
+            currentTask++;
         }
+        else
+        {
+            lastTaskComplete = true;
+        }
+        UpdateTaskNames();
     }
 
     public void Uncheck()
     {
-        for (int i = TaskStatus.Count - 1; i >= 0; i--)
+        if (currentTask == Tasks.Count - 1 && lastTaskComplete)
         {
-            if (TaskStatus.ElementAt(i).Value)
-            {
-                var taskKey = TaskStatus.ElementAt(i).Key;
-                TaskStatus[taskKey] = false;
-                transform.Find(taskKey).GetComponent<InteractableTask>().OnSelect();
-                return;
-            }
+            lastTaskComplete = false;
         }
+        else if (currentTask > 0)
+        {
+            currentTask--;
+        }
+        UpdateTaskNames();
     }
 
-    public void SayNextTask()
+    public void SayCurrentTask()
     {
-        var text = GetNextTask();
+        var text = GetCurrentTask();
         if (text == string.Empty)
         {
             text = "All done. Good job.";
@@ -106,9 +131,10 @@ public class TasksLoader : MonoBehaviour
     public void SelectTask(int index)
     {
         //transform.Find(TaskStatus.ToArray()[index - 1].Key).GetComponent<InteractableTask>().Designate();
-        var taskKey = TaskStatus.ElementAt(index - 1).Key;
-        TaskStatus[taskKey] = !TaskStatus[taskKey];
-        transform.Find(taskKey).GetComponent<InteractableTask>().OnSelect();
+
+        //var taskKey = TaskStatus.ElementAt(index - 1).Key;
+        //TaskStatus[taskKey] = !TaskStatus[taskKey];
+        //transform.Find(taskKey).GetComponent<InteractableTask>().OnSelect();
     }
 }
 

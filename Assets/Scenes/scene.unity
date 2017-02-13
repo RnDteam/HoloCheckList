@@ -331,9 +331,10 @@ MonoBehaviour:
   - Go to sleep
   - Wake up
   - Brush teeth
+  - Drink coffee
   Colors:
-  - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
   - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
+  - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
   TaskPrefab: {fileID: 1050938212000228, guid: cf0fc052de19d6e43bb65e098c229eb2, type: 2}
   ObjectName: Task
   distance: 30
