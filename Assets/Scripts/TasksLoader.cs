@@ -22,10 +22,11 @@ public class TasksLoader : MonoBehaviour
     private List<GameObject> TaskGameObjects = new List<GameObject>();
 
     public bool AutomaticMode = false;
+    public Text taskNumberText;
 
     void Start()
     {
-        for (int i=0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
             gameobject.name = ObjectName + i.ToString();
@@ -37,11 +38,11 @@ public class TasksLoader : MonoBehaviour
             gameobject.transform.FindChild("Toggle").FindChild("Background").GetComponent<Image>().color = color;
             gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
             gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
-            
+
             gameobject.transform.localPosition = position;
             position = position - distance * transform.up;
             gameobject.AddComponent<InteractableTask>();
-            
+
             TaskGameObjects.Add(gameobject);
         }
         UpdateTaskNames();
@@ -49,6 +50,7 @@ public class TasksLoader : MonoBehaviour
 
     private void UpdateTaskNames()
     {
+        taskNumberText.text = string.Format("{0} ךותמ {1}", Tasks.Count, currentTask + 1);
         var text = string.Empty;
         if (currentTask > 0)
         {
@@ -127,7 +129,7 @@ public class TasksLoader : MonoBehaviour
         {
             text = "All done. Good job.";
         }
-        TextToSpeech.SpeakText(text);
+        //TextToSpeech.SpeakText(text);
     }
 
     public void Hide()
@@ -144,13 +146,13 @@ public class TasksLoader : MonoBehaviour
 
     public void TurnOnAutomaticMode()
     {
-        TextToSpeech.SpeakText("Automatic mode");
+        //TextToSpeech.SpeakText("Automatic mode");
         AutomaticMode = true;
     }
 
     public void TurnOffAutomaticMode()
     {
-        TextToSpeech.SpeakText("Manual mode");
+        //TextToSpeech.SpeakText("Manual mode");
         AutomaticMode = false;
     }
 
