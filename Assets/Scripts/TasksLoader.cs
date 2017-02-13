@@ -52,7 +52,7 @@ public class TasksLoader : MonoBehaviour
         var text = string.Empty;
         if (currentTask > 0)
         {
-            text = string.Format("{0}. {1}", currentTask, Tasks.ElementAt(currentTask - 1));
+            text = Tasks.ElementAt(currentTask - 1);
             TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
         }
         else
@@ -61,12 +61,12 @@ public class TasksLoader : MonoBehaviour
         }
         TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
 
-        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Format("{0}. {1}", currentTask + 1, Tasks.ElementAt(currentTask));
+        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(currentTask);
 
         text = string.Empty;
         if (currentTask < Tasks.Count - 1)
         {
-            text = string.Format("{0}. {1}", currentTask + 2, Tasks.ElementAt(currentTask + 1));
+            text = Tasks.ElementAt(currentTask + 1);
         }
         TaskGameObjects.ElementAt(2).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
 
