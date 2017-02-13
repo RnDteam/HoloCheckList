@@ -4,6 +4,7 @@ using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class TasksLoader : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class TasksLoader : MonoBehaviour
     public bool AutomaticMode = false;
     public Text taskNumberText;
     public VoiceManager voice;
+    public Material SpeechOnMaterial;
+    public Material SpeechOffMaterial;
+    public Image SpeechIcon;
 
     void Start()
     {
@@ -51,7 +55,7 @@ public class TasksLoader : MonoBehaviour
 
     private void UpdateTaskNames()
     {
-        taskNumberText.text = string.Format("{0} ךותמ {1}", Tasks.Count, currentTask + 1);
+        taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
         var text = string.Empty;
         if (currentTask > 0)
         {
@@ -100,10 +104,8 @@ public class TasksLoader : MonoBehaviour
             lastTaskComplete = true;
         }
         UpdateTaskNames();
-        if (AutomaticMode)
-        {
-            SayCurrentTask();
-        }
+
+        StartCoroutine(playCheckSound());
     }
 
     public void Uncheck()
@@ -123,15 +125,37 @@ public class TasksLoader : MonoBehaviour
         }
     }
 
+    IEnumerator playCheckSound()
+    {
+        foreach (var sound in voice.Sounds)
+        {
+            sound.Stop();
+        }
+        GetComponent<AudioSource>().Play();
+        if (AutomaticMode)
+        {
+            yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length - 1);
+            SayCurrentTask();
+        }
+    }
+
     public void SayCurrentTask()
     {
         Debug.Log("say task");
+        foreach (var sound in voice.Sounds)
+        {
+            sound.Stop();
+        }
         var text = GetCurrentTask();
         if (text == string.Empty)
         {
             text = "All done. Good job.";
+            voice.Sounds[voice.Sounds.Length - 1].Play();
         }
-        voice.PlayAudio(currentTask);
+        else
+        {
+            voice.Sounds[currentTask].Play();
+        }
     }
 
     public void Hide()
@@ -150,12 +174,14 @@ public class TasksLoader : MonoBehaviour
     {
         TextToSpeech.SpeakText("Automatic mode");
         AutomaticMode = true;
+        SpeechIcon.material = SpeechOnMaterial;
     }
 
     public void TurnOffAutomaticMode()
     {
         TextToSpeech.SpeakText("Manual mode");
         AutomaticMode = false;
+        SpeechIcon.material = SpeechOffMaterial;
     }
 
     public void ResetApp()
