@@ -2,9 +2,9 @@
     <PropertyGroup>
         <UnityInstallationDir>C:\Program Files\Unity\Editor\</UnityInstallationDir>
         <UnityWSASolutionName>Chockolist</UnityWSASolutionName>
-        <UnityWSASolutionDir>C:\Users\User\Documents\GitHub\HoloCheckList\App\</UnityWSASolutionDir>
+        <UnityWSASolutionDir>C:\Users\user\HoloCheckList\App\</UnityWSASolutionDir>
         <UnityWSAPlayerDir>C:\Program Files\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
         <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
-        <UnityProjectDir>C:\Users\User\Documents\GitHub\HoloCheckList\</UnityProjectDir>
+        <UnityProjectDir>C:\Users\user\HoloCheckList\</UnityProjectDir>
     </PropertyGroup>
 </Project>
