@@ -236,7 +236,7 @@ Prefab:
     - target: {fileID: 224009591233718626, guid: 1ca817258524a7f4bba08ab1a097ee8c,
         type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 224009591233718626, guid: 1ca817258524a7f4bba08ab1a097ee8c,
         type: 2}
@@ -332,10 +332,21 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114345891480818996, guid: 1ca817258524a7f4bba08ab1a097ee8c,
+        type: 2}
+      propertyPath: isPlaceableCanvas
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114977541555544502, guid: 1ca817258524a7f4bba08ab1a097ee8c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1ca817258524a7f4bba08ab1a097ee8c, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &687619152 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114345891480818996, guid: 1ca817258524a7f4bba08ab1a097ee8c,
+    type: 2}
+  m_PrefabInternal: {fileID: 668205180}
+  m_Script: {fileID: 11500000, guid: 720498cafcf844813bf4c1d7452ca0d6, type: 3}
 --- !u!1 &868804501 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1192499653297328, guid: 1ca817258524a7f4bba08ab1a097ee8c,
@@ -1059,8 +1070,8 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: OnSelect
+        - m_Target: {fileID: 868804502}
+          m_MethodName: PlaceCanvas
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1082,6 +1093,17 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 354827426}
+          m_MethodName: Check
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 687619152}
           m_MethodName: Check
           m_Mode: 1
           m_Arguments:
@@ -1114,6 +1136,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 687619152}
+          m_MethodName: SayCurrentTask
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
   - MethodPurpose: Uncheck
@@ -1125,6 +1158,17 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 354827426}
+          m_MethodName: Uncheck
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 687619152}
           m_MethodName: Uncheck
           m_Mode: 1
           m_Arguments:
@@ -1198,6 +1242,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 687619152}
+          m_MethodName: TurnOnAutomaticMode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
   - MethodPurpose: Manual mode
@@ -1219,6 +1274,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 687619152}
+          m_MethodName: TurnOffAutomaticMode
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
   - MethodPurpose: Reset app
@@ -1229,6 +1295,36 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 354827426}
           m_MethodName: ResetApp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 687619152}
+          m_MethodName: ResetApp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  - MethodPurpose: Move Canvas
+    Keywords:
+    - Move
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 868804502}
+          m_MethodName: MoveCanvas
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

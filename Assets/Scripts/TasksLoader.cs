@@ -8,6 +8,7 @@ using System.Collections;
 
 public class TasksLoader : MonoBehaviour
 {
+    const int numRowsInStaticCanvas = 6;
     public List<string> Tasks = new List<string>();
     public List<Color> Colors = new List<Color>();
     public List<Color> TextColors = new List<Color>();
@@ -22,6 +23,7 @@ public class TasksLoader : MonoBehaviour
     private bool lastTaskComplete = false;
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
+    private int topStaticTask = 0;
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
@@ -32,7 +34,12 @@ public class TasksLoader : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < 3; i++)
+        int numberOfRows = 3;
+        if (isPlaceableCanvas)
+        {
+            numberOfRows = numRowsInStaticCanvas;
+        }
+        for (int i = 0; i < numberOfRows; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
             gameobject.name = ObjectName + i.ToString();
@@ -52,6 +59,23 @@ public class TasksLoader : MonoBehaviour
             TaskGameObjects.Add(gameobject);
         }
         UpdateTaskNames();
+    }
+
+    public void ScrollDown()
+    {
+        if (!isPlaceableCanvas)
+            return;
+        for(int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        {
+            if ()
+            {
+                TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = 
+            }
+            else
+            {
+                TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
+            }
+        }
     }
 
     private void UpdateTaskNames()
