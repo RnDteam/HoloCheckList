@@ -27,8 +27,6 @@ public class PlaceableCanvasManager : MonoBehaviour
     public void PlaceCanvas()
     {
         isPlaced = true;
-        offsetVector = transform.position - Camera.main.transform.position;
-        defaultRotation = transform.rotation;
     }
 
     public void MoveCanvas()
