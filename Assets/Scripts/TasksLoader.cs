@@ -14,6 +14,7 @@ public class TasksLoader : MonoBehaviour
     public GameObject TaskPrefab;
     public string ObjectName = "Task";
     public float distance = 30f;
+    public bool isPlaceableCanvas;
 
     public TextToSpeechManager TextToSpeech;
 
@@ -127,20 +128,25 @@ public class TasksLoader : MonoBehaviour
 
     IEnumerator playCheckSound()
     {
-        foreach (var sound in voice.Sounds)
+        if (!isPlaceableCanvas)
         {
-            sound.Stop();
-        }
-        GetComponent<AudioSource>().Play();
-        if (AutomaticMode)
-        {
-            yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length - 1);
-            SayCurrentTask();
+            foreach (var sound in voice.Sounds)
+            {
+                sound.Stop();
+            }
+            GetComponent<AudioSource>().Play();
+            if (AutomaticMode)
+            {
+                yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length - 1);
+                SayCurrentTask();
+            }
         }
     }
 
     public void SayCurrentTask()
     {
+        if (isPlaceableCanvas)
+            return;
         Debug.Log("say task");
         foreach (var sound in voice.Sounds)
         {
