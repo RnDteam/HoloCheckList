@@ -24,6 +24,7 @@ public class TasksLoader : MonoBehaviour
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
     private int topStaticTask = 0;
+    private Vector3 cubeScale;
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
@@ -31,6 +32,7 @@ public class TasksLoader : MonoBehaviour
     public Material SpeechOnMaterial;
     public Material SpeechOffMaterial;
     public Image SpeechIcon;
+    private int debug = 0;
 
     void Start()
     {
@@ -59,22 +61,66 @@ public class TasksLoader : MonoBehaviour
             TaskGameObjects.Add(gameobject);
         }
         UpdateTaskNames();
+        if(isPlaceableCanvas)
+            cubeScale = gameObject.transform.FindChild("Cube").transform.lossyScale;
     }
 
     public void ScrollDown()
     {
+        Debug.Log("Scroll Down " + debug++.ToString());
+        //TODO: what do we want the behavior to be when the panel displays the last six items and the user says "scroll down"?
+        //should we scroll down, in which case we waste space, or should we not scroll down, which might be confusing to the user?
         if (!isPlaceableCanvas)
             return;
+        if (topStaticTask < Tasks.Count - 1)
+            topStaticTask++;
         for(int iter = 0; iter < numRowsInStaticCanvas; iter++)
         {
-            if ()
+            if (topStaticTask + iter < Tasks.Count)
             {
-                TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = 
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(topStaticTask + iter);
             }
             else
             {
-                TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
             }
+        }
+        ShowSelected();
+    }
+
+    public void ScrollUp()
+    {
+        Debug.Log("Scroll Up " + debug++.ToString());
+        if (!isPlaceableCanvas)
+            return;
+        if (topStaticTask > 0)
+            topStaticTask--;
+        for(int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        {
+            if (topStaticTask + iter < Tasks.Count)
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(topStaticTask + iter);
+            }
+            else
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
+            }
+        }
+        ShowSelected();
+    }
+
+    private void ShowSelected()
+    {
+        if(currentTask > topStaticTask + numRowsInStaticCanvas || currentTask < topStaticTask)
+        {
+            gameObject.transform.FindChild("Cube").gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
+            Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
+            gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
+            //gameObject.transform.FindChild("Cube").transform.localScale = cubeScale;
         }
     }
 
@@ -128,9 +174,11 @@ public class TasksLoader : MonoBehaviour
         {
             lastTaskComplete = true;
         }
-        UpdateTaskNames();
-
-        StartCoroutine(playCheckSound());
+        if (!isPlaceableCanvas)
+        {
+            UpdateTaskNames();
+            StartCoroutine(playCheckSound());
+        }
     }
 
     public void Uncheck()
@@ -143,7 +191,8 @@ public class TasksLoader : MonoBehaviour
         {
             currentTask--;
         }
-        UpdateTaskNames();
+        if(!isPlaceableCanvas)
+            UpdateTaskNames();
         if (AutomaticMode)
         {
             SayCurrentTask();
