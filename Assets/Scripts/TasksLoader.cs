@@ -31,6 +31,7 @@ public class TasksLoader : MonoBehaviour
 
     void Start()
     {
+		Tasks = TextsBridge.GetTasks().ToList();
         for (int i = 0; i < 3; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
