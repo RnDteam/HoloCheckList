@@ -24,7 +24,6 @@ public class TasksLoader : MonoBehaviour
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
     private int topStaticTask = 0;
-    private Vector3 cubeScale;
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
@@ -33,10 +32,11 @@ public class TasksLoader : MonoBehaviour
     public Material SpeechOffMaterial;
     public Image SpeechIcon;
     private int debug = 0;
+    public int numberOfRows;
 
     void Start()
     {
-        int numberOfRows = 3;
+        numberOfRows = 3;
         if (isPlaceableCanvas)
         {
             numberOfRows = numRowsInStaticCanvas;
@@ -61,8 +61,6 @@ public class TasksLoader : MonoBehaviour
             TaskGameObjects.Add(gameobject);
         }
         UpdateTaskNames();
-        if(isPlaceableCanvas)
-            cubeScale = gameObject.transform.FindChild("Cube").transform.lossyScale;
     }
 
     public void ScrollDown()
@@ -120,13 +118,14 @@ public class TasksLoader : MonoBehaviour
             gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
             Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
             gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
-            //gameObject.transform.FindChild("Cube").transform.localScale = cubeScale;
         }
     }
 
     private void UpdateTaskNames()
     {
+        //TODO refactor this
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
+        /*
         var text = string.Empty;
         if (currentTask > 0)
         {
@@ -154,6 +153,12 @@ public class TasksLoader : MonoBehaviour
         } else
         {
             TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
+        }
+        */
+        for(int iter = 0; iter < numberOfRows; iter++)
+        {
+            string text = Tasks.ElementAt(currentTask + iter);
+            TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
         }
     }
 
