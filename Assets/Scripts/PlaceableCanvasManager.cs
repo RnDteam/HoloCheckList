@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlaceableCanvasManager : MonoBehaviour
 {
 
-    private Vector3 offsetVector;
+    public Vector3 offsetVector;
     private Quaternion defaultRotation;
 
     public bool isPlaced;
