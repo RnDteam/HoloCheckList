@@ -67,7 +67,7 @@ public class TasksLoader : MonoBehaviour
     public void ScrollDown()
     {
         Debug.Log("Scroll Down " + debug++.ToString());
-        if (!isPlaceableCanvas)
+        if (!isPlaceableCanvas || topStaticTask + numberOfRows >= Tasks.Count)
             return;
         if (topStaticTask < Tasks.Count - 1)
             topStaticTask++;
@@ -118,7 +118,10 @@ public class TasksLoader : MonoBehaviour
             {
                 gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
                 Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
-                gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
+                Vector3 pos = gameObject.transform.FindChild("Cube").transform.position;
+                pos.y = -40 - 30 * (currentTask - topStaticTask);
+                gameObject.transform.FindChild("Cube").transform.position = pos;
+                //gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
             }
         }
         UpdateTaskNames();
