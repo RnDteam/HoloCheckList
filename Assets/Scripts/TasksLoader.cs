@@ -129,37 +129,6 @@ public class TasksLoader : MonoBehaviour
 
     private void UpdateTaskNames()
     {
-        //TODO refactor this
-        /*
-        var text = string.Empty;
-        if (currentTask > 0)
-        {
-            text = Tasks.ElementAt(currentTask - 1);
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        }
-        else
-        {
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
-        }
-        TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(currentTask);
-
-        text = string.Empty;
-        if (currentTask < Tasks.Count - 1)
-        {
-            text = Tasks.ElementAt(currentTask + 1);
-        }
-        TaskGameObjects.ElementAt(2).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        if (lastTaskComplete)
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        } else
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
-        }
-        */
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
         for (int iter = 0; iter < numberOfRows; iter++)
         {
