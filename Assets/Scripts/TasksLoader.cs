@@ -31,7 +31,6 @@ public class TasksLoader : MonoBehaviour
     public Material SpeechOnMaterial;
     public Material SpeechOffMaterial;
     public Image SpeechIcon;
-    private int debug = 0;
     public int numberOfRows;
     private Dictionary<int, bool> isChecked = new Dictionary<int, bool>();
 
@@ -66,7 +65,6 @@ public class TasksLoader : MonoBehaviour
 
     public void ScrollDown()
     {
-        Debug.Log("Scroll Down " + debug++.ToString());
         if (!isPlaceableCanvas || topStaticTask + numberOfRows >= Tasks.Count)
             return;
         if (topStaticTask < Tasks.Count - 1)
@@ -87,7 +85,6 @@ public class TasksLoader : MonoBehaviour
 
     public void ScrollUp()
     {
-        Debug.Log("Scroll Up " + debug++.ToString());
         if (!isPlaceableCanvas)
             return;
         if (topStaticTask > 0)
@@ -119,9 +116,8 @@ public class TasksLoader : MonoBehaviour
                 gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
                 Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
                 Vector3 pos = gameObject.transform.FindChild("Cube").transform.position;
-                pos.y = -40 - 30 * (currentTask - topStaticTask);
+                pos.y = -40 - TaskPrefab.GetComponent<RectTransform>().rect.height * (currentTask - topStaticTask);
                 gameObject.transform.FindChild("Cube").transform.position = pos;
-                //gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
             }
         }
         UpdateTaskNames();
