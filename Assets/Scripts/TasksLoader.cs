@@ -24,7 +24,6 @@ public class TasksLoader : MonoBehaviour
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
     private int topStaticTask = 0;
-    private Vector3 cubeScale;
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
@@ -32,11 +31,12 @@ public class TasksLoader : MonoBehaviour
     public Material SpeechOnMaterial;
     public Material SpeechOffMaterial;
     public Image SpeechIcon;
-    private int debug = 0;
+    public int numberOfRows;
+    private Dictionary<int, bool> isChecked = new Dictionary<int, bool>();
 
     void Start()
     {
-        int numberOfRows = 3;
+        numberOfRows = 3;
         if (isPlaceableCanvas)
         {
             numberOfRows = numRowsInStaticCanvas;
@@ -60,17 +60,12 @@ public class TasksLoader : MonoBehaviour
 
             TaskGameObjects.Add(gameobject);
         }
-        UpdateTaskNames();
-        if(isPlaceableCanvas)
-            cubeScale = gameObject.transform.FindChild("Cube").transform.lossyScale;
+        ShowSelected();
     }
 
     public void ScrollDown()
     {
-        Debug.Log("Scroll Down " + debug++.ToString());
-        //TODO: what do we want the behavior to be when the panel displays the last six items and the user says "scroll down"?
-        //should we scroll down, in which case we waste space, or should we not scroll down, which might be confusing to the user?
-        if (!isPlaceableCanvas)
+        if (!isPlaceableCanvas || topStaticTask + numberOfRows >= Tasks.Count)
             return;
         if (topStaticTask < Tasks.Count - 1)
             topStaticTask++;
@@ -90,7 +85,6 @@ public class TasksLoader : MonoBehaviour
 
     public void ScrollUp()
     {
-        Debug.Log("Scroll Up " + debug++.ToString());
         if (!isPlaceableCanvas)
             return;
         if (topStaticTask > 0)
@@ -111,49 +105,47 @@ public class TasksLoader : MonoBehaviour
 
     private void ShowSelected()
     {
-        if(currentTask > topStaticTask + numRowsInStaticCanvas || currentTask < topStaticTask)
+        if (isPlaceableCanvas)
         {
-            gameObject.transform.FindChild("Cube").gameObject.SetActive(false);
+            if (currentTask + 1 > topStaticTask + numRowsInStaticCanvas || currentTask < topStaticTask)
+            {
+                gameObject.transform.FindChild("Cube").gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
+                Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
+                Vector3 pos = gameObject.transform.FindChild("Cube").transform.position;
+                pos.y = -40 - TaskPrefab.GetComponent<RectTransform>().rect.height * (currentTask - topStaticTask);
+                gameObject.transform.FindChild("Cube").transform.position = pos;
+            }
         }
-        else
-        {
-            gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
-            Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
-            gameObject.transform.FindChild("Cube").transform.position = new Vector3(-90, -40 - 30 * (currentTask - topStaticTask), 800);
-            //gameObject.transform.FindChild("Cube").transform.localScale = cubeScale;
-        }
+        UpdateTaskNames();
     }
 
     private void UpdateTaskNames()
     {
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
-        var text = string.Empty;
-        if (currentTask > 0)
+        for (int iter = 0; iter < numberOfRows; iter++)
         {
-            text = Tasks.ElementAt(currentTask - 1);
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        }
-        else
-        {
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
-        }
-        TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(currentTask);
-
-        text = string.Empty;
-        if (currentTask < Tasks.Count - 1)
-        {
-            text = Tasks.ElementAt(currentTask + 1);
-        }
-        TaskGameObjects.ElementAt(2).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        if (lastTaskComplete)
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        } else
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
+            string text;
+            int taskNum = currentTask + iter - 1;
+            if (isPlaceableCanvas)
+                taskNum = topStaticTask + iter;
+            if (taskNum > -1 && taskNum < Tasks.Count)
+            {
+                text = Tasks.ElementAt(taskNum) + " .00" + (taskNum + 1).ToString();
+            }
+            else
+            {
+                text = string.Empty;
+            }
+            TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
+            if(!isChecked.ContainsKey(taskNum))
+            {
+                isChecked.Add(taskNum, false);
+            }
+            TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = isChecked[taskNum];
         }
     }
 
@@ -166,6 +158,7 @@ public class TasksLoader : MonoBehaviour
 
     public void Check()
     {
+        isChecked[currentTask] = true;
         if (currentTask < Tasks.Count - 1)
         {
             currentTask++;
@@ -174,15 +167,16 @@ public class TasksLoader : MonoBehaviour
         {
             lastTaskComplete = true;
         }
+        ShowSelected();
         if (!isPlaceableCanvas)
         {
-            UpdateTaskNames();
             StartCoroutine(playCheckSound());
         }
     }
 
     public void Uncheck()
     {
+        isChecked[currentTask] = false;
         if (currentTask == Tasks.Count - 1 && lastTaskComplete)
         {
             lastTaskComplete = false;
@@ -191,8 +185,7 @@ public class TasksLoader : MonoBehaviour
         {
             currentTask--;
         }
-        if(!isPlaceableCanvas)
-            UpdateTaskNames();
+        ShowSelected();
         if (AutomaticMode)
         {
             SayCurrentTask();
