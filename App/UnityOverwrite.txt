@@ -7,7 +7,7 @@
 # Default behavior is to never overwrite files
 Chockolist.sln: modified
 Chockolist\App.cs: E12A5D6898CD80416EE88A5796E57A11
-Chockolist\Chockolist.csproj: 87AAEF35518EF56F517656070BF276DC
+Chockolist\Chockolist.csproj: A07638AB535718FB24B9A2C64DC5B9EC
 Chockolist\Chockolist.csproj.user: modified
 Chockolist\Package.appxmanifest: 5666EC1386566EB4E422C5FAA271B664
 Chockolist\project.json: 1D02BC64BAC0D041019673A1C4C51737
