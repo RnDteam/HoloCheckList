@@ -69,7 +69,7 @@ public class TasksLoader : MonoBehaviour
             return;
         if (topStaticTask < Tasks.Count - 1)
             topStaticTask++;
-        for(int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        for (int iter = 0; iter < numRowsInStaticCanvas; iter++)
         {
             if (topStaticTask + iter < Tasks.Count)
             {
@@ -89,7 +89,7 @@ public class TasksLoader : MonoBehaviour
             return;
         if (topStaticTask > 0)
             topStaticTask--;
-        for(int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        for (int iter = 0; iter < numRowsInStaticCanvas; iter++)
         {
             if (topStaticTask + iter < Tasks.Count)
             {
@@ -105,21 +105,6 @@ public class TasksLoader : MonoBehaviour
 
     private void ShowSelected()
     {
-        if (isPlaceableCanvas)
-        {
-            if (currentTask + 1 > topStaticTask + numRowsInStaticCanvas || currentTask < topStaticTask)
-            {
-                gameObject.transform.FindChild("Cube").gameObject.SetActive(false);
-            }
-            else
-            {
-                gameObject.transform.FindChild("Cube").gameObject.SetActive(true);
-                Debug.Log("currentTask is at " + (currentTask - topStaticTask).ToString());
-                Vector3 pos = gameObject.transform.FindChild("Cube").transform.position;
-                pos.y = -40 - TaskPrefab.GetComponent<RectTransform>().rect.height * (currentTask - topStaticTask);
-                gameObject.transform.FindChild("Cube").transform.position = pos;
-            }
-        }
         UpdateTaskNames();
     }
 
@@ -140,8 +125,9 @@ public class TasksLoader : MonoBehaviour
             {
                 text = string.Empty;
             }
+            Debug.Log(TaskGameObjects.Count);
             TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-            if(!isChecked.ContainsKey(taskNum))
+            if (!isChecked.ContainsKey(taskNum))
             {
                 isChecked.Add(taskNum, false);
             }
@@ -168,7 +154,7 @@ public class TasksLoader : MonoBehaviour
             lastTaskComplete = true;
         }
         ShowSelected();
-        if (!isPlaceableCanvas)
+        if (isPlaceableCanvas)
         {
             StartCoroutine(playCheckSound());
         }
@@ -194,25 +180,20 @@ public class TasksLoader : MonoBehaviour
 
     IEnumerator playCheckSound()
     {
-        if (!isPlaceableCanvas)
+        foreach (var sound in voice.Sounds)
         {
-            foreach (var sound in voice.Sounds)
-            {
-                sound.Stop();
-            }
-            GetComponent<AudioSource>().Play();
-            if (AutomaticMode)
-            {
-                yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length - 1);
-                SayCurrentTask();
-            }
+            sound.Stop();
+        }
+        GetComponent<AudioSource>().Play();
+        if (AutomaticMode)
+        {
+            yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length - 1);
+            SayCurrentTask();
         }
     }
 
     public void SayCurrentTask()
     {
-        if (isPlaceableCanvas)
-            return;
         Debug.Log("say task");
         foreach (var sound in voice.Sounds)
         {
@@ -261,4 +242,3 @@ public class TasksLoader : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
-

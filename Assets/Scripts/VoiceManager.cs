@@ -18,6 +18,14 @@ public class VoiceManager : MonoBehaviour {
         }
     }
 
+    public void StopAll()
+    {
+        foreach (AudioSource aSource in Sounds)
+        {
+            aSource.Stop();
+        }
+    }
+
     public void PlayNoTasks()
     {
         Sounds[Sounds.Length - 1].Play();

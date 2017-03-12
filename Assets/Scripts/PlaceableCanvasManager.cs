@@ -30,6 +30,7 @@ public class PlaceableCanvasManager : MonoBehaviour
     public void PlaceCanvas()
     {
         isPlaced = true;
+        Debug.Log("Placed");
     }
 
     public void MoveCanvas()

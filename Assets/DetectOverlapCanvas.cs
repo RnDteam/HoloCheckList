@@ -16,10 +16,6 @@ public class DetectOverlapCanvas : MonoBehaviour {
 
         corners = new Vector3[4];
         smallChecklist.GetComponent<RectTransform>().GetWorldCorners(corners);
-        Debug.Log(corners[0]);
-        Debug.Log(corners[1]);
-        Debug.Log(corners[2]);
-        Debug.Log(corners[3]);
     }
 	
 	void Update () {
