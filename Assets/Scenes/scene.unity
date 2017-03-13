@@ -100,7 +100,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 35989141}
-  - component: {fileID: 354827426}
   - component: {fileID: 35989143}
   - component: {fileID: 35989142}
   m_Layer: 5
@@ -225,23 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4810c39fd8acaef48bcd34552b6d3b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tasks:
-  - "\u05E7\u05DC\u05D3\u05D5 \u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0
-    \u05E8\u05D3\u05E2\u05D4\u05DC \u05E8\u05D6\u05E2 \u05E2\u05D5\u05E0\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05DF\u05DE\u05E9\u05D4 \u05D9\u05E0\u05E8\u05E7\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05E8\u05D5\u05D8\u05D5\u05E8\u05D4 \u05E8\u05D5\u05E6\u05E2\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9\u05D5 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05D9\u05E9\u05D0\u05E8 \u05E8\u05E1\u05DE\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    IPAS \u05EA\u05E8\u05E0\u05E6 \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05D2\u05D5\u05D6\u05D9\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05D4\u05D9\u05D4\u05E9 \u05D4\u05DE"
-  - "\u05D4\u05D6\u05DE \u05D7\u05DB\u05E9\u05EA"
   Colors:
   - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
   - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
@@ -403,53 +385,6 @@ RectTransform:
   m_AnchoredPosition: {x: -131.6, y: -4.9999924}
   m_SizeDelta: {x: 156.49992, y: 72.09999}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &354827426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114345891480818996, guid: 1ca817258524a7f4bba08ab1a097ee8c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 35989140}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720498cafcf844813bf4c1d7452ca0d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tasks:
-  - "\u05E7\u05DC\u05D3\u05D5 \u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0
-    \u05E8\u05D3\u05E2\u05D4\u05DC \u05E8\u05D6\u05E2 \u05E2\u05D5\u05E0\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05DF\u05DE\u05E9\u05D4 \u05D9\u05E0\u05E8\u05E7\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05E8\u05D5\u05D8\u05D5\u05E8\u05D4 \u05E8\u05D5\u05E6\u05E2\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9\u05D5 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05D9\u05E9\u05D0\u05E8 \u05E8\u05E1\u05DE\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    IPAS \u05EA\u05E8\u05E0\u05E6 \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05D2\u05D5\u05D6\u05D9\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05D4\u05D9\u05D4\u05E9 \u05D4\u05DE"
-  - "\u05D4\u05D6\u05DE \u05D7\u05DB\u05E9\u05EA"
-  Colors:
-  - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
-  - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
-  TextColors:
-  - {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  TaskPrefab: {fileID: 1050938212000228, guid: cf0fc052de19d6e43bb65e098c229eb2, type: 2}
-  ObjectName: Task
-  distance: 30
-  isPlaceableCanvas: 0
-  TextToSpeech: {fileID: 1189927092}
-  AutomaticMode: 1
-  taskNumberText: {fileID: 2013024771}
-  voice: {fileID: 943695460}
-  SpeechOnMaterial: {fileID: 2100000, guid: 2d81c432145bcf749a84d232724b915c, type: 2}
-  SpeechOffMaterial: {fileID: 2100000, guid: 376be812347a06d4c822cf57e4748e4e, type: 2}
-  SpeechIcon: {fileID: 432355033}
-  numberOfRows: 4
 --- !u!1 &375839019
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,53 +680,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 1/6
---- !u!114 &687619152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114345891480818996, guid: 1ca817258524a7f4bba08ab1a097ee8c,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 862845439}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720498cafcf844813bf4c1d7452ca0d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tasks:
-  - "\u05E7\u05DC\u05D3\u05D5 \u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0
-    \u05E8\u05D3\u05E2\u05D4\u05DC \u05E8\u05D6\u05E2 \u05E2\u05D5\u05E0\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05DF\u05DE\u05E9\u05D4 \u05D9\u05E0\u05E8\u05E7\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05E8\u05D5\u05D8\u05D5\u05E8\u05D4 \u05E8\u05D5\u05E6\u05E2\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9\u05D5 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05D9\u05E9\u05D0\u05E8 \u05E8\u05E1\u05DE\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    IPAS \u05EA\u05E8\u05E0\u05E6 \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05D2\u05D5\u05D6\u05D9\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05D4\u05D9\u05D4\u05E9 \u05D4\u05DE"
-  - "\u05D4\u05D6\u05DE \u05D7\u05DB\u05E9\u05EA"
-  Colors:
-  - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
-  - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
-  TextColors:
-  - {r: 0.28627452, g: 0.28627452, b: 0.28627452, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  TaskPrefab: {fileID: 1050938212000228, guid: cf0fc052de19d6e43bb65e098c229eb2, type: 2}
-  ObjectName: Task
-  distance: 30
-  isPlaceableCanvas: 1
-  TextToSpeech: {fileID: 1189927092}
-  AutomaticMode: 1
-  taskNumberText: {fileID: 677487982}
-  voice: {fileID: 943695460}
-  SpeechOnMaterial: {fileID: 2100000, guid: 2d81c432145bcf749a84d232724b915c, type: 2}
-  SpeechOffMaterial: {fileID: 2100000, guid: 376be812347a06d4c822cf57e4748e4e, type: 2}
-  SpeechIcon: {fileID: 550999888}
-  numberOfRows: 6
 --- !u!1 &770050703
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,7 +824,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 862845440}
-  - component: {fileID: 687619152}
   - component: {fileID: 862845443}
   - component: {fileID: 862845442}
   - component: {fileID: 862845441}
@@ -1074,23 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e755ca28c596b341a68a6727058c8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tasks:
-  - "\u05E7\u05DC\u05D3\u05D5 \u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0
-    \u05E8\u05D3\u05E2\u05D4\u05DC \u05E8\u05D6\u05E2 \u05E2\u05D5\u05E0\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05DF\u05DE\u05E9\u05D4 \u05D9\u05E0\u05E8\u05E7\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05E8\u05D5\u05D8\u05D5\u05E8\u05D4 \u05E8\u05D5\u05E6\u05E2\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05DF\u05DE\u05E9\u05D5 \u05EA\u05D5\u05DC\u05D9\u05D6\u05E0 \u05E8\u05D3\u05E2\u05D4\u05D5
-    \u05EA\u05D5\u05DE\u05DC\u05E9\u05DC \u05D9\u05E9\u05D0\u05E8 \u05E8\u05E1\u05DE\u05DE
-    \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    IPAS \u05EA\u05E8\u05E0\u05E6 \u05E7\u05D5\u05D3\u05D1"
-  - "\u05EA\u05D5\u05DC\u05D9\u05D6\u05E0\u05D5 \u05E3\u05D5\u05E9\u05E4\u05E9 \u05E8\u05D3\u05E2\u05D4\u05DC
-    \u05D2\u05D5\u05D6\u05D9\u05DE \u05E7\u05D5\u05D3\u05D1"
-  - "\u05D4\u05D9\u05D4\u05E9 \u05D4\u05DE"
-  - "\u05D4\u05D6\u05DE \u05D7\u05DB\u05E9\u05EA"
   Colors:
   - {r: 0.5372549, g: 0.5372549, b: 0.5372549, a: 0.78431374}
   - {r: 0.45490196, g: 0.5921569, b: 0.8745098, a: 0.78431374}
@@ -2108,7 +1978,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: SayCurrentTask
           m_Mode: 1
           m_Arguments:
@@ -2119,7 +1989,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 687619152}
+        - m_Target: {fileID: 0}
           m_MethodName: SayCurrentTask
           m_Mode: 1
           m_Arguments:
@@ -2172,7 +2042,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: Hide
           m_Mode: 1
           m_Arguments:
@@ -2193,7 +2063,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: Show
           m_Mode: 1
           m_Arguments:
@@ -2214,7 +2084,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: TurnOnAutomaticMode
           m_Mode: 1
           m_Arguments:
@@ -2225,7 +2095,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 687619152}
+        - m_Target: {fileID: 0}
           m_MethodName: TurnOnAutomaticMode
           m_Mode: 1
           m_Arguments:
@@ -2246,7 +2116,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: TurnOffAutomaticMode
           m_Mode: 1
           m_Arguments:
@@ -2257,7 +2127,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 687619152}
+        - m_Target: {fileID: 0}
           m_MethodName: TurnOffAutomaticMode
           m_Mode: 1
           m_Arguments:
@@ -2276,7 +2146,7 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 354827426}
+        - m_Target: {fileID: 0}
           m_MethodName: ResetApp
           m_Mode: 1
           m_Arguments:
@@ -2287,7 +2157,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 687619152}
+        - m_Target: {fileID: 0}
           m_MethodName: ResetApp
           m_Mode: 1
           m_Arguments:

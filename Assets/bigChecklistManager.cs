@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class bigChecklistManager : MonoBehaviour {
 
-    public List<string> Tasks = new List<string>();
+    private List<string> Tasks = new List<string>();
     public List<Color> Colors = new List<Color>();
     public List<Color> TextColors = new List<Color>();
     public GameObject TaskPrefab;
@@ -31,6 +32,8 @@ public class bigChecklistManager : MonoBehaviour {
     private GameObject taskParent;
 
     void Start () {
+        Tasks = TextsBridge.GetTasks().ToList();
+
         distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
         taskParent = new GameObject("TaskParent");

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SmallChecklistManager : MonoBehaviour
 {
-
-    public List<string> Tasks = new List<string>();
     public List<Color> Colors = new List<Color>();
     public List<Color> TextColors = new List<Color>();
     public GameObject TaskPrefab;
     public Text taskNumberText;
 
+    private List<string> Tasks = new List<string>();
     private float distanceBetweenTasks;
     private int checkAnimationLoops;
     private int currentTask = 0;
@@ -28,6 +28,7 @@ public class SmallChecklistManager : MonoBehaviour
 
     void Start()
     {
+        Tasks = TextsBridge.GetTasks().ToList();
         distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
         checkAnimationLoops = 0;

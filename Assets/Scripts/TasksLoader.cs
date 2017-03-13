@@ -41,6 +41,7 @@ public class TasksLoader : MonoBehaviour
         {
             numberOfRows = numRowsInStaticCanvas;
         }
+
         for (int i = 0; i < numberOfRows; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
