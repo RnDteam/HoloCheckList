@@ -6,8 +6,8 @@
 # Write a line equal to 'keep-all' (without quotes) to keep files regardless their modification (preserved accross builds)
 # Default behavior is to never overwrite files
 Chockolist.sln: modified
-Chockolist\App.cs: 2117C5A1BD5F426FF139AF2DFE4B09EA
-Chockolist\Chockolist.csproj: 992F4FD3FFC902B976F679D4C05C9BFC
+Chockolist\App.cs: modified
+Chockolist\Chockolist.csproj: modified
 Chockolist\Chockolist.csproj.user: modified
 Chockolist\Package.appxmanifest: 5666EC1386566EB4E422C5FAA271B664
 Chockolist\project.json: 1D02BC64BAC0D041019673A1C4C51737

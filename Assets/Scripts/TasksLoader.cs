@@ -8,12 +8,14 @@ using System.Collections;
 
 public class TasksLoader : MonoBehaviour
 {
+    const int numRowsInStaticCanvas = 6;
     public List<string> Tasks = new List<string>();
     public List<Color> Colors = new List<Color>();
     public List<Color> TextColors = new List<Color>();
     public GameObject TaskPrefab;
     public string ObjectName = "Task";
     public float distance = 30f;
+    public bool isPlaceableCanvas;
 
     public TextToSpeechManager TextToSpeech;
 
@@ -21,6 +23,7 @@ public class TasksLoader : MonoBehaviour
     private bool lastTaskComplete = false;
     private Vector3 position = Vector3.zero;
     private List<GameObject> TaskGameObjects = new List<GameObject>();
+    private int topStaticTask = 0;
 
     public bool AutomaticMode = false;
     public Text taskNumberText;
@@ -28,11 +31,18 @@ public class TasksLoader : MonoBehaviour
     public Material SpeechOnMaterial;
     public Material SpeechOffMaterial;
     public Image SpeechIcon;
+    public int numberOfRows;
+    private Dictionary<int, bool> isChecked = new Dictionary<int, bool>();
 
     void Start()
     {
-		Tasks = TextsBridge.GetTasks().ToList();
-        for (int i = 0; i < 3; i++)
+        numberOfRows = 3;
+        if (isPlaceableCanvas)
+        {
+            numberOfRows = numRowsInStaticCanvas;
+        }
+
+        for (int i = 0; i < numberOfRows; i++)
         {
             var gameobject = Instantiate(TaskPrefab, transform);
             gameobject.name = ObjectName + i.ToString();
@@ -51,39 +61,78 @@ public class TasksLoader : MonoBehaviour
 
             TaskGameObjects.Add(gameobject);
         }
+        ShowSelected();
+    }
+
+    public void ScrollDown()
+    {
+        if (!isPlaceableCanvas || topStaticTask + numberOfRows >= Tasks.Count)
+            return;
+        if (topStaticTask < Tasks.Count - 1)
+            topStaticTask++;
+        for (int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        {
+            if (topStaticTask + iter < Tasks.Count)
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(topStaticTask + iter);
+            }
+            else
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
+            }
+        }
+        ShowSelected();
+    }
+
+    public void ScrollUp()
+    {
+        if (!isPlaceableCanvas)
+            return;
+        if (topStaticTask > 0)
+            topStaticTask--;
+        for (int iter = 0; iter < numRowsInStaticCanvas; iter++)
+        {
+            if (topStaticTask + iter < Tasks.Count)
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(topStaticTask + iter);
+            }
+            else
+            {
+                TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = string.Empty;
+            }
+        }
+        ShowSelected();
+    }
+
+    private void ShowSelected()
+    {
         UpdateTaskNames();
     }
 
     private void UpdateTaskNames()
     {
         taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
-        var text = string.Empty;
-        if (currentTask > 0)
+        for (int iter = 0; iter < numberOfRows; iter++)
         {
-            text = Tasks.ElementAt(currentTask - 1);
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        }
-        else
-        {
-            TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
-        }
-        TaskGameObjects.ElementAt(0).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks.ElementAt(currentTask);
-
-        text = string.Empty;
-        if (currentTask < Tasks.Count - 1)
-        {
-            text = Tasks.ElementAt(currentTask + 1);
-        }
-        TaskGameObjects.ElementAt(2).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
-
-        if (lastTaskComplete)
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = true;
-        } else
-        {
-            TaskGameObjects.ElementAt(1).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = false;
+            string text;
+            int taskNum = currentTask + iter - 1;
+            if (isPlaceableCanvas)
+                taskNum = topStaticTask + iter;
+            if (taskNum > -1 && taskNum < Tasks.Count)
+            {
+                text = Tasks.ElementAt(taskNum) + " .00" + (taskNum + 1).ToString();
+            }
+            else
+            {
+                text = string.Empty;
+            }
+            Debug.Log(TaskGameObjects.Count);
+            TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = text;
+            if (!isChecked.ContainsKey(taskNum))
+            {
+                isChecked.Add(taskNum, false);
+            }
+            TaskGameObjects.ElementAt(iter).transform.FindChild("Toggle").GetComponent<Toggle>().isOn = isChecked[taskNum];
         }
     }
 
@@ -96,6 +145,7 @@ public class TasksLoader : MonoBehaviour
 
     public void Check()
     {
+        isChecked[currentTask] = true;
         if (currentTask < Tasks.Count - 1)
         {
             currentTask++;
@@ -104,13 +154,16 @@ public class TasksLoader : MonoBehaviour
         {
             lastTaskComplete = true;
         }
-        UpdateTaskNames();
-
-        StartCoroutine(playCheckSound());
+        ShowSelected();
+        if (isPlaceableCanvas)
+        {
+            StartCoroutine(playCheckSound());
+        }
     }
 
     public void Uncheck()
     {
+        isChecked[currentTask] = false;
         if (currentTask == Tasks.Count - 1 && lastTaskComplete)
         {
             lastTaskComplete = false;
@@ -119,7 +172,7 @@ public class TasksLoader : MonoBehaviour
         {
             currentTask--;
         }
-        UpdateTaskNames();
+        ShowSelected();
         if (AutomaticMode)
         {
             SayCurrentTask();
@@ -190,4 +243,3 @@ public class TasksLoader : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
-
