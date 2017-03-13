@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlaceableCanvasManager : MonoBehaviour
 {
 
-    private Vector3 offsetVector;
+    public Vector3 offsetVector;
     private Quaternion defaultRotation;
-
+    public float speed;
     public bool isPlaced;
 
     void Start()
@@ -20,13 +20,17 @@ public class PlaceableCanvasManager : MonoBehaviour
     {
         if (isPlaced)
             return;
-        transform.position = Camera.main.transform.position + Camera.main.transform.TransformVector(offsetVector);
+
+        transform.position = Vector3.Lerp(transform.position,
+                                          Camera.main.transform.position + Camera.main.transform.TransformVector(offsetVector),
+                                          speed);
         transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position) * defaultRotation;
     }
 
     public void PlaceCanvas()
     {
         isPlaced = true;
+        Debug.Log("Placed");
     }
 
     public void MoveCanvas()
