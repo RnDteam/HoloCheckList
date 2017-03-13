@@ -11,21 +11,20 @@ public class SmallChecklistManager : MonoBehaviour
     public List<Color> Colors = new List<Color>();
     public List<Color> TextColors = new List<Color>();
     public GameObject TaskPrefab;
-    public float distanceBetweenTasks;
-    private Vector3 position = Vector3.zero;
-    private int checkAnimationLoops;
+    public Text taskNumberText;
 
+    private float distanceBetweenTasks;
+    private int checkAnimationLoops;
     private int currentTask = 0;
+    private List<GameObject> shownTasks;
+    private List<Task> lstTasks;
+    private bool lastTaskComplete;
 
     private struct Task
     {
         public string strText;
         public bool bIsChecked;
     }
-    private List<GameObject> shownTasks;
-    private List<Task> lstTasks;
-    private bool lastTaskComplete;
-    public Text taskNumberText;
 
     void Start()
     {
@@ -54,6 +53,32 @@ public class SmallChecklistManager : MonoBehaviour
         }
 
         ChangeColor(shownTasks[1], Colors[1], TextColors[1]);
+    }
+
+    private GameObject CreateTask(int nTaskPosition, string name, Color backColor, Color textColor)
+    {
+        GameObject goTask = Instantiate(TaskPrefab, transform);
+        if (0 < currentTask && currentTask < Tasks.Count - 2)
+        {
+            int wantedTaskIndex = nTaskPosition == 0 ? currentTask - 1 : currentTask + 2;
+            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = Tasks[wantedTaskIndex];
+            goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = lstTasks[wantedTaskIndex].bIsChecked;
+        }
+        else
+        {
+            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = string.Empty;
+        }
+
+        goTask.name = "Task" + nTaskPosition;
+        goTask.transform.localScale = Vector3.one;
+        ChangeColor(goTask, backColor, textColor);
+
+        goTask.transform.localPosition = new Vector3(0, -nTaskPosition * distanceBetweenTasks, 0);
+        goTask.transform.localRotation = Quaternion.identity;
+
+        goTask.AddComponent<InteractableTask>();
+
+        return goTask;
     }
 
     private GameObject CreateEmptyTask(bool bIsTop)
@@ -227,32 +252,6 @@ public class SmallChecklistManager : MonoBehaviour
 
             checkAnimationLoops--;
         }
-    }
-
-    public GameObject CreateTask(int nTaskPosition, string name, Color backColor, Color textColor)
-    {
-        GameObject goTask = Instantiate(TaskPrefab, transform);
-        if(0 < currentTask && currentTask < Tasks.Count - 2)
-        {
-            int wantedTaskIndex = nTaskPosition == 0 ? currentTask - 1 : currentTask + 2;
-            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = Tasks[wantedTaskIndex];
-            goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = lstTasks[wantedTaskIndex].bIsChecked;
-        }
-        else
-        {
-            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = string.Empty;
-        }
-
-        goTask.name = "Task" + nTaskPosition;
-        goTask.transform.localScale = Vector3.one;
-        ChangeColor(goTask, backColor, textColor);
-
-        goTask.transform.localPosition = new Vector3(0, -nTaskPosition * distanceBetweenTasks, 0);
-        goTask.transform.localRotation = Quaternion.identity;
-        
-        goTask.AddComponent<InteractableTask>();
-
-        return goTask;
     }
 
     public void ChangeColor(GameObject gameobject, Color backColor, Color textColor)
