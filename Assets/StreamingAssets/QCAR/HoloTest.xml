@@ -2,6 +2,7 @@
 <QCARConfig>
     <Tracking>
         <CylinderTarget name="CB1" sideLength="0.040000"/>
+        <ImageTarget name="Switches3" size="0.200000 0.108889"/>
         <ImageTarget name="Cola2" size="0.050000 0.066667"/>
         <ImageTarget name="Cola1" size="0.050000 0.066667"/>
         <ImageTarget name="gibraltar" size="0.200000 0.130286"/>
