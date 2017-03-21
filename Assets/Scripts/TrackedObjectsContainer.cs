@@ -20,7 +20,27 @@ public class TrackedObjectsContainer : MonoBehaviour {
 		DisableAllTrackedObjects();
 	}
 
-	public void DisableAllTrackedObjects()
+    private void Start()
+    {
+        CheckCurrentTask();
+    }
+
+    private void OnEnable()
+    {
+        TaskManager.OnTaskChanged += CheckCurrentTask;
+    }
+
+    private void OnDisable()
+    {
+        TaskManager.OnTaskChanged -= CheckCurrentTask;
+    }
+
+    void CheckCurrentTask()
+    {
+        SetCurrentTrackedObject(TaskManager.CurrentTask.hasExtraInfo);
+    }
+
+    public void DisableAllTrackedObjects()
 	{
 		foreach (var trackedObject in trackedObjects)
 		{

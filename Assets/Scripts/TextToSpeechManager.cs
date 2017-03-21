@@ -236,7 +236,7 @@ namespace Assets.Scripts
                 {
                     // Need await, so most of this will be run as a new Task in its own thread.
                     // This is good since it frees up Unity to keep running anyway.
-                    Task.Run(async () =>
+                    System.Threading.Tasks.Task.Run(async () =>
                     {
                         // Change voice?
                         if (voice != TextToSpeechVoice.Default)

@@ -12,7 +12,7 @@
 			"tasks": [
 				{
 					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
-					"hasExtraInfo": "",
+					"hasExtraInfo": "ImageTargetControlPanel",
 					"signedTask": false
 				},
 				{
@@ -22,7 +22,7 @@
 				},
 				{
 					"instruction": "וודא הימצאות מטפה כיבוי אש בקרבת המטוס",
-					"hasExtraInfo": "",
+					"hasExtraInfo": "ImageTargetControlPanel",
 					"signedTask": false
 				},
 				{
