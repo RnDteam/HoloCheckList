@@ -167,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 1175429221234742}
   m_LocalRotation: {x: -0.68872327, y: 0.1601884, z: 0.1601884, w: 0.68872327}
   m_LocalPosition: {x: -0.096, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 5, y: 3, z: 5}
   m_Children:
   - {fileID: 4878956003780830}
   m_Father: {fileID: 4405656741649676}
@@ -180,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1422922151223368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53810006, y: -0, z: -0.87100065}
+  m_LocalPosition: {x: -0.364, y: -0, z: -0.52260035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4500469128266706}
@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1190412028073744}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0.47, y: -0.05, z: -0.25}
+  m_LocalPosition: {x: -0.393, y: -0.05, z: -0.156}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4099997566058904}
@@ -252,8 +252,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1912238773686298}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.47, y: 0, z: -0.25}
-  m_LocalScale: {x: 1, y: 0.07, z: 0.5}
+  m_LocalPosition: {x: -0.393, y: 0, z: -0.156}
+  m_LocalScale: {x: 0.84694916, y: 0.07, z: 0.3112307}
   m_Children: []
   m_Father: {fileID: 4099997566058904}
   m_RootOrder: 1
@@ -390,7 +390,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 76160c4954a852142a8450d21638138e, type: 2}
+  - {fileID: 2100000, guid: 9a1e909e2dad30149a84e33fdd12d3ef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -505,16 +505,14 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1190412028073744}
-  m_Text: 'Stall Warn
-
-    [On]'
+  m_Text: Stall Warn
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 41
+  m_FontSize: 33
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 5df2e7eed5475be4a90fe0a5d6f20f82, type: 3}
