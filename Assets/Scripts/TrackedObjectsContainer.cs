@@ -46,7 +46,12 @@ public class TrackedObjectsContainer : MonoBehaviour {
 
 	public void SetCurrentTrackedObject(string objectName)
 	{
-		currentTrackedObjectName = objectName;
+		if (currentTrackedObjectName != objectName)
+		{
+			DisableCurrentTrackedObject();
+			currentTrackedObjectName = objectName;
+			EnableCurrentTrackedObject();
+		}
 	}
 	
 }
