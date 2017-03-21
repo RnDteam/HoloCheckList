@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceableCanvasManager : MonoBehaviour
+public class PlaceableObject : MonoBehaviour
 {
-
     public Vector3 offsetVector;
     private Quaternion defaultRotation;
     public float speed;
@@ -16,7 +15,7 @@ public class PlaceableCanvasManager : MonoBehaviour
         defaultRotation = transform.rotation;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (isPlaced)
             return;
@@ -30,11 +29,14 @@ public class PlaceableCanvasManager : MonoBehaviour
     public void PlaceCanvas()
     {
         isPlaced = true;
+        gameObject.GetComponent<bigChecklistManager>().Placed();
         Debug.Log("Placed");
     }
 
     public void MoveCanvas()
     {
         isPlaced = false;
+        gameObject.GetComponent<bigChecklistManager>().Moved();
+        Debug.Log("Moved");
     }
 }

@@ -28,7 +28,10 @@ public class DetectOverlapCanvas : MonoBehaviour {
             isIntersects |= Physics.Raycast(linePoint, corner);
         }
 
-        SetChildrenAppearance(smallChecklist, !isIntersects);
+		isIntersects |= Physics.Raycast(linePoint, smallChecklist.transform.position);
+
+        //SetChildrenAppearance(smallChecklist, !isIntersects);
+		smallChecklist.SetActive(!isIntersects);
     }
 
     void SetChildrenAppearance(GameObject go, bool bIsDisplayed)
