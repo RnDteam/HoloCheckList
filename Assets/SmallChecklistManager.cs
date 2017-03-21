@@ -12,13 +12,15 @@ public class SmallChecklistManager : MonoBehaviour
     public GameObject TaskPrefab;
     public Text taskNumberText;
 
-    private List<string> Tasks = new List<string>();
+    private List<Card> Cards = new List<Card>();
     private float distanceBetweenTasks;
     private int checkAnimationLoops;
     private int currentTask = 0;
     private List<GameObject> shownTasks;
     private List<Task> lstTasks;
     private bool lastTaskComplete;
+    private Card CurrentCard;
+    private int nCardIndex;
 
     private struct Task
     {
@@ -28,19 +30,22 @@ public class SmallChecklistManager : MonoBehaviour
 
     void Start()
     {
-        Tasks = TextsBridge.GetTasks().ToList();
+        nCardIndex = 0;
+        CurrentCard = Cards[nCardIndex];
+        Cards = TextsBridge.GetCards().ToList();
+
         distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
-        taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
+        taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Cards.Count);
         checkAnimationLoops = 0;
         lstTasks = new List<Task>();
         shownTasks = new List<GameObject>();
 
         // Create task list
-        for (int nTaskIndex = 0; nTaskIndex < Tasks.Count; nTaskIndex++)
+        for (int nTaskIndex = 0; nTaskIndex < Cards.Count; nTaskIndex++)
         {
             Task t;
             t.bIsChecked = false;
-            t.strText = Tasks[nTaskIndex];
+            t.strText = CurrentCard.tasks[nTaskIndex].instruction;
             lstTasks.Add(t);
         }
 
@@ -50,7 +55,7 @@ public class SmallChecklistManager : MonoBehaviour
         for (int nTaskIndex = 0; nTaskIndex < 3; nTaskIndex++)
         {
             shownTasks.Add(CreateTask(nTaskIndex + 1, "Task" + (nTaskIndex + 1), Colors[0], TextColors[0]));
-            shownTasks[nTaskIndex + 1].transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Tasks[nTaskIndex];
+            //shownTasks[nTaskIndex + 1].transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = Cards[nTaskIndex];
         }
 
         ChangeColor(shownTasks[1], Colors[1], TextColors[1]);
@@ -59,10 +64,10 @@ public class SmallChecklistManager : MonoBehaviour
     private GameObject CreateTask(int nTaskPosition, string name, Color backColor, Color textColor)
     {
         GameObject goTask = Instantiate(TaskPrefab, transform);
-        if (0 < currentTask && currentTask < Tasks.Count - 2)
+        if (0 < currentTask && currentTask < Cards.Count - 2)
         {
             int wantedTaskIndex = nTaskPosition == 0 ? currentTask - 1 : currentTask + 2;
-            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = Tasks[wantedTaskIndex];
+            goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = CurrentCard.tasks[wantedTaskIndex].instruction;
             goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = lstTasks[wantedTaskIndex].bIsChecked;
         }
         else
@@ -157,7 +162,7 @@ public class SmallChecklistManager : MonoBehaviour
         int nCurrentTask = 1;
         ChangeColor(shownTasks[nCurrentTask], Colors[0], TextColors[0]);
         ChangeColor(shownTasks[nCurrentTask - 1], Colors[1], TextColors[1]);
-        taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Tasks.Count);
+        taskNumberText.text = string.Format("{0}/{1}", currentTask + 1, Cards.Count);
         yield return new WaitForSeconds(1f);
 
         // Move up all tasks - starting from index 1
@@ -204,9 +209,9 @@ public class SmallChecklistManager : MonoBehaviour
 
             MarkTask(currentTask, true);
 
-            currentTask = currentTask < Tasks.Count ? currentTask + 1 : currentTask;
+            currentTask = currentTask < Cards.Count ? currentTask + 1 : currentTask;
 
-            if (currentTask >= Tasks.Count)
+            if (currentTask >= Cards.Count)
                 lastTaskComplete = true;
 
             yield return new WaitForSeconds(1f);
@@ -216,7 +221,7 @@ public class SmallChecklistManager : MonoBehaviour
             ChangeColor(shownTasks[nShownTask], Colors[0], TextColors[0]);
             ChangeColor(shownTasks[nShownTask + 1], Colors[1], TextColors[1]);
 
-            taskNumberText.text = string.Format("{0}/{1}", !lastTaskComplete ? currentTask + 1 : currentTask, Tasks.Count);
+            taskNumberText.text = string.Format("{0}/{1}", !lastTaskComplete ? currentTask + 1 : currentTask, Cards.Count);
             yield return new WaitForSeconds(1f);
 
             GameObject g;
