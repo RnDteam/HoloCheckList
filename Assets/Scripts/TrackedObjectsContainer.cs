@@ -17,11 +17,11 @@ public class TrackedObjectsContainer : MonoBehaviour {
 		{
 			trackedObjects.Add(trackedObject.name, trackedObject.gameObject);
 		}
-		DisableAllTrackedObjects();
 	}
 
     private void Start()
     {
+		DisableAllTrackedObjects();
         CheckCurrentTask();
     }
 
