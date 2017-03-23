@@ -25,6 +25,8 @@ namespace Academy.HoloToolkit.Unity
             public string MethodPurpose;
             [Tooltip("The keywords to recognize.")]
             public List<string> Keywords;
+			[Tooltip("Use keyboard key.")]
+			public KeyCode Key;
             [Tooltip("The UnityEvent to be invoked when the keyword is recognized.")]
             public UnityEvent Response;
         }
@@ -65,6 +67,19 @@ namespace Academy.HoloToolkit.Unity
             InitializeResponsesDictionary();
             StartRecognizer();
         }
+
+		#if UNITY_EDITOR
+		void Update()
+		{
+			foreach (MyBetterKeywordAndResponse mykeywordAndResopnse in myKeywordsAndResponses)
+			{
+				if ( mykeywordAndResopnse.Key!=KeyCode.None && Input.GetKeyUp(mykeywordAndResopnse.Key) )
+				{
+					mykeywordAndResopnse.Response.Invoke();
+				}
+			}
+		}
+		#endif
 
         private void StartRecognizer()
         {

@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TaskParent: {fileID: 1151551650104462}
   TaskStrip: {fileID: 114631885782422938}
+  sizeFitter: {fileID: 114476786704878720}
 --- !u!114 &114423889420977546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -512,6 +513,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 255.5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

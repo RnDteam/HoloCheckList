@@ -16,7 +16,9 @@ public class TaskManager : MonoBehaviour {
 
     public static Task CurrentTask
     {
-        get { return (nCardIndex < cards.Length && nTaskIndex < CurrentCard.tasks.Length) ? cards[nCardIndex].tasks[nTaskIndex] : null; }
+        get {
+			return (nCardIndex < cards.Length && nTaskIndex < CurrentCard.tasks.Length) ? cards[nCardIndex].tasks[nTaskIndex] : null;
+		}
     }
 
     public static Card CurrentCard
@@ -36,12 +38,18 @@ public class TaskManager : MonoBehaviour {
             OnStartTasks();
     }
 
-    public static void nextTask()
+    public static bool nextTask()
     {
         nTaskIndex++;
-
+		bool isSameCard = true;
+		if (nTaskIndex >= CurrentCard.tasks.Length)
+		{
+			nextCard();
+			isSameCard = false;
+		}
         if (OnTaskChanged != null)
             OnTaskChanged();
+		return isSameCard;
     }
 
     public static void nextCard()
