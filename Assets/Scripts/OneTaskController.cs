@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OneTaskController : MonoBehaviour {
 
 	public GameObject TaskParent;
 	public TaskStrip TaskStrip;
+	public ContentSizeFitter sizeFitter;
+	private bool updateSize = false;
 
 	void OnEnable()
 	{
@@ -51,6 +54,17 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrip.ShowInfoIcon(!string.IsNullOrEmpty(task.hasExtraInfo));
 		TaskStrip.ShowValidationIcon(task.signedTask);
 		TaskStrip.SetValidated(true);
+		updateSize = true;
+	}
+
+	void Update()
+	{
+		if (updateSize)
+		{
+			updateSize = false;
+			sizeFitter.enabled = false;
+			sizeFitter.enabled = true;
+		}
 	}
 
 	void ShowTask()
