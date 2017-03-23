@@ -47,6 +47,10 @@ public class bigChecklistManager : MonoBehaviour {
     private void InitChecklist()
     {
         CurrentCard = TaskManager.CurrentCard;
+		if (CurrentCard == null)
+		{
+			return;
+		}
         taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
         cardName.text = string.Format("{0}", CurrentCard.name);
 
@@ -158,7 +162,7 @@ public class bigChecklistManager : MonoBehaviour {
 
     public void Next()
     {
-        if (!GetComponent<PlaceableObject>().isPlaced) return;
+		if (!GetComponent<PlaceableObject>().isPlaced || CurrentCard == null) return;
 
         if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
         {
@@ -179,9 +183,9 @@ public class bigChecklistManager : MonoBehaviour {
     {
         // Change tasks colors
         ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.DESELECTED], TextColors[(int)TASK_STYLE.DESELECTED]);
-        TaskManager.nextTask();
+        bool isSameCard = TaskManager.nextTask();
         // Select next task, if card is over, switch cards
-        if(TaskManager.nTaskIndex < allTasks.Count)
+		if(isSameCard)
         {
             ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.SELECTED], TextColors[(int)TASK_STYLE.SELECTED]);
 
@@ -193,7 +197,6 @@ public class bigChecklistManager : MonoBehaviour {
         }
         else
         {
-            TaskManager.nextCard();
             InitChecklist();
         }
     }

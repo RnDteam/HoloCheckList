@@ -37,7 +37,12 @@ public class TrackedObjectsContainer : MonoBehaviour {
 
     void CheckCurrentTask()
     {
-        SetCurrentTrackedObject(TaskManager.CurrentTask.hasExtraInfo);
+		string extraInfoName = "";
+		if (TaskManager.CurrentTask != null)
+		{
+			extraInfoName = TaskManager.CurrentTask.hasExtraInfo;
+		}
+		SetCurrentTrackedObject(extraInfoName);
     }
 
     public void DisableAllTrackedObjects()

@@ -9,26 +9,56 @@ public class OneTaskController : MonoBehaviour {
 
 	void OnEnable()
 	{
-		// TODO: Register to Tasks events
+		TaskManager.OnStartTasks += StartTasks;
+		TaskManager.OnEndTasks += EndTasks;
+		TaskManager.OnTaskChanged += ChangeTask;
 	}
 
 	void OnDisable()
 	{
-		// TODO: Unregister from Tasks events
+		TaskManager.OnStartTasks -= StartTasks;
+		TaskManager.OnEndTasks -= EndTasks;
+		TaskManager.OnTaskChanged -= ChangeTask;
+	}
+
+	void StartTasks()
+	{
+		ShowTask();
+		ChangeTask();
+	}
+
+	void EndTasks()
+	{
+		HideTask();
+	}
+
+	void ChangeTask()
+	{
+		if (TaskManager.CurrentTask == null)
+		{
+			HideTask();
+		}
+		else
+		{
+			SetTask();
+		}
 	}
 
 	void SetTask()
 	{
-		TaskStrip.SetTaskText("New Task");
-		TaskStrip.ShowInfoIcon(true);
-		TaskStrip.ShowValidationIcon(true);
+		Task task = TaskManager.CurrentTask;
+		TaskStrip.SetTaskText(task.instruction);
+		TaskStrip.ShowInfoIcon(!string.IsNullOrEmpty(task.hasExtraInfo));
+		TaskStrip.ShowValidationIcon(task.signedTask);
 		TaskStrip.SetValidated(true);
 	}
 
 	void ShowTask()
 	{
-		TaskParent.SetActive(true);
-		SetTask();
+		if (TaskManager.CurrentTask != null)
+		{
+			TaskParent.SetActive(true);
+		}
 	}
 
 	void HideTask()
