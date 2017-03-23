@@ -11,7 +11,7 @@ public class PlaceableObject : MonoBehaviour
 
     void Start()
     {
-        offsetVector = transform.position - Camera.main.transform.position;
+        //offsetVector = transform.position - Camera.main.transform.position;
         defaultRotation = transform.rotation;
     }
 
@@ -23,20 +23,20 @@ public class PlaceableObject : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position,
                                           Camera.main.transform.position + Camera.main.transform.TransformVector(offsetVector),
                                           speed);
-        transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position) * defaultRotation;
+		transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position) * defaultRotation;
     }
 
     public void PlaceCanvas()
     {
         isPlaced = true;
-        gameObject.GetComponent<bigChecklistManager>().Placed();
+		gameObject.GetComponentInChildren<bigChecklistManager>().Placed();
         Debug.Log("Placed");
     }
 
     public void MoveCanvas()
     {
         isPlaced = false;
-        gameObject.GetComponent<bigChecklistManager>().Moved();
+		gameObject.GetComponentInChildren<bigChecklistManager>().Moved();
         Debug.Log("Moved");
     }
 }

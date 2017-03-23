@@ -36,6 +36,7 @@ public class bigChecklistManager : MonoBehaviour {
     public VoiceManager voice;
     private GameObject taskParent;
     private Card CurrentCard;
+	public PlaceableObject placeableObject;
 
     // Headers
 
@@ -62,6 +63,7 @@ public class bigChecklistManager : MonoBehaviour {
         taskParent = new GameObject("TaskParent");
         taskParent.transform.parent = transform;
         taskParent.transform.localPosition = Vector3.zero;
+		taskParent.transform.localScale = Vector3.one;
 
         lastTaskComplete = false;
         lstTasks = new List<Task>();
@@ -142,7 +144,7 @@ public class bigChecklistManager : MonoBehaviour {
     #region Check/Next
     public void Check()
     {
-        if (!GetComponent<PlaceableObject>().isPlaced) return;
+		if (!placeableObject.isPlaced) return;
 
         if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
         {
@@ -162,7 +164,7 @@ public class bigChecklistManager : MonoBehaviour {
 
     public void Next()
     {
-		if (!GetComponent<PlaceableObject>().isPlaced || CurrentCard == null) return;
+		if (!placeableObject.isPlaced || CurrentCard == null) return;
 
         if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
         {
@@ -205,7 +207,7 @@ public class bigChecklistManager : MonoBehaviour {
     {
         for (int i = 0; i < distanceBetweenTasks; i++)
         {
-            taskParent.transform.position += new Vector3(0, 1, 0);
+			taskParent.transform.localPosition += new Vector3(0, 1, 0);
             yield return new WaitForSeconds(0.05f);
         }
     }
