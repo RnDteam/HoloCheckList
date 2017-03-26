@@ -1,0 +1,106 @@
+{
+	"headers": [{
+		"name": "שם מטוס",
+		"text": "קוקיה"
+	}, {
+		"name": "מספר זנב",
+		"text": "324"
+	}],
+	"cards": [
+		{
+			"name": "הכנת המטוס לבדיקה",
+			"tasks": [
+				{
+					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
+					"hasExtraInfo": "ImageTargetControlPanel",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא בדיקה שבועית בתוקף",
+					"hasExtraInfo": "",
+					"signedTask": true
+				},
+				{
+					"instruction": "וודא הימצאות מטפה כיבוי אש בקרבת המטוס",
+					"hasExtraInfo": "ImageTargetControlPanel",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא חיבור הארקה סטטית למטוס",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא העדר גופים זרים בקרבת המטוס",
+					"hasExtraInfo": "",
+					"signedTask": true
+				},
+				{
+					"instruction": "וודא עגינת המטוס כולל תומך זנב",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא הימצאות חולץ אדום",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "הסר את נועלי הגאים, כיסוי פליטה טכונס אוויר",
+					"hasExtraInfo": "",
+					"signedTask": false
+				}
+			]
+		},
+		{
+			"name": "בדיקת תא טייס",
+			"tasks": [
+				{
+					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
+					"hasExtraInfo": "ImageTargetControlPanel",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא כיסוי מפסקי הפעלה כיבוי אש מנוע מאובטחים באמצעות חוט קריעה",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "וודא שמנתקי המעגל נמצאים במצב לחוץ בפנים",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "הפעל בלם חניה",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "הכנס מתח פנימי למטוס וודא מתח מצבר לא נמוך מ24 וולט",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "הורד את המדפים למצב %100 תוך נקיטת אמצעי הזהירות",
+					"hasExtraInfo": "",
+					"signedTask": false
+				}
+			]
+		},
+		{
+			"name": "עוד לא",
+			"tasks": [
+				{
+					"instruction": "עוד לא",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "עוד לא",
+					"hasExtraInfo": "",
+					"signedTask": false
+				}
+			]
+		}
+	]
+}
