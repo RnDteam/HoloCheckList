@@ -12,7 +12,7 @@
 			"tasks": [
 				{
 					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
-					"hasExtraInfo": "ImageTargetControlPanel",
+					"hasExtraInfo": "",
 					"signedTask": false
 				},
 				{
