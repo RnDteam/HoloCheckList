@@ -20,6 +20,8 @@ public class OneTaskController : MonoBehaviour {
 	private bool animate=false;
 	private float index=0;
 	private float rate;
+    public float delay;
+    private float curDelay;
 
 	void OnEnable()
 	{
@@ -79,43 +81,53 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].SetTaskText(task.instruction);
 		TaskStrips[0].ShowInfoIcon(!string.IsNullOrEmpty(task.hasExtraInfo));
 		TaskStrips[0].ShowValidationIcon(task.signedTask);
-		TaskStrips[0].SetValidated(true);
+		TaskStrips[0].SetValidated(task.isAlreadySigned);
+        TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
 
-		updateSize = true;
+        updateSize = true;
 
 		animate = true;
 		index = 0;
 		rate = 1.0f/enterSpeed;
+        curDelay = delay;
 	}
 
 	void Update()
 	{
 		if (animate)
 		{
-			if(index<1.0f)
-			{
-				if(index == 0)
-				{
-					TaskStrips[0].gameObject.SetActive(false);//SetTaskText(TaskStrips[0].TaskText.text);
-				}
-				else if (updateSize)
-				{
-					updateSize = false;
-					TaskStrips[0].gameObject.SetActive(true);
-				}
-				TaskStripsRectTransform[0].anchoredPosition3D = Vector3.Lerp(inStartPos, inEndPos, index);
-				TaskStripsRectTransform[1].anchoredPosition3D = Vector3.Lerp(outStartPos, outEndPos, index);
-				index+=rate*Time.deltaTime;
-			}else{
-				animate=false;
-				TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
-				TaskStripsRectTransform[1].anchoredPosition3D = outEndPos;
-				index=1.0f;
-			}
+            if(curDelay <= 0)
+            {
+                if (index < 1.0f)
+                {
+                    if (index == 0)
+                    {
+                        TaskStrips[0].gameObject.SetActive(false);//SetTaskText(TaskStrips[0].TaskText.text);
+                    }
+                    else if (updateSize)
+                    {
+                        updateSize = false;
+                        TaskStrips[0].gameObject.SetActive(true);
+                    }
+                    TaskStripsRectTransform[0].anchoredPosition3D = Vector3.Lerp(inStartPos, inEndPos, index);
+                    TaskStripsRectTransform[1].anchoredPosition3D = Vector3.Lerp(outStartPos, outEndPos, index);
+                    index += rate * Time.deltaTime;
+                }
+                else
+                {
+                    animate = false;
+                    TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
+                    TaskStripsRectTransform[1].anchoredPosition3D = outEndPos;
+                    index = 1.0f;
+                }
+            } else
+            {
+                curDelay -= 0.01f;
+            }
 		}
 	}
 
-	void ShowTask()
+	public void ShowTask()
 	{
 		if (TaskManager.CurrentTask != null)
 		{
@@ -123,7 +135,7 @@ public class OneTaskController : MonoBehaviour {
 		}
 	}
 
-	void HideTask()
+	public void HideTask()
 	{
 		TaskParent.SetActive(false);
 	}

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class bigChecklistManager : MonoBehaviour {
 
-    private enum TASK_STYLE
+    public enum TASK_STYLE
     {
         DESELECTED,
         SELECTED
@@ -18,6 +18,9 @@ public class bigChecklistManager : MonoBehaviour {
         public string strText;
         public bool bIsChecked;
     }
+
+    public Sprite[] validation;
+    public Sprite[] info;
 
     private List<Card> Cards = new List<Card>();
     public List<Color> Colors = new List<Color>();
@@ -81,8 +84,8 @@ public class bigChecklistManager : MonoBehaviour {
         // Manage shown tasks
         for (int nTaskIndex = 0; nTaskIndex < CurrentCard.tasks.Length; nTaskIndex++)
         {
-            allTasks.Add(CreateTask(nTaskIndex, "Task" + (nTaskIndex + 1), Colors[(int)TASK_STYLE.DESELECTED], TextColors[(int)TASK_STYLE.DESELECTED]));
-            allTasks[nTaskIndex].transform.FindChild("Toggle").Find("Label").GetComponent<Text>().text = CurrentCard.tasks[nTaskIndex].instruction + " - " + nTaskIndex;
+            allTasks.Add(CreateTask(nTaskIndex, "Task" + (nTaskIndex + 1), TASK_STYLE.DESELECTED));
+            allTasks[nTaskIndex].transform.FindChild("Task").Find("instruction").GetComponent<Text>().text = CurrentCard.tasks[nTaskIndex].instruction;
 
             if (nTaskIndex >= numberOfRows)
             {
@@ -99,24 +102,26 @@ public class bigChecklistManager : MonoBehaviour {
     #region place/move
     public void Placed()
     {
-        ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.SELECTED], TextColors[(int)TASK_STYLE.SELECTED]);
+        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.SELECTED);
     }
 
     public void Moved()
     {
-        ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.DESELECTED], TextColors[(int)TASK_STYLE.DESELECTED]);
+        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.DESELECTED);
     }
     #endregion
 
     #region Create Tasks
-    public GameObject CreateTask(int nTaskIndex, string name, Color backColor, Color textColor)
+    public GameObject CreateTask(int nTaskIndex, string name, TASK_STYLE tStyle)
     {
         GameObject goTask = Instantiate(TaskPrefab, taskParent.transform);
-        goTask.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().text = TaskManager.nTaskIndex < CurrentCard.tasks.Length - 1 ? CurrentCard.tasks[TaskManager.nTaskIndex + 1].instruction : string.Empty;
+        goTask.transform.FindChild("Number").FindChild("Text").GetComponent<Text>().text = (nTaskIndex + 1).ToString();
+        //goTask.transform.FindChild("Task").FindChild("instruction").GetComponent<Text>().text = TaskManager.nTaskIndex < CurrentCard.tasks.Length - 1 ? CurrentCard.tasks[TaskManager.nTaskIndex + 1].instruction : string.Empty;
+
 
         goTask.name = "Task" + nTaskIndex;
         goTask.transform.localScale = Vector3.one;
-        ChangeColor(goTask, backColor, textColor);
+        ChangeColor(goTask, tStyle, nTaskIndex);
 
         goTask.transform.localPosition = new Vector3(0, -nTaskIndex * distanceBetweenTasks, 0);
         goTask.transform.localRotation = Quaternion.identity;
@@ -124,33 +129,53 @@ public class bigChecklistManager : MonoBehaviour {
 
         return goTask;
     }
+
+    private void ChangeColor(GameObject goTask, TASK_STYLE tStyle, int nTaskIndex)
+    {
+        if(CurrentCard != null)
+        {
+            Transform tTask = goTask.transform.FindChild("Task");
+            Color backColor = Colors[(int)tStyle];
+            Color textColor = TextColors[(int)tStyle];
+            Sprite spInfo = info[(int)tStyle];
+            Sprite spValidation = validation[(int)tStyle];
+
+            goTask.transform.FindChild("Number").GetComponent<Image>().color = backColor;
+            tTask.GetComponent<Image>().color = backColor;
+            tTask.FindChild("ValidationIcon").gameObject.SetActive(CurrentCard.tasks[nTaskIndex].signedTask);
+            tTask.FindChild("InfoIcon").gameObject.SetActive(!string.IsNullOrEmpty(CurrentCard.tasks[nTaskIndex].hasExtraInfo));
+            tTask.FindChild("InfoIcon").gameObject.GetComponent<Image>().sprite = spInfo;
+            tTask.FindChild("ValidationIcon").gameObject.GetComponent<Image>().sprite = spValidation;
+        }
+    }
     #endregion
 
     #region style changes
-    public void ChangeColor(GameObject gameobject, Color backColor, Color textColor)
+    public void ChangeColor(GameObject goTask, TASK_STYLE tStyle)
     {
-        gameobject.transform.FindChild("Background").GetComponent<Image>().color = backColor;
-        gameobject.transform.FindChild("Toggle").FindChild("Background").GetComponent<Image>().color = backColor;
-        gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
-        gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
+        ChangeColor(goTask, tStyle, TaskManager.nTaskIndex);
+
+        //gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
+        //gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
     }
 
     private void MarkTask(GameObject goTask, bool bIsChecked)
     {
-        goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = bIsChecked;
+        //goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = bIsChecked;
     }
     #endregion
 
     #region Check/Next
     public void Check()
     {
-		if (!placeableObject.isPlaced) return;
+		if (!placeableObject.isPlaced || CurrentCard == null) return;
 
         if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
         {
             // Checking if task need to be signed
             if(CurrentCard.tasks[TaskManager.nTaskIndex].signedTask)
             {
+                TaskManager.check();
                 taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
                 StartCoroutine(CheckAnimation());
                 StartCoroutine(playCheckSound());
@@ -184,12 +209,12 @@ public class bigChecklistManager : MonoBehaviour {
     private IEnumerator NextAnimation()
     {
         // Change tasks colors
-        ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.DESELECTED], TextColors[(int)TASK_STYLE.DESELECTED]);
+        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.DESELECTED);
         bool isSameCard = TaskManager.nextTask();
         // Select next task, if card is over, switch cards
 		if(isSameCard)
         {
-            ChangeColor(allTasks[TaskManager.nTaskIndex], Colors[(int)TASK_STYLE.SELECTED], TextColors[(int)TASK_STYLE.SELECTED]);
+            ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.SELECTED);
 
             // Change displayed tasks
             allTasks[TaskManager.nTaskIndex - 1].SetActive(false);

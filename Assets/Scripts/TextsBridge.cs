@@ -31,6 +31,9 @@ public class Task
     public string instruction;
     public string hasExtraInfo;
     public bool signedTask;
+
+    [NonSerialized]
+    public bool isAlreadySigned = false;
 }
 
 public class TextsBridge

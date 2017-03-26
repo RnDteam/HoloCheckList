@@ -9,10 +9,13 @@ public class TaskManager : MonoBehaviour {
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
     public static event TaskChange OnEndTasks;
+    public static event TaskChange OnCardChanged;
 
     private static Card[] cards;
+    public static int nCardsNumber;
     public static int nCardIndex;
     public static int nTaskIndex;
+    public static Task PreviousTask;
 
     public static Task CurrentTask
     {
@@ -28,6 +31,8 @@ public class TaskManager : MonoBehaviour {
 
     void Awake () {
         cards = TextsBridge.GetCards();
+        nCardsNumber = cards.Length;
+        PreviousTask = CurrentTask;
         nCardIndex = 0;
         nTaskIndex = 0;
     }
@@ -40,6 +45,7 @@ public class TaskManager : MonoBehaviour {
 
     public static bool nextTask()
     {
+        PreviousTask = CurrentTask;
         nTaskIndex++;
 		bool isSameCard = true;
 		if (nTaskIndex >= CurrentCard.tasks.Length)
@@ -52,11 +58,19 @@ public class TaskManager : MonoBehaviour {
 		return isSameCard;
     }
 
+    public static void check()
+    {
+        CurrentTask.isAlreadySigned = true;
+    }
+
     public static void nextCard()
     {
         nCardIndex++;
         nTaskIndex = 0;
-        
+
+        if (OnCardChanged != null)
+            OnCardChanged();
+
         if (isFinished())
             if (OnEndTasks != null)
                 OnEndTasks();

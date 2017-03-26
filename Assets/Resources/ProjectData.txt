@@ -57,7 +57,7 @@
 			"tasks": [
 				{
 					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
-					"hasExtraInfo": "controlPanel",
+					"hasExtraInfo": "ImageTargetControlPanel",
 					"signedTask": false
 				},
 				{
