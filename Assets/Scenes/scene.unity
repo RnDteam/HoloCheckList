@@ -135,6 +135,10 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1205904952574678, guid: 3f24ea3a0dc5297409b96b49a7abb11c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3f24ea3a0dc5297409b96b49a7abb11c, type: 2}
   m_IsPrefabParent: 0
@@ -325,28 +329,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273240506}
---- !u!1 &291865129 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1297386199429574, guid: 525b955dd48c4d24a8fb6af7a4ed662e,
-    type: 2}
-  m_PrefabInternal: {fileID: 359500824}
 --- !u!224 &291865130 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224440021263183846, guid: 525b955dd48c4d24a8fb6af7a4ed662e,
     type: 2}
   m_PrefabInternal: {fileID: 359500824}
---- !u!114 &291865131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 291865129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe7d31f096ed5234bad957eca5523cab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 0}
 --- !u!1 &299293553
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,8 +710,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 425851358}
+  - component: {fileID: 425851359}
   m_Layer: 5
-  m_Name: CardsBackground
+  m_Name: CardsDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -750,6 +738,18 @@ RectTransform:
   m_AnchoredPosition: {x: -49.24, y: -99.9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &425851359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 425851357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7d31f096ed5234bad957eca5523cab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 1205904952574678, guid: 3f24ea3a0dc5297409b96b49a7abb11c, type: 2}
 --- !u!1 &672540839
 GameObject:
   m_ObjectHideFlags: 0
