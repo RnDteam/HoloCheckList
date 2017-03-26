@@ -72,16 +72,8 @@ public class TaskManager : MonoBehaviour {
             OnCardChanged();
 
         if (isFinished())
-        {
             if (OnEndTasks != null)
-            {
-
                 OnEndTasks();
-            }
-
-            Debug.Log("Finished");
-        }
-            
     }
 
     public static bool isFinished()
