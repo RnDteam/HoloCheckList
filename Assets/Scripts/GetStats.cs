@@ -9,7 +9,7 @@ public class GetStats : MonoBehaviour {
     public Text signedTasksNumber;
 
     void Start () {
-        signedTasksNumber.text = (TaskManager.TasksToSign - TaskManager.GetNumberOfSignedTasks()).ToString();
+        signedTasksNumber.text = (TaskManager.GetNumberOfSignedTasks()).ToString();
         taskToSignNumber.text = (TaskManager.TasksToSign).ToString();
     }
 }
