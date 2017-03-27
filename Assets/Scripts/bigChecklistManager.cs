@@ -56,7 +56,12 @@ public class bigChecklistManager : MonoBehaviour {
     {
         SceneManager.LoadScene("end-scene");
     }
-    
+
+    private void OnDestroy()
+    {
+        TaskManager.OnEndTasks -= OnEndTasks;
+    }
+
     private void InitChecklist()
     {
         CurrentCard = TaskManager.CurrentCard;
@@ -64,7 +69,7 @@ public class bigChecklistManager : MonoBehaviour {
 		{
 			return;
 		}
-        taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
+        taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
         cardName.text = string.Format("{0}", CurrentCard.name);
 
         if (taskParent != null)
@@ -82,27 +87,27 @@ public class bigChecklistManager : MonoBehaviour {
         allTasks = new List<GameObject>();
 
         // Create task list
-        for (int nTaskIndex = 0; nTaskIndex < CurrentCard.tasks.Length; nTaskIndex++)
+        for (int TaskIndex = 0; TaskIndex < CurrentCard.tasks.Length; TaskIndex++)
         {
             Task t;
             t.bIsChecked = false;
-            t.strText = CurrentCard.tasks[nTaskIndex].instruction;
+            t.strText = CurrentCard.tasks[TaskIndex].instruction;
             lstTasks.Add(t);
         }
 
         // Manage shown tasks
-        for (int nTaskIndex = 0; nTaskIndex < CurrentCard.tasks.Length; nTaskIndex++)
+        for (int TaskIndex = 0; TaskIndex < CurrentCard.tasks.Length; TaskIndex++)
         {
-            allTasks.Add(CreateTask(nTaskIndex, "Task" + (nTaskIndex + 1), TASK_STYLE.DESELECTED));
-            allTasks[nTaskIndex].transform.FindChild("Task").Find("instruction").GetComponent<Text>().text = CurrentCard.tasks[nTaskIndex].instruction;
+            allTasks.Add(CreateTask(TaskIndex, "Task" + (TaskIndex + 1), TASK_STYLE.DESELECTED));
+            allTasks[TaskIndex].transform.FindChild("Task").Find("instruction").GetComponent<Text>().text = CurrentCard.tasks[TaskIndex].instruction;
 
-            if (nTaskIndex >= numberOfRows)
+            if (TaskIndex >= numberOfRows)
             {
-                allTasks[nTaskIndex].SetActive(false);
+                allTasks[TaskIndex].SetActive(false);
             }
         }
 
-        if(TaskManager.nCardIndex > 0)
+        if(TaskManager.CardIndex > 0)
         {
             Placed();
         }
@@ -111,35 +116,35 @@ public class bigChecklistManager : MonoBehaviour {
     #region place/move
     public void Placed()
     {
-        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.SELECTED);
+        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
     }
 
     public void Moved()
     {
-        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.DESELECTED);
+        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
     }
     #endregion
 
     #region Create Tasks
-    public GameObject CreateTask(int nTaskIndex, string name, TASK_STYLE tStyle)
+    public GameObject CreateTask(int TaskIndex, string name, TASK_STYLE tStyle)
     {
         GameObject goTask = Instantiate(TaskPrefab, taskParent.transform);
-        goTask.transform.FindChild("Number").FindChild("Text").GetComponent<Text>().text = (nTaskIndex + 1).ToString();
-        //goTask.transform.FindChild("Task").FindChild("instruction").GetComponent<Text>().text = TaskManager.nTaskIndex < CurrentCard.tasks.Length - 1 ? CurrentCard.tasks[TaskManager.nTaskIndex + 1].instruction : string.Empty;
+        goTask.transform.FindChild("Number").FindChild("Text").GetComponent<Text>().text = (TaskIndex + 1).ToString();
+        //goTask.transform.FindChild("Task").FindChild("instruction").GetComponent<Text>().text = TaskManager.TaskIndex < CurrentCard.tasks.Length - 1 ? CurrentCard.tasks[TaskManager.TaskIndex + 1].instruction : string.Empty;
 
 
-        goTask.name = "Task" + nTaskIndex;
+        goTask.name = "Task" + TaskIndex;
         goTask.transform.localScale = Vector3.one;
-        ChangeColor(goTask, tStyle, nTaskIndex);
+        ChangeColor(goTask, tStyle, TaskIndex);
 
-        goTask.transform.localPosition = new Vector3(0, -nTaskIndex * distanceBetweenTasks, 0);
+        goTask.transform.localPosition = new Vector3(0, -TaskIndex * distanceBetweenTasks, 0);
         goTask.transform.localRotation = Quaternion.identity;
         goTask.AddComponent<InteractableTask>();
 
         return goTask;
     }
 
-    private void ChangeColor(GameObject goTask, TASK_STYLE tStyle, int nTaskIndex)
+    private void ChangeColor(GameObject goTask, TASK_STYLE tStyle, int TaskIndex)
     {
         if(CurrentCard != null)
         {
@@ -151,8 +156,8 @@ public class bigChecklistManager : MonoBehaviour {
 
             goTask.transform.FindChild("Number").GetComponent<Image>().color = backColor;
             tTask.GetComponent<Image>().color = backColor;
-            tTask.FindChild("ValidationIcon").gameObject.SetActive(CurrentCard.tasks[nTaskIndex].signedTask);
-            tTask.FindChild("InfoIcon").gameObject.SetActive(!string.IsNullOrEmpty(CurrentCard.tasks[nTaskIndex].hasExtraInfo));
+            tTask.FindChild("ValidationIcon").gameObject.SetActive(CurrentCard.tasks[TaskIndex].signedTask);
+            tTask.FindChild("InfoIcon").gameObject.SetActive(!string.IsNullOrEmpty(CurrentCard.tasks[TaskIndex].hasExtraInfo));
             tTask.FindChild("InfoIcon").gameObject.GetComponent<Image>().sprite = spInfo;
             tTask.FindChild("ValidationIcon").gameObject.GetComponent<Image>().sprite = spValidation;
         }
@@ -162,7 +167,7 @@ public class bigChecklistManager : MonoBehaviour {
     #region style changes
     public void ChangeColor(GameObject goTask, TASK_STYLE tStyle)
     {
-        ChangeColor(goTask, tStyle, TaskManager.nTaskIndex);
+        ChangeColor(goTask, tStyle, TaskManager.TaskIndex);
 
         //gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
         //gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
@@ -181,13 +186,13 @@ public class bigChecklistManager : MonoBehaviour {
     {
 		if (!placeableObject.isPlaced || CurrentCard == null) return;
 
-        if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
+        if (TaskManager.TaskIndex < CurrentCard.tasks.Length)
         {
             // Checking if task need to be signed
-            if(CurrentCard.tasks[TaskManager.nTaskIndex].signedTask)
+            if(CurrentCard.tasks[TaskManager.TaskIndex].signedTask)
             {
                 TaskManager.check();
-                taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
+                taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
                 StartCoroutine(CheckAnimation());
                 StartCoroutine(playCheckSound());
             }
@@ -202,9 +207,9 @@ public class bigChecklistManager : MonoBehaviour {
     {
 		if (!placeableObject.isPlaced || CurrentCard == null) return;
 
-        if (TaskManager.nTaskIndex < CurrentCard.tasks.Length)
+        if (TaskManager.TaskIndex < CurrentCard.tasks.Length)
         {
-            taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
+            taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
             StartCoroutine(NextAnimation());
             StartCoroutine(playCheckSound());
         }
@@ -212,7 +217,7 @@ public class bigChecklistManager : MonoBehaviour {
 
     private IEnumerator CheckAnimation()
     {
-        MarkTask(allTasks[TaskManager.nTaskIndex], true);
+        MarkTask(allTasks[TaskManager.TaskIndex], true);
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(NextAnimation());
     }
@@ -220,16 +225,16 @@ public class bigChecklistManager : MonoBehaviour {
     private IEnumerator NextAnimation()
     {
         // Change tasks colors
-        ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.DESELECTED);
+        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
         bool isSameCard = TaskManager.nextTask();
         // Select next task, if card is over, switch cards
 		if(isSameCard)
         {
-            ChangeColor(allTasks[TaskManager.nTaskIndex], TASK_STYLE.SELECTED);
+            ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
 
             // Change displayed tasks
-            allTasks[TaskManager.nTaskIndex - 1].SetActive(false);
-            if (TaskManager.nTaskIndex + numberOfRows - 1 < allTasks.Count) allTasks[TaskManager.nTaskIndex + numberOfRows - 1].SetActive(true);
+            allTasks[TaskManager.TaskIndex - 1].SetActive(false);
+            if (TaskManager.TaskIndex + numberOfRows - 1 < allTasks.Count) allTasks[TaskManager.TaskIndex + numberOfRows - 1].SetActive(true);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(ScrollAnimation());
         }
@@ -247,16 +252,17 @@ public class bigChecklistManager : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
     }
-    public void Uncheck()
-    {
-        if(0 < TaskManager.nTaskIndex)
-        { 
-            TaskManager.nTaskIndex--;
-            MarkTask(allTasks[TaskManager.nTaskIndex], false);
-            StartCoroutine(playCheckSound());
-            taskNumberText.text = string.Format("{0}/{1}", TaskManager.nTaskIndex + 1, CurrentCard.tasks.Length);
-        }
-    }
+
+    //public void Uncheck()
+    //{
+    //    if(0 < TaskManager.TaskIndex)
+    //    { 
+    //        TaskManager.TaskIndex--;
+    //        MarkTask(allTasks[TaskManager.TaskIndex], false);
+    //        StartCoroutine(playCheckSound());
+    //        taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
+    //    }
+    //}
     #endregion
     
     #region Sound
@@ -284,7 +290,7 @@ public class bigChecklistManager : MonoBehaviour {
         }
         else
         {
-            voice.Sounds[TaskManager.nTaskIndex].Play();
+            voice.Sounds[TaskManager.TaskIndex].Play();
         }
     }
     #endregion
