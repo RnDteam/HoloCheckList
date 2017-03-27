@@ -6,17 +6,19 @@ public class CardHandler : MonoBehaviour {
 
     public GameObject cardPrefab;
     private GameObject[] displayedCards;
-	// Use this for initialization
-	void Start () {
-        displayedCards = new GameObject[TaskManager.nCardsNumber];
+    private int CardsNumber;
 
-        for(int nCardIndex = 0; nCardIndex < TaskManager.nCardsNumber; nCardIndex++)
+	void Start () {
+        CardsNumber = TaskManager.CardsNumber;
+        displayedCards = new GameObject[CardsNumber];
+
+        for(int nCardIndex = 0; nCardIndex < CardsNumber; nCardIndex++)
         {
             GameObject parent = nCardIndex == 0 ? gameObject : displayedCards[nCardIndex - 1];
             displayedCards[nCardIndex] = Instantiate(cardPrefab, parent.transform, true);
             displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position;
             displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
-            displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = TaskManager.nCardsNumber - nCardIndex - 1;
+            displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = CardsNumber - nCardIndex - 1;
         }
 
         TaskManager.OnCardChanged += nextCard;
@@ -24,14 +26,14 @@ public class CardHandler : MonoBehaviour {
 	
     private void nextCard()
     {
-        if (TaskManager.nCardsNumber - TaskManager.nCardIndex > 0)
+        if (TaskManager.CardIndex < CardsNumber)
         {
-            displayedCards[TaskManager.nCardsNumber - TaskManager.nCardIndex].SetActive(false);
+            displayedCards[CardsNumber - TaskManager.CardIndex].SetActive(false);
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnDestroy()
+    {
+        TaskManager.OnCardChanged -= nextCard;
+    }
 }

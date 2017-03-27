@@ -30,13 +30,11 @@ public class PlaceableObject : MonoBehaviour
     {
         isPlaced = true;
 		gameObject.GetComponentInChildren<bigChecklistManager>().Placed();
-        Debug.Log("Placed");
     }
 
     public void MoveCanvas()
     {
         isPlaced = false;
 		gameObject.GetComponentInChildren<bigChecklistManager>().Moved();
-        Debug.Log("Moved");
     }
 }
