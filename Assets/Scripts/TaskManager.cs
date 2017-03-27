@@ -41,7 +41,7 @@ public class TaskManager : MonoBehaviour {
 
         if (cards != null)
         {
-            CalcNumberOfTaskToSign();
+            PrepareTaskParameters();
             CardsNumber = cards.Length;
             PreviousTask = CurrentTask;
             CardIndex = 0;
@@ -56,19 +56,16 @@ public class TaskManager : MonoBehaviour {
             OnStartTasks();
     }
 
-    public static bool nextTask()
+    public static void nextTask()
     {
         PreviousTask = CurrentTask;
         TaskIndex++;
-		bool isSameCard = true;
+
 		if (TaskIndex >= CurrentCard.tasks.Length)
-		{
 			nextCard();
-			isSameCard = false;
-		}
+
         if (OnTaskChanged != null)
             OnTaskChanged();
-		return isSameCard;
     }
 
     public static void check()
@@ -94,13 +91,19 @@ public class TaskManager : MonoBehaviour {
         return CardIndex >= cards.Length;
     }
 
-    private static void CalcNumberOfTaskToSign()
+    private static void PrepareTaskParameters()
     {
+        // Count tasks to sign and make task to be not signed
         TasksToSign = 0;
 
         foreach (Card c in cards)
+        {
             foreach (Task t in c.tasks)
+            {
+                t.isAlreadySigned = false;
                 TasksToSign += t.signedTask ? 1 : 0;
+            }
+        }
     }
 
     public static int GetNumberOfSignedTasks()

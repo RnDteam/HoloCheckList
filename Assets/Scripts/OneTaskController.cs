@@ -25,14 +25,18 @@ public class OneTaskController : MonoBehaviour {
 
 	void OnEnable()
 	{
-		TaskManager.OnStartTasks += StartTasks;
+        bigChecklistManager.OnPlaced += StartTasks;
+        bigChecklistManager.OnMoved += EndTasks;
+        TaskManager.OnStartTasks += StartTasks;
 		TaskManager.OnEndTasks += EndTasks;
 		TaskManager.OnTaskChanged += ChangeTask;
 	}
 
 	void OnDisable()
 	{
-		TaskManager.OnStartTasks -= StartTasks;
+        bigChecklistManager.OnPlaced -= StartTasks;
+        bigChecklistManager.OnMoved -= EndTasks;
+        TaskManager.OnStartTasks -= StartTasks;
 		TaskManager.OnEndTasks -= EndTasks;
 		TaskManager.OnTaskChanged -= ChangeTask;
 	}
@@ -89,7 +93,7 @@ public class OneTaskController : MonoBehaviour {
 		animate = true;
 		index = 0;
 		rate = 1.0f/enterSpeed;
-        curDelay = delay;
+        curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
 	}
 
 	void Update()

@@ -6,7 +6,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public delegate void BigChecklistStateChanged();
+
 public class bigChecklistManager : MonoBehaviour {
+
+    public static event BigChecklistStateChanged OnPlaced;
+    public static event BigChecklistStateChanged OnMoved;
 
     public enum TASK_STYLE
     {
@@ -42,8 +47,6 @@ public class bigChecklistManager : MonoBehaviour {
     private GameObject taskParent;
     private Card CurrentCard;
 	public PlaceableObject placeableObject;
-
-    // Headers
 
     void Start () {
         distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
@@ -110,17 +113,24 @@ public class bigChecklistManager : MonoBehaviour {
         if(TaskManager.CardIndex > 0)
         {
             Placed();
+        } else
+        {
+            if (OnMoved != null) OnMoved();
         }
     }
 
     #region place/move
     public void Placed()
     {
+        if (OnPlaced != null) OnPlaced();
+
         ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
     }
 
     public void Moved()
     {
+        if (OnMoved != null) OnMoved();
+
         ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
     }
     #endregion
@@ -130,8 +140,6 @@ public class bigChecklistManager : MonoBehaviour {
     {
         GameObject goTask = Instantiate(TaskPrefab, taskParent.transform);
         goTask.transform.FindChild("Number").FindChild("Text").GetComponent<Text>().text = (TaskIndex + 1).ToString();
-        //goTask.transform.FindChild("Task").FindChild("instruction").GetComponent<Text>().text = TaskManager.TaskIndex < CurrentCard.tasks.Length - 1 ? CurrentCard.tasks[TaskManager.TaskIndex + 1].instruction : string.Empty;
-
 
         goTask.name = "Task" + TaskIndex;
         goTask.transform.localScale = Vector3.one;
@@ -168,16 +176,11 @@ public class bigChecklistManager : MonoBehaviour {
     public void ChangeColor(GameObject goTask, TASK_STYLE tStyle)
     {
         ChangeColor(goTask, tStyle, TaskManager.TaskIndex);
-
-        //gameobject.transform.FindChild("Toggle").FindChild("Background").FindChild("Checkmark").GetComponent<Image>().color = textColor;
-        //gameobject.transform.FindChild("Toggle").FindChild("Label").GetComponent<Text>().color = textColor;
     }
 
     private void MarkTask(GameObject goTask, bool bIsChecked)
     {
-
         goTask.transform.FindChild("Task").FindChild("ValidationIcon").gameObject.GetComponent<Image>().sprite = validated;
-        //goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = bIsChecked;
     }
     #endregion
 
@@ -210,7 +213,7 @@ public class bigChecklistManager : MonoBehaviour {
         if (TaskManager.TaskIndex < CurrentCard.tasks.Length)
         {
             taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
-            StartCoroutine(NextAnimation());
+            StartCoroutine(NextAnimation(false));
             StartCoroutine(playCheckSound());
         }
     }
@@ -218,17 +221,28 @@ public class bigChecklistManager : MonoBehaviour {
     private IEnumerator CheckAnimation()
     {
         MarkTask(allTasks[TaskManager.TaskIndex], true);
+        TaskManager.nextTask();
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(NextAnimation());
+        StartCoroutine(NextAnimation(true));
     }
 
-    private IEnumerator NextAnimation()
+    /*
+     * NextAnimation get a boolean variable - isChecked
+     * 
+     * if isChecked is true, NextAnimation was called from CheckAnimation, then NextAnimation dosen't in charge
+     *  of notifying TaskManager of changing tasks.
+     * 
+     * 
+     */
+    private IEnumerator NextAnimation(bool isChecked)
     {
         // Change tasks colors
         ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
-        bool isSameCard = TaskManager.nextTask();
+
+        if (!isChecked) TaskManager.nextTask();
+
         // Select next task, if card is over, switch cards
-		if(isSameCard)
+		if(TaskManager.TaskIndex > 0)
         {
             ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
 
