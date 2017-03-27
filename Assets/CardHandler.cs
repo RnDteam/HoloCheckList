@@ -16,6 +16,7 @@ public class CardHandler : MonoBehaviour {
             displayedCards[nCardIndex] = Instantiate(cardPrefab, parent.transform, true);
             displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position;
             displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
+            displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = TaskManager.nCardsNumber - nCardIndex - 1;
         }
 
         TaskManager.OnCardChanged += nextCard;
