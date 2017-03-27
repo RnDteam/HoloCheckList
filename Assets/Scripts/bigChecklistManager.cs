@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class bigChecklistManager : MonoBehaviour {
@@ -21,6 +22,7 @@ public class bigChecklistManager : MonoBehaviour {
 
     public Sprite[] validation;
     public Sprite[] info;
+    public Sprite validated;
 
     private List<Card> Cards = new List<Card>();
     public List<Color> Colors = new List<Color>();
@@ -46,6 +48,13 @@ public class bigChecklistManager : MonoBehaviour {
     void Start () {
         distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
         InitChecklist();
+
+        TaskManager.OnEndTasks += OnEndTasks;
+    }
+
+    void OnEndTasks()
+    {
+        SceneManager.LoadScene("end-scene");
     }
     
     private void InitChecklist()
@@ -161,6 +170,8 @@ public class bigChecklistManager : MonoBehaviour {
 
     private void MarkTask(GameObject goTask, bool bIsChecked)
     {
+
+        goTask.transform.FindChild("Task").FindChild("ValidationIcon").gameObject.GetComponent<Image>().sprite = validated;
         //goTask.transform.FindChild("Toggle").GetComponent<Toggle>().isOn = bIsChecked;
     }
     #endregion
