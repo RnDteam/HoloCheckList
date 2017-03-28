@@ -186,6 +186,11 @@ Prefab:
       propertyPath: mParentAnchorPoint
       value: 
       objectReference: {fileID: 1626715348}
+    - target: {fileID: 114493322352454106, guid: a48b36c501e7bd64d92e3b9f3196c6fd,
+        type: 2}
+      propertyPath: mWereBindingFieldsExposed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a48b36c501e7bd64d92e3b9f3196c6fd, type: 2}
   m_IsPrefabParent: 0
@@ -565,6 +570,11 @@ Prefab:
     - target: {fileID: 1304775916862490, guid: 525b955dd48c4d24a8fb6af7a4ed662e, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114919637229333980, guid: 525b955dd48c4d24a8fb6af7a4ed662e,
+        type: 2}
+      propertyPath: delayAnimation
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 525b955dd48c4d24a8fb6af7a4ed662e, type: 2}
@@ -2146,28 +2156,15 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - MethodPurpose: Uncheck
+  - MethodPurpose: Undo
     Keywords:
-    - Uncheck
-    - Mark incomplete
-    - beatool
-    Key: 0
+    - Undo
+    Key: 117
     Response:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 862845443}
-          m_MethodName: Uncheck
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_MethodName: Uncheck
+          m_MethodName: Undo
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

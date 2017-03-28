@@ -56,16 +56,47 @@ public class TaskManager : MonoBehaviour {
             OnStartTasks();
     }
 
-    public static void nextTask()
+    public static int nextTask()
+    {
+        return changeTask(true);
+    }
+
+    public static int prevTask()
+    {
+        return changeTask(false);
+    }
+
+    public static int changeTask(bool isNext)
     {
         PreviousTask = CurrentTask;
-        TaskIndex++;
+        
+        if(isNext)
+        {
+            if (TaskIndex >= CurrentCard.tasks.Length - 1) // Goes to next card 
+            {
+                changeCard(isNext);
+            }
+            else
+            {
+                TaskIndex += 1;
+            }
+        } else // previous task
+        {
+            if(TaskIndex == 0 && CardIndex > 0) // Goes to previous card 
+            {
+                changeCard(isNext);
+            } else if(TaskIndex > 0)
+            {
+                TaskIndex -= 1;
+            }
 
-		if (TaskIndex >= CurrentCard.tasks.Length)
-			nextCard();
+            CurrentTask.isAlreadySigned = false;
+        }
 
         if (OnTaskChanged != null)
             OnTaskChanged();
+
+        return TaskIndex;
     }
 
     public static void check()
@@ -73,10 +104,10 @@ public class TaskManager : MonoBehaviour {
         CurrentTask.isAlreadySigned = true;
     }
 
-    public static void nextCard()
+    public static void changeCard(bool isNext)
     {
-        CardIndex++;
-        TaskIndex = 0;
+        CardIndex += isNext ? 1 : -1;
+        TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
 
         if (OnCardChanged != null)
             OnCardChanged();
