@@ -46,6 +46,7 @@ public class bigChecklistManager : MonoBehaviour {
     public Text cardName;
     public VoiceManager voice;
     private GameObject taskParent;
+	public Transform tasksMask;
     private Card CurrentCard;
 	public PlaceableObject placeableObject;
 
@@ -82,7 +83,7 @@ public class bigChecklistManager : MonoBehaviour {
         }
 
         taskParent = new GameObject("TaskParent");
-        taskParent.transform.parent = transform;
+		taskParent.transform.parent = tasksMask;
         taskParent.transform.localPosition = Vector3.zero;
 		taskParent.transform.localScale = Vector3.one;
 
@@ -110,7 +111,7 @@ public class bigChecklistManager : MonoBehaviour {
                 allTasks[TaskIndex].SetActive(true);
             } else
             {
-                allTasks[TaskIndex].SetActive(false);
+                //allTasks[TaskIndex].SetActive(false);
             }
         }
 
@@ -250,7 +251,7 @@ public class bigChecklistManager : MonoBehaviour {
             ChangeColor(allTasks[nTaskIndex], TASK_STYLE.SELECTED, nTaskIndex);
 
             // Change displayed tasks
-            allTasks[nTaskIndex - 1].SetActive(false);
+            //allTasks[nTaskIndex - 1].SetActive(false);
             if (nTaskIndex + numberOfRows - 1 < allTasks.Count) allTasks[nTaskIndex + numberOfRows - 1].SetActive(true);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(ScrollAnimation(true));
@@ -274,7 +275,7 @@ public class bigChecklistManager : MonoBehaviour {
 
         // Change displayed tasks
         allTasks[nTaskIndex].SetActive(true);
-        if (nTaskIndex + numberOfRows < allTasks.Count) allTasks[nTaskIndex + numberOfRows].SetActive(false);
+        //if (nTaskIndex + numberOfRows < allTasks.Count) allTasks[nTaskIndex + numberOfRows].SetActive(false);
     }
 
     private IEnumerator ScrollAnimation(bool isNext)

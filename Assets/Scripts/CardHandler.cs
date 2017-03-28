@@ -15,10 +15,11 @@ public class CardHandler : MonoBehaviour {
         for(int nCardIndex = 0; nCardIndex < CardsNumber; nCardIndex++)
         {
             GameObject parent = nCardIndex == 0 ? gameObject : displayedCards[nCardIndex - 1];
-            displayedCards[nCardIndex] = Instantiate(cardPrefab, parent.transform, true);
-            displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position;
+            displayedCards[nCardIndex] = Instantiate(cardPrefab, transform, true);
+			displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position * (nCardIndex + 1);
             displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
-            displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = CardsNumber - nCardIndex - 1;
+			displayedCards[nCardIndex].transform.SetAsFirstSibling();
+            //displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = CardsNumber - nCardIndex - 1;
         }
 
         TaskManager.OnCardChanged += changeCard;
