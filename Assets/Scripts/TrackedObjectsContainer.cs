@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Vuforia;
 
 public class TrackedObjectsContainer : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class TrackedObjectsContainer : MonoBehaviour {
 	private Dictionary<string, GameObject> trackedObjects = new Dictionary<string, GameObject>();
 
 	private string currentTrackedObjectName = "";
+
+	private bool vuforiaStartCalled = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -35,6 +38,38 @@ public class TrackedObjectsContainer : MonoBehaviour {
         TaskManager.OnTaskChanged -= CheckCurrentTask;
     }
 
+	void StartVuforia()
+	{
+		if (!vuforiaStartCalled)
+		{
+			Debug.Log("StartVuforia");
+			vuforiaStartCalled = true;
+			VuforiaARController.Instance.RegisterVuforiaStartedCallback(LoadDataSet);
+		}
+	}
+
+	void LoadDataSet()
+	{
+		string dataSetName = "HoloC";
+		ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
+		         
+		DataSet dataSet = objectTracker.CreateDataSet();
+		         
+		if (dataSet.Load(dataSetName)) {
+			             
+			objectTracker.Stop();  // stop tracker so that we can add new dataset
+			 
+			if (!objectTracker.ActivateDataSet(dataSet)) {
+				// Note: ImageTracker cannot have more than 100 total targets activated
+				Debug.Log("<color=yellow>Failed to Activate DataSet: " + dataSetName + "</color>");
+			}
+			 
+			if (!objectTracker.Start()) {
+				Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
+			}
+		}
+	}
+
     void CheckCurrentTask()
     {
 		string extraInfoName = "";
@@ -58,6 +93,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 		if (trackedObjects.ContainsKey(currentTrackedObjectName))
 		{
 			trackedObjects[currentTrackedObjectName].SetActive(true);
+			StartVuforia();
 		}
 	}
 
