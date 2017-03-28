@@ -11,7 +11,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 
 	private string currentTrackedObjectName = "";
 
-	private bool vuforiaStartCalled = false;
+	private static bool vuforiaStartCalled = false;
 
 	// Use this for initialization
 	void Awake () {
