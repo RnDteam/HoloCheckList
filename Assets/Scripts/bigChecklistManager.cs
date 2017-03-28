@@ -12,6 +12,7 @@ public class bigChecklistManager : MonoBehaviour {
 
     public static event BigChecklistStateChanged OnPlaced;
     public static event BigChecklistStateChanged OnMoved;
+    public float delayAnimation;
 
     public enum TASK_STYLE
     {
@@ -124,14 +125,14 @@ public class bigChecklistManager : MonoBehaviour {
     {
         if (OnPlaced != null) OnPlaced();
 
-        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
+        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED, TaskManager.TaskIndex);
     }
 
     public void Moved()
     {
         if (OnMoved != null) OnMoved();
 
-        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
+        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED, TaskManager.TaskIndex);
     }
     #endregion
 
@@ -151,10 +152,12 @@ public class bigChecklistManager : MonoBehaviour {
 
         return goTask;
     }
+    #endregion
 
-    private void ChangeColor(GameObject goTask, TASK_STYLE tStyle, int TaskIndex)
+    #region style changes
+    private void ChangeColor(GameObject goTask, TASK_STYLE tStyle, int nTaskIndex)
     {
-        if(CurrentCard != null)
+        if (CurrentCard != null)
         {
             Transform tTask = goTask.transform.FindChild("Task");
             Color backColor = Colors[(int)tStyle];
@@ -164,18 +167,11 @@ public class bigChecklistManager : MonoBehaviour {
 
             goTask.transform.FindChild("Number").GetComponent<Image>().color = backColor;
             tTask.GetComponent<Image>().color = backColor;
-            tTask.FindChild("ValidationIcon").gameObject.SetActive(CurrentCard.tasks[TaskIndex].signedTask);
-            tTask.FindChild("InfoIcon").gameObject.SetActive(!string.IsNullOrEmpty(CurrentCard.tasks[TaskIndex].hasExtraInfo));
+            tTask.FindChild("ValidationIcon").gameObject.SetActive(CurrentCard.tasks[nTaskIndex].signedTask);
+            tTask.FindChild("InfoIcon").gameObject.SetActive(!string.IsNullOrEmpty(CurrentCard.tasks[nTaskIndex].hasExtraInfo));
             tTask.FindChild("InfoIcon").gameObject.GetComponent<Image>().sprite = spInfo;
             tTask.FindChild("ValidationIcon").gameObject.GetComponent<Image>().sprite = spValidation;
         }
-    }
-    #endregion
-
-    #region style changes
-    public void ChangeColor(GameObject goTask, TASK_STYLE tStyle)
-    {
-        ChangeColor(goTask, tStyle, TaskManager.TaskIndex);
     }
 
     private void MarkTask(GameObject goTask, bool bIsChecked)
@@ -184,19 +180,21 @@ public class bigChecklistManager : MonoBehaviour {
     }
     #endregion
 
-    #region Check/Next
+    #region Check/Next/Prev
     public void Check()
     {
-		if (!placeableObject.isPlaced || CurrentCard == null) return;
+        int CurTaskIndex = TaskManager.TaskIndex;
 
-        if (TaskManager.TaskIndex < CurrentCard.tasks.Length)
+        if (!placeableObject.isPlaced || CurrentCard == null) return;
+
+        if (CurTaskIndex < CurrentCard.tasks.Length)
         {
             // Checking if task need to be signed
-            if(CurrentCard.tasks[TaskManager.TaskIndex].signedTask)
+            if(CurrentCard.tasks[CurTaskIndex].signedTask)
             {
                 TaskManager.check();
-                taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
-                StartCoroutine(CheckAnimation());
+                taskNumberText.text = string.Format("{0}/{1}", CurTaskIndex + 1, CurrentCard.tasks.Length);
+                StartCoroutine(CheckAnimation(CurTaskIndex));
                 StartCoroutine(playCheckSound());
             }
             else
@@ -213,17 +211,17 @@ public class bigChecklistManager : MonoBehaviour {
         if (TaskManager.TaskIndex < CurrentCard.tasks.Length)
         {
             taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
-            StartCoroutine(NextAnimation(false));
+            StartCoroutine(NextAnimation(false, TaskManager.TaskIndex));
             StartCoroutine(playCheckSound());
         }
     }
 
-    private IEnumerator CheckAnimation()
+    private IEnumerator CheckAnimation(int nTaskIndex)
     {
-        MarkTask(allTasks[TaskManager.TaskIndex], true);
-        TaskManager.nextTask();
+        MarkTask(allTasks[nTaskIndex], true);
+        nTaskIndex = TaskManager.nextTask();
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(NextAnimation(true));
+        StartCoroutine(NextAnimation(true, nTaskIndex));
     }
 
     /*
@@ -234,23 +232,23 @@ public class bigChecklistManager : MonoBehaviour {
      * 
      * 
      */
-    private IEnumerator NextAnimation(bool isChecked)
+    private IEnumerator NextAnimation(bool isChecked, int nTaskIndex)
     {
         // Change tasks colors
-        ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.DESELECTED);
-
-        if (!isChecked) TaskManager.nextTask();
+        ChangeColor(allTasks[nTaskIndex], TASK_STYLE.DESELECTED, nTaskIndex);
+        
+        if (!isChecked) nTaskIndex = TaskManager.nextTask();
 
         // Select next task, if card is over, switch cards
-		if(TaskManager.TaskIndex > 0)
+		if(nTaskIndex > 0)
         {
-            ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED);
+            ChangeColor(allTasks[nTaskIndex], TASK_STYLE.SELECTED, nTaskIndex);
 
             // Change displayed tasks
-            allTasks[TaskManager.TaskIndex - 1].SetActive(false);
-            if (TaskManager.TaskIndex + numberOfRows - 1 < allTasks.Count) allTasks[TaskManager.TaskIndex + numberOfRows - 1].SetActive(true);
+            allTasks[nTaskIndex - 1].SetActive(false);
+            if (nTaskIndex + numberOfRows - 1 < allTasks.Count) allTasks[nTaskIndex + numberOfRows - 1].SetActive(true);
             yield return new WaitForSeconds(0.1f);
-            StartCoroutine(ScrollAnimation());
+            StartCoroutine(ScrollAnimation(true));
         }
         else
         {
@@ -258,27 +256,48 @@ public class bigChecklistManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator ScrollAnimation()
+    private IEnumerator PrevAnimation(int nTaskIndex)
+    {
+        StartCoroutine(ScrollAnimation(false));
+        yield return new WaitForSeconds(1f);
+
+        taskNumberText.text = string.Format("{0}/{1}", nTaskIndex + 1, CurrentCard.tasks.Length);
+
+        // Change tasks colors
+        ChangeColor(allTasks[nTaskIndex + 1], TASK_STYLE.DESELECTED, nTaskIndex + 1);
+        ChangeColor(allTasks[nTaskIndex], TASK_STYLE.SELECTED, nTaskIndex);
+
+        // Change displayed tasks
+        allTasks[nTaskIndex].SetActive(true);
+        if (nTaskIndex + numberOfRows < allTasks.Count) allTasks[nTaskIndex + numberOfRows].SetActive(false);
+    }
+
+    private IEnumerator ScrollAnimation(bool isNext)
     {
         for (int i = 0; i < distanceBetweenTasks; i++)
         {
-			taskParent.transform.localPosition += new Vector3(0, 1, 0);
-            yield return new WaitForSeconds(0.05f);
+			taskParent.transform.localPosition += new Vector3(0, isNext ? 1 : -1, 0);
+            yield return new WaitForSeconds(delayAnimation);
         }
     }
 
-    //public void Uncheck()
-    //{
-    //    if(0 < TaskManager.TaskIndex)
-    //    { 
-    //        TaskManager.TaskIndex--;
-    //        MarkTask(allTasks[TaskManager.TaskIndex], false);
-    //        StartCoroutine(playCheckSound());
-    //        taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, CurrentCard.tasks.Length);
-    //    }
-    //}
+    public void Undo()
+    {
+        if (0 < TaskManager.TaskIndex)
+        {
+            int nTaskIdnex = TaskManager.prevTask();
+            MarkTask(allTasks[nTaskIdnex], false);
+
+            StartCoroutine(PrevAnimation(nTaskIdnex));
+        }
+        else if(TaskManager.CardIndex > 0)
+        {
+            TaskManager.prevTask();
+            InitChecklist();
+        }
+    }
     #endregion
-    
+
     #region Sound
     IEnumerator playCheckSound()
     {

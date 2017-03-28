@@ -21,19 +21,20 @@ public class CardHandler : MonoBehaviour {
             displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = CardsNumber - nCardIndex - 1;
         }
 
-        TaskManager.OnCardChanged += nextCard;
+        TaskManager.OnCardChanged += changeCard;
 	}
 	
-    private void nextCard()
+    private void changeCard()
     {
-        if (TaskManager.CardIndex < CardsNumber)
+        Debug.Log("Curr CardIndex: " + TaskManager.CardIndex);
+        for (int nCardIndex = 0; nCardIndex < TaskManager.CardIndex; nCardIndex++)
         {
-            displayedCards[CardsNumber - TaskManager.CardIndex].SetActive(false);
+            displayedCards[nCardIndex].SetActive(TaskManager.CardIndex >= nCardIndex);
         }
     }
 
     private void OnDestroy()
     {
-        TaskManager.OnCardChanged -= nextCard;
+        TaskManager.OnCardChanged -= changeCard;
     }
 }
