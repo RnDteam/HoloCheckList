@@ -151,8 +151,8 @@ public class bigChecklistManager : MonoBehaviour {
         goTask.transform.localScale = Vector3.one;
         ChangeColor(goTask, tStyle, TaskIndex);
 
-        goTask.transform.localPosition = new Vector3(0, -TaskIndex * distanceBetweenTasks, 0);
-        goTask.transform.localRotation = Quaternion.identity;
+        goTask.transform.localPosition = new Vector3(0, -TaskIndex * distanceBetweenTasks * (float) Math.Cos(gameObject.transform.rotation.eulerAngles.x * Math.PI/180), -TaskIndex * distanceBetweenTasks * (float)Math.Sin(gameObject.transform.rotation.eulerAngles.x * Math.PI / 180));
+        goTask.transform.rotation = gameObject.transform.rotation;
         goTask.AddComponent<InteractableTask>();
 
         return goTask;
