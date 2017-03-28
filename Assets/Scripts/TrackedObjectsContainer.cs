@@ -12,8 +12,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 	private string currentTrackedObjectName = "";
 
 	private static bool vuforiaStartCalled = false;
-
-	// Use this for initialization
+    
 	void Awake () {
 		Instance = this;
 		foreach(Transform trackedObject in transform)
@@ -87,8 +86,22 @@ public class TrackedObjectsContainer : MonoBehaviour {
 			trackedObject.Value.SetActive(false);
 		}
 	}
+    private bool isToShowCurrentObject = false;
 
-	public void EnableCurrentTrackedObject()
+    public void SetActiveOfTrackedObject()
+    {
+        if(isToShowCurrentObject)
+        {
+            EnableCurrentTrackedObject();
+        } else
+        {
+            DisableCurrentTrackedObject();
+        }
+
+        isToShowCurrentObject = !isToShowCurrentObject;
+    }
+
+    public void EnableCurrentTrackedObject()
 	{
 		if (trackedObjects.ContainsKey(currentTrackedObjectName))
 		{
