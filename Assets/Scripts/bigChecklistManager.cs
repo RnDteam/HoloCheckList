@@ -105,13 +105,19 @@ public class bigChecklistManager : MonoBehaviour {
             allTasks.Add(CreateTask(TaskIndex, "Task" + (TaskIndex + 1), TASK_STYLE.DESELECTED));
             allTasks[TaskIndex].transform.FindChild("Task").Find("instruction").GetComponent<Text>().text = CurrentCard.tasks[TaskIndex].instruction;
 
-            if (TaskIndex >= numberOfRows)
+            if(TaskIndex >= TaskManager.TaskIndex && TaskIndex < TaskManager.TaskIndex + numberOfRows)
+            {
+                allTasks[TaskIndex].SetActive(true);
+            } else
             {
                 allTasks[TaskIndex].SetActive(false);
             }
         }
 
-        if(TaskManager.CardIndex > 0)
+        taskParent.transform.localPosition += new Vector3(0, distanceBetweenTasks * TaskManager.TaskIndex);
+
+        // not placing in init function only when creating the tasks list at the first time
+        if(TaskManager.CardIndex > 0 || TaskManager.TaskIndex > 0)
         {
             Placed();
         } else
@@ -124,7 +130,6 @@ public class bigChecklistManager : MonoBehaviour {
     public void Placed()
     {
         if (OnPlaced != null) OnPlaced();
-
         ChangeColor(allTasks[TaskManager.TaskIndex], TASK_STYLE.SELECTED, TaskManager.TaskIndex);
     }
 

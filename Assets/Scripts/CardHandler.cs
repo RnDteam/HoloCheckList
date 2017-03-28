@@ -26,10 +26,15 @@ public class CardHandler : MonoBehaviour {
 	
     private void changeCard()
     {
-        Debug.Log("Curr CardIndex: " + TaskManager.CardIndex);
-        for (int nCardIndex = 0; nCardIndex < TaskManager.CardIndex; nCardIndex++)
+        for (int nCardIndex = 0; nCardIndex < CardsNumber; nCardIndex++)
         {
-            displayedCards[nCardIndex].SetActive(TaskManager.CardIndex >= nCardIndex);
+            if(nCardIndex < TaskManager.CardIndex)
+            {
+                displayedCards[CardsNumber - nCardIndex - 1].SetActive(false);
+            } else
+            {
+                displayedCards[CardsNumber - nCardIndex - 1].SetActive(true);
+            }
         }
     }
 
