@@ -44,7 +44,7 @@ namespace Academy.HoloToolkit.Unity
 
         private KeywordRecognizer keywordRecognizer;
         private Dictionary<string, UnityEvent> responses;
-        GestureRecognizer nextGest = new GestureRecognizer();
+        GestureRecognizer nextGest;
 
         // Convert the struct array into a dictionary, with the keywords and the keys and the methods as the values.
         // This helps easily link the keyword recognized to the UnityEvent to be invoked.
@@ -68,6 +68,7 @@ namespace Academy.HoloToolkit.Unity
         {
             InitializeResponsesDictionary();
             StartRecognizer();
+            nextGest = new GestureRecognizer();
             nextGest.TappedEvent += (source, tapCount, ray) =>
             {
                 foreach (MyBetterKeywordAndResponse mykeywordAndResopnse in myKeywordsAndResponses)
@@ -76,6 +77,7 @@ namespace Academy.HoloToolkit.Unity
                         mykeywordAndResopnse.Response.Invoke();
                 }
             };
+            nextGest.StartCapturingGestures();
 
         }
 
