@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VR.WSA.Input;
 using UnityEngine.Windows.Speech;
 
 namespace Academy.HoloToolkit.Unity
@@ -43,6 +44,7 @@ namespace Academy.HoloToolkit.Unity
 
         private KeywordRecognizer keywordRecognizer;
         private Dictionary<string, UnityEvent> responses;
+        GestureRecognizer nextGest = new GestureRecognizer();
 
         // Convert the struct array into a dictionary, with the keywords and the keys and the methods as the values.
         // This helps easily link the keyword recognized to the UnityEvent to be invoked.
@@ -66,10 +68,19 @@ namespace Academy.HoloToolkit.Unity
         {
             InitializeResponsesDictionary();
             StartRecognizer();
+            nextGest.TappedEvent += (source, tapCount, ray) =>
+            {
+                foreach (MyBetterKeywordAndResponse mykeywordAndResopnse in myKeywordsAndResponses)
+                {
+                    if (mykeywordAndResopnse.Keywords.Contains("Next"))
+                        mykeywordAndResopnse.Response.Invoke();
+                }
+            };
+
         }
 
-		#if UNITY_EDITOR
-		void Update()
+#if UNITY_EDITOR
+        void Update()
 		{
 			foreach (MyBetterKeywordAndResponse mykeywordAndResopnse in myKeywordsAndResponses)
 			{
