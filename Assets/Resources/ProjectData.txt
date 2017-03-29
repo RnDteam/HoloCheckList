@@ -13,7 +13,8 @@
 				{
 					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "Assets\\Resources\\yomVeodYomiim.wav"
 				},
 				{
 					"instruction": "וודא בדיקה שבועית בתוקף",

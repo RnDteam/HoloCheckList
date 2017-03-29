@@ -6,6 +6,8 @@ public delegate void TaskChange();
 
 public class TaskManager : MonoBehaviour {
 
+    public static TaskManager instance;
+
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
     public static event TaskChange OnEndTasks;
@@ -33,6 +35,7 @@ public class TaskManager : MonoBehaviour {
 
     void Awake () {
         InitTaskManager();
+        instance = this;
     }
 
     private static void InitTaskManager()
@@ -90,6 +93,11 @@ public class TaskManager : MonoBehaviour {
                 TaskIndex -= 1;
             }
 
+            if (CurrentTask.file != null)
+            {
+                instance.StartCoroutine("PlayAudio");
+            }
+
             CurrentTask.isAlreadySigned = false;
         }
 
@@ -97,6 +105,15 @@ public class TaskManager : MonoBehaviour {
             OnTaskChanged();
 
         return TaskIndex;
+    }
+
+    public IEnumerator PlayAudio()
+    {
+        var www = new WWW("file://" + CurrentTask.file);
+        AudioClip ac = www.audioClip;
+        while (!ac.isReadyToPlay)
+            yield return www;
+        AudioSource.PlayClipAtPoint(ac, Vector3.zero);
     }
 
     public static void check()

@@ -31,6 +31,7 @@ public class Task
     public string instruction;
     public string hasExtraInfo;
     public bool signedTask;
+    public string file;
 
     [NonSerialized]
     public bool isAlreadySigned = false;
