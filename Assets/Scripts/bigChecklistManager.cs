@@ -257,7 +257,7 @@ public class bigChecklistManager : MonoBehaviour {
 				displayedCards[TaskManager.CardIndex].MarkTask(CurTaskIndex, true);
                 //taskNumberText.text = string.Format("{0}/{1}", CurTaskIndex + 1, CurrentCard.tasks.Length);
                 //StartCoroutine(CheckAnimation(CurTaskIndex));
-                StartCoroutine(playCheckSound());
+				Next();
             }
             else
             {
