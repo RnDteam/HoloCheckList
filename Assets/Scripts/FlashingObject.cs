@@ -17,11 +17,7 @@ public class FlashingObject : MonoBehaviour {
 
         for (int nFlash = 0; nFlash < FlashesNumber; nFlash++)
         {
-            Debug.Log(nFlash);
-            Debug.Log(FlashesNumber);
-            Debug.Log(renderer.enabled);
             renderer.enabled = !renderer.enabled;
-            Debug.Log(FlashDelay);
             yield return new WaitForSeconds(FlashDelay);
         }
     }
