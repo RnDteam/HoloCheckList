@@ -7,6 +7,8 @@ public delegate void TaskChange();
 
 public class TaskManager : MonoBehaviour {
 
+    private static TaskManager instance;
+
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
     public static event TaskChange OnEndTasks;
@@ -19,6 +21,8 @@ public class TaskManager : MonoBehaviour {
     public static int CardIndex { get; private set; }
     public static int TaskIndex { get; private set; }
     public static int TasksToSign { get; private set; }
+    private static AudioSource audSource;
+    private static GameObject asgo;
 
     public static Task CurrentTask
     {
@@ -34,6 +38,10 @@ public class TaskManager : MonoBehaviour {
 
     void Awake () {
         InitTaskManager();
+        asgo = new GameObject();
+        audSource = asgo.AddComponent<AudioSource>();
+        asgo.transform.position = Vector3.zero;
+        instance = this;
     }
 
     private static void InitTaskManager()
@@ -67,6 +75,14 @@ public class TaskManager : MonoBehaviour {
         return changeTask(false);
     }
 
+    public static void SomethingWasPlaced()
+    {
+        if (CurrentTask != null && CurrentTask.file != null)
+        {
+            PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
+        }
+    }
+
     public static int changeTask(bool isNext)
     {
         PreviousTask = CurrentTask;
@@ -75,7 +91,7 @@ public class TaskManager : MonoBehaviour {
         {
             if (TaskIndex >= CurrentCard.tasks.Length - 1) // Goes to next card 
             {
-                changeCard(isNext);
+                instance.StartCoroutine(changeCard(isNext));
             }
             else
             {
@@ -85,19 +101,17 @@ public class TaskManager : MonoBehaviour {
         {
             if(TaskIndex == 0 && CardIndex > 0) // Goes to previous card 
             {
-                changeCard(isNext);
+                instance.StartCoroutine(changeCard(isNext));
             } else if(TaskIndex > 0)
             {
                 TaskIndex -= 1;
             }
 
-            if (CurrentTask.file != null)
-            {
-                AudioClip ac = (AudioClip)Resources.Load("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
-                AudioSource.PlayClipAtPoint(ac, Vector3.zero);
-            }
-
             CurrentTask.isAlreadySigned = false;
+        }
+        if (CurrentTask != null && CurrentTask.file != null)
+        {
+            PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
         }
 
         if (OnTaskChanged != null)
@@ -112,10 +126,22 @@ public class TaskManager : MonoBehaviour {
         CurrentTask.isAlreadySigned = true;
     }
 
-    public static void changeCard(bool isNext)
+    private static float PlaySound(string file)
     {
+        audSource.Stop();
+        audSource.clip = (AudioClip)Resources.Load(file);
+        audSource.Play();
+        return audSource.clip.length;
+    }
+
+    public static IEnumerator changeCard(bool isNext)
+    {
+        if (CurrentCard.finish != null)
+        {
+            yield return new WaitForSeconds(PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish));
+        }
         CardIndex += isNext ? 1 : -1;
-        TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
+        TaskIndex = isNext ? 1 : CurrentCard.tasks.Length - 2;
 
         if (OnCardChanged != null)
             OnCardChanged();
@@ -123,6 +149,22 @@ public class TaskManager : MonoBehaviour {
         if (isFinished())
             if (OnEndTasks != null)
                 OnEndTasks();
+        if (CurrentCard != null && CurrentCard.start != null)
+        {
+            Debug.Log("EndCard");
+            yield return new WaitForSeconds(PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start));
+        }
+        
+        if (CurrentCard != null)
+        {
+            Debug.Log("changeing task to" + TaskIndex);
+            if (TaskIndex == 1)
+                changeTask(false);
+            else
+                changeTask(true);
+            Debug.Log("now task is " + TaskIndex);
+        }
+        yield return null;
     }
 
     public static bool isFinished()

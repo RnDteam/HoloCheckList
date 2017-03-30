@@ -24,6 +24,8 @@ public class Card
     public string name;
     public string folder;
     public Task[] tasks;
+    public string start;
+    public string finish;
 }
 
 [Serializable]

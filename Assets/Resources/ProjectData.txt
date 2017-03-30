@@ -10,82 +10,98 @@
 		{
 			"name": "הכנת המטוס לבדיקה",
 			"folder": "card1",
+			"finish": "finish-card1-2",
 			"tasks": [
 				{
 					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "yomVeodYomiim"
+					"file": "bdok-ishurim"
 				},
 				{
 					"instruction": "וודא בדיקה שבועית בתוקף",
 					"hasExtraInfo": "",
-					"signedTask": true
+					"signedTask": true,
+					"file": "bdika-shvuit"
 				},
 				{
 					"instruction": "וודא הימצאות מטפה כיבוי אש בקרבת המטוס",
 					"hasExtraInfo": "ImageTargetControlPanel",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-metape-kibui-esh"
 				},
 				{
 					"instruction": "וודא חיבור הארקה סטטית למטוס",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-hibur-stati"
 				},
 				{
 					"instruction": "וודא העדר גופים זרים בקרבת המטוס",
 					"hasExtraInfo": "",
-					"signedTask": true
+					"signedTask": true,
+					"file": "vade-gufim-zarim"
 				},
 				{
 					"instruction": "וודא עגינת המטוס כולל תומך זנב",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-agina-matos"
 				},
 				{
-					"instruction": "וודא הימצאות חולץ אדום",
+					"instruction": "וודא הימצאות חולין אדום",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-holin-adom"
 				},
 				{
 					"instruction": "הסר את נועלי הגאים, כיסוי פליטה טכונס אוויר",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "haser-noalei-hageim2"
 				}
 			]
 		},
 		{
 			"name": "בדיקת תא טייס",
+			"folder": "card2",
+			"start": "start-card2-2",
 			"tasks": [
 				{
 					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
 					"hasExtraInfo": "ImageTargetControlPanel",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-mafsekim"
 				},
 				{
 					"instruction": "וודא כיסוי מפסקי הפעלה כיבוי אש מנוע מאובטחים באמצעות חוט קריעה",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-kisui-mafsekim"
 				},
 				{
 					"instruction": "וודא שמנתקי המעגל נמצאים במצב לחוץ בפנים",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "vade-menatkei-magal"
 				},
 				{
 					"instruction": "הפעל בלם חניה",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "hafel-balam-hanaya2"
 				},
 				{
 					"instruction": "הכנס מתח פנימי למטוס וודא מתח מצבר לא נמוך מ24 וולט",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "hakhnes-metah-pnimi2"
 				},
 				{
 					"instruction": "הורד את המדפים למצב %100 תוך נקיטת אמצעי הזהירות",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "hored-madafim"
 				}
 			]
 		},
