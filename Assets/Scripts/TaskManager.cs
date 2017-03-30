@@ -31,6 +31,11 @@ public class TaskManager : MonoBehaviour {
         get { return CardIndex < cards.Length ? cards[CardIndex] : null; }
     }
 
+	public static Card GetCard(int index)
+	{
+		return cards[index];
+	}
+	
     void Awake () {
         InitTaskManager();
     }
