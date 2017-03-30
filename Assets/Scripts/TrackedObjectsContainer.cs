@@ -54,6 +54,8 @@ public class TrackedObjectsContainer : MonoBehaviour {
 		         
 		DataSet dataSet = objectTracker.CreateDataSet();
 		         
+		EnableAllTrackedObjects();
+
 		if (dataSet.Load(dataSetName)) {
 			             
 			objectTracker.Stop();  // stop tracker so that we can add new dataset
@@ -66,6 +68,9 @@ public class TrackedObjectsContainer : MonoBehaviour {
 			if (!objectTracker.Start()) {
 				Debug.Log("<color=yellow>Tracker Failed to Start.</color>");
 			}
+
+			DisableAllTrackedObjects();
+			EnableCurrentTrackedObject();
 		}
 	}
 
@@ -86,6 +91,16 @@ public class TrackedObjectsContainer : MonoBehaviour {
 			trackedObject.Value.SetActive(false);
 		}
 	}
+
+	public void EnableAllTrackedObjects()
+	{
+		foreach (var trackedObject in trackedObjects)
+		{
+			trackedObject.Value.SetActive(true);
+		}
+	}
+
+
     private bool isToShowCurrentObject = false;
 
     public void SetActiveOfTrackedObject()
