@@ -12,42 +12,9 @@ public class bigChecklistManager : MonoBehaviour {
 
     public static event BigChecklistStateChanged OnPlaced;
     public static event BigChecklistStateChanged OnMoved;
-    public float delayAnimation;
 
-    public enum TASK_STYLE
-    {
-        DESELECTED,
-        SELECTED
-    }
-
-    private struct Task
-    {
-        public string strText;
-        public bool bIsChecked;
-    }
-
-    public Sprite[] validation;
-    public Sprite[] info;
-    public Sprite validated;
-
-    private List<Card> Cards = new List<Card>();
-    public List<Color> Colors = new List<Color>();
-    public List<Color> TextColors = new List<Color>();
-    public GameObject TaskPrefab;
-    private float distanceBetweenTasks;
-    private Vector3 position = Vector3.zero;
-    public int numberOfRows;
-    //public bool AutomaticMode = false;
-
-    private List<GameObject> allTasks;
-    private List<Task> lstTasks;
     private bool lastTaskComplete;
-    public Text taskNumberText;
-    public Text cardName;
     public VoiceManager voice;
-    private GameObject taskParent;
-	public Transform tasksMask;
-    private Card CurrentCard;
 	public PlaceableObject placeableObject;
 
 	public TasksCard cardPrefab;
@@ -272,7 +239,6 @@ public class bigChecklistManager : MonoBehaviour {
 
 		if (TaskManager.TaskIndex < TaskManager.CurrentCard.tasks.Length)
         {
-			taskNumberText.text = string.Format("{0}/{1}", TaskManager.TaskIndex + 1, TaskManager.CurrentCard.tasks.Length);
             /*StartCoroutine(NextAnimation(false, TaskManager.TaskIndex));*/
 			TaskManager.nextTask();
             StartCoroutine(playCheckSound());
