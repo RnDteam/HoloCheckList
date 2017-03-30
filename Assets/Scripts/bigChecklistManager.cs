@@ -277,6 +277,7 @@ public class bigChecklistManager : MonoBehaviour {
         
         if (!isChecked) nTaskIndex = TaskManager.nextTask();
 
+        Debug.Log("In bigchecklist " + nTaskIndex);
         // Select next task, if card is over, switch cards
 		if(nTaskIndex > 0)
         {

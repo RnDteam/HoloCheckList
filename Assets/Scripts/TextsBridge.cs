@@ -22,7 +22,10 @@ public class Header
 public class Card
 {
     public string name;
+    public string folder;
     public Task[] tasks;
+    public string start;
+    public string finish;
 }
 
 [Serializable]
@@ -31,6 +34,7 @@ public class Task
     public string instruction;
     public string hasExtraInfo;
     public bool signedTask;
+    public string file;
 
     [NonSerialized]
     public bool isAlreadySigned = false;

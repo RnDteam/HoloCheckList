@@ -11,7 +11,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 
 	private string currentTrackedObjectName = "";
 
-	private static bool vuforiaStartCalled = false;
+	private bool vuforiaStartCalled = false;
     
 	void Awake () {
 		Instance = this;
@@ -41,7 +41,6 @@ public class TrackedObjectsContainer : MonoBehaviour {
 	{
 		if (!vuforiaStartCalled)
 		{
-			Debug.Log("StartVuforia");
 			vuforiaStartCalled = true;
 			VuforiaARController.Instance.RegisterVuforiaStartedCallback(LoadDataSet);
 		}
@@ -49,6 +48,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 
 	void LoadDataSet()
 	{
+		VuforiaARController.Instance.UnregisterVuforiaStartedCallback(LoadDataSet);
 		string dataSetName = "HoloC";
 		ObjectTracker objectTracker = TrackerManager.Instance.GetTracker<ObjectTracker>();
 		         

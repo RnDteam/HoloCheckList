@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public delegate void TaskChange();
 
 public class TaskManager : MonoBehaviour {
+
+    private static TaskManager instance;
 
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
@@ -18,6 +21,8 @@ public class TaskManager : MonoBehaviour {
     public static int CardIndex { get; private set; }
     public static int TaskIndex { get; private set; }
     public static int TasksToSign { get; private set; }
+    private static AudioSource audSource;
+    private static GameObject asgo;
 
     public static Task CurrentTask
     {
@@ -38,6 +43,10 @@ public class TaskManager : MonoBehaviour {
 	
     void Awake () {
         InitTaskManager();
+        asgo = new GameObject();
+        audSource = asgo.AddComponent<AudioSource>();
+        asgo.transform.position = Vector3.zero;
+        instance = this;
     }
 
     private static void InitTaskManager()
@@ -71,6 +80,14 @@ public class TaskManager : MonoBehaviour {
         return changeTask(false);
     }
 
+    public static void SomethingWasPlaced()
+    {
+        if (CurrentTask != null && CurrentTask.file != null)
+        {
+            PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
+        }
+    }
+
     public static int changeTask(bool isNext)
     {
         PreviousTask = CurrentTask;
@@ -97,6 +114,10 @@ public class TaskManager : MonoBehaviour {
 
             CurrentTask.isAlreadySigned = false;
         }
+        if (CurrentTask != null && CurrentTask.file != null)
+        {
+            PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
+        }
 
         if (OnTaskChanged != null)
             OnTaskChanged();
@@ -104,15 +125,33 @@ public class TaskManager : MonoBehaviour {
         return TaskIndex;
     }
 
+
     public static void check()
     {
         CurrentTask.isAlreadySigned = true;
     }
 
+    private static float PlaySound(string file)
+    {
+        audSource.Stop();
+        audSource.clip = (AudioClip)Resources.Load(file);
+        audSource.Play();
+        return audSource.clip.length;
+    }
+
+    public IEnumerator PlayCoroutine(string file)
+    {
+        yield return new WaitForSeconds(PlaySound(file));
+    }
+
     public static void changeCard(bool isNext)
     {
+        if (CurrentCard.finish != null)
+        {
+            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish));
+        }
         CardIndex += isNext ? 1 : -1;
-        TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
+        TaskIndex = isNext ? 1 : CurrentCard.tasks.Length - 2;
 
         if (isFinished())
 		{
@@ -124,6 +163,21 @@ public class TaskManager : MonoBehaviour {
 			if (OnCardChanged != null)
 				OnCardChanged();
 		}
+        if (CurrentCard != null && CurrentCard.start != null)
+        {
+            Debug.Log("EndCard");
+            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start));
+        }
+        
+        if (CurrentCard != null)
+        {
+            Debug.Log("changeing task to" + TaskIndex);
+            if (TaskIndex == 1)
+                changeTask(false);
+            else
+                changeTask(true);
+            Debug.Log("now task is " + TaskIndex);
+        }
     }
 
     public static bool isFinished()
