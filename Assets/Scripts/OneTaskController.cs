@@ -222,4 +222,10 @@ public class OneTaskController : MonoBehaviour {
 	{
 		TaskParent.SetActive(false);
 	}
+
+	public void CancelChangingCard()
+	{
+		isChangingCard = false;
+		StopCoroutine("MoveToNextTaskFromCard");
+	}
 }

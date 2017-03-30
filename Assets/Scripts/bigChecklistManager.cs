@@ -323,6 +323,10 @@ public class bigChecklistManager : MonoBehaviour {
     {
         if (0 < TaskManager.TaskIndex)
         {
+			if (OneTaskController.Instance.IsChangingCard())
+			{
+				OneTaskController.Instance.CancelChangingCard();
+			}
             int nTaskIdnex = TaskManager.prevTask();
             /*MarkTask(allTasks[nTaskIdnex], false);
 
@@ -332,6 +336,10 @@ public class bigChecklistManager : MonoBehaviour {
         }
         else if(TaskManager.CardIndex > 0)
         {
+			if (OneTaskController.Instance.IsChangingCard())
+			{
+				OneTaskController.Instance.CancelChangingCard();
+			}
             TaskManager.prevTask();
             //InitChecklist();
         }
