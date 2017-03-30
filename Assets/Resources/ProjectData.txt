@@ -9,12 +9,13 @@
 	"cards": [
 		{
 			"name": "הכנת המטוס לבדיקה",
+			"folder": "card1",
 			"tasks": [
 				{
 					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "Assets\\Resources\\yomVeodYomiim.wav"
+					"file": "yomVeodYomiim"
 				},
 				{
 					"instruction": "וודא בדיקה שבועית בתוקף",

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public delegate void TaskChange();
@@ -92,7 +93,7 @@ public class TaskManager : MonoBehaviour {
 
             if (CurrentTask.file != null)
             {
-                AudioClip ac = (AudioClip)Resources.Load("yomVeodYomiim");
+                AudioClip ac = (AudioClip)Resources.Load("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
                 AudioSource.PlayClipAtPoint(ac, Vector3.zero);
             }
 

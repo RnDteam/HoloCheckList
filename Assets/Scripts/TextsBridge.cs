@@ -22,6 +22,7 @@ public class Header
 public class Card
 {
     public string name;
+    public string folder;
     public Task[] tasks;
 }
 
