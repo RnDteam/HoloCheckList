@@ -88,6 +88,26 @@
 			]
 		},
 		{
+			"name": "בית כן נסע וכן נסע שמאל",
+			"tasks": [
+				{
+					"instruction": "בדוק את יחידת הבלם להעדר נזילות",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "בדוק משכך להעדר נזילות",
+					"hasExtraInfo": "",
+					"signedTask": false
+				},
+				{
+					"instruction": "בדוק גובה משכך 4.8 אינץ' - 8.9 אינץ'",
+					"hasExtraInfo": "ImageTargetWheel",
+					"signedTask": false
+				}
+			]
+		},
+		{
 			"name": "סיום בדיקה",
 			"tasks": [
 				{
