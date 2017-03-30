@@ -26,7 +26,7 @@
 				},
 				{
 					"instruction": "וודא הימצאות מטפה כיבוי אש בקרבת המטוס",
-					"hasExtraInfo": "ImageTargetControlPanel",
+					"hasExtraInfo": "",
 					"signedTask": false,
 					"file": "vade-metape-kibui-esh"
 				},
