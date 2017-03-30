@@ -218,7 +218,7 @@ MonoBehaviour:
   InfoIcon: {fileID: 114683437675734950}
   ValidationIcon: {fileID: 114738589243152510}
   Validated: {fileID: 21300000, guid: 5284d9f88dd1a62409e806fe59fedd5f, type: 3}
-  NotValidated: {fileID: 21300000, guid: 5fa741ebb069d254b809d6f62fd1af68, type: 3}
+  NotValidated: {fileID: 21300000, guid: bb7fe5fd745a66548aec35aa92a8250e, type: 3}
 --- !u!114 &114119541345281090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,6 +318,7 @@ MonoBehaviour:
   outStartPos: {x: 0, y: 0, z: 0}
   outEndPos: {x: 1000, y: 0, z: 0}
   enterSpeed: 1
+  delay: 1
 --- !u!114 &114415025612245878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,7 +453,7 @@ MonoBehaviour:
   InfoIcon: {fileID: 114799676636391504}
   ValidationIcon: {fileID: 114887034133450610}
   Validated: {fileID: 21300000, guid: 5284d9f88dd1a62409e806fe59fedd5f, type: 3}
-  NotValidated: {fileID: 21300000, guid: 5fa741ebb069d254b809d6f62fd1af68, type: 3}
+  NotValidated: {fileID: 21300000, guid: bb7fe5fd745a66548aec35aa92a8250e, type: 3}
 --- !u!114 &114738589243152510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -472,7 +473,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5fa741ebb069d254b809d6f62fd1af68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bb7fe5fd745a66548aec35aa92a8250e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -595,7 +596,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 5fa741ebb069d254b809d6f62fd1af68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bb7fe5fd745a66548aec35aa92a8250e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -674,7 +675,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 0.5
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

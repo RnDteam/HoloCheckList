@@ -23,6 +23,10 @@ public class OneTaskController : MonoBehaviour {
     public float delay;
     private float curDelay;
 
+	private bool isChangingCard = false;
+
+	private int currentCardIndex = 0;
+
 	void OnEnable()
 	{
         bigChecklistManager.OnPlaced += StartTasks;
@@ -30,6 +34,7 @@ public class OneTaskController : MonoBehaviour {
         TaskManager.OnStartTasks += StartTasks;
 		TaskManager.OnEndTasks += EndTasks;
 		TaskManager.OnTaskChanged += ChangeTask;
+		TaskManager.OnCardChanged += ChangeCard;
 	}
 
 	void OnDisable()
@@ -39,6 +44,7 @@ public class OneTaskController : MonoBehaviour {
         TaskManager.OnStartTasks -= StartTasks;
 		TaskManager.OnEndTasks -= EndTasks;
 		TaskManager.OnTaskChanged -= ChangeTask;
+		TaskManager.OnCardChanged -= ChangeCard;
 	}
 
 	void StartTasks()
@@ -52,8 +58,22 @@ public class OneTaskController : MonoBehaviour {
 		HideTask();
 	}
 
+	void ChangeCard()
+	{
+		if (TaskManager.CardIndex > currentCardIndex)
+		{
+			isChangingCard = true;
+			SetCard();
+		}
+		currentCardIndex = TaskManager.CardIndex;
+	}
+
 	void ChangeTask()
 	{
+		if (isChangingCard)
+		{
+			return;
+		}
 		if (TaskManager.CurrentTask == null)
 		{
 			HideTask();
@@ -62,6 +82,49 @@ public class OneTaskController : MonoBehaviour {
 		{
 			SetTask();
 		}
+	}
+
+	IEnumerator MoveToNextTaskFromCard()
+	{
+		yield return new WaitForSeconds(2f);
+		isChangingCard = false;
+		ChangeTask();
+	}
+
+	void SetCard()
+	{
+		if (!TaskParent.activeSelf)
+		{
+			TaskStrips[0].gameObject.SetActive(true);
+			TaskStrips[1].gameObject.SetActive(false);
+		}
+		else
+		{
+			TaskStrip temp = TaskStrips[0];
+			TaskStrips[0] = TaskStrips[1];
+			TaskStrips[1] = temp;
+			temp = null;
+		}
+		TaskStripsRectTransform[0] = TaskStrips[0].GetComponent<RectTransform>();
+		TaskStripsRectTransform[1] = TaskStrips[1].GetComponent<RectTransform>();
+
+		Card cardNew = TaskManager.CurrentCard;
+		// TODO: get the old card from a merge
+		Card cardOld = TaskManager.CurrentCard;
+		string firstPart = TextsBridge.ReverseHebrewName("סיימת שלב ");
+		string endPart = TextsBridge.ReverseHebrewName(", עבור לשלב ");
+		TaskStrips[0].SetTaskText(cardNew.name + endPart + cardOld.name + firstPart);
+		TaskStrips[0].ShowInfoIcon(false);
+		TaskStrips[0].ShowValidationIcon(false);
+		TaskStrips[0].SetValidated(false);
+		TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
+
+		updateSize = true;
+
+		animate = true;
+		index = 0;
+		rate = 1.0f/enterSpeed;
+		curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
 	}
 
 	void SetTask()
@@ -123,6 +186,10 @@ public class OneTaskController : MonoBehaviour {
                     TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
                     TaskStripsRectTransform[1].anchoredPosition3D = outEndPos;
                     index = 1.0f;
+					if (isChangingCard)
+					{
+						StartCoroutine(MoveToNextTaskFromCard());
+					}
                 }
             } else
             {
