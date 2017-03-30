@@ -107,11 +107,13 @@
 		},
 		{
 			"name": "עוד לא",
+			"folder": "card3",
 			"tasks": [
 				{
 					"instruction": "עוד לא",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": false,
+					"file": "yomVeodYomiim"
 				},
 				{
 					"instruction": "עוד לא",
