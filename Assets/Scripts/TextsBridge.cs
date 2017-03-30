@@ -84,7 +84,7 @@ public class TextsBridge
         return new string(charArray.Reverse().ToArray());
     }
 
-    static string ReverseHebrewName(string s)
+    public static string ReverseHebrewName(string s)
     {
         if (s.Any(c => IsHebrew(c)))
         {
