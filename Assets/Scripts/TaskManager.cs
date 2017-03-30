@@ -91,7 +91,7 @@ public class TaskManager : MonoBehaviour {
         {
             if (TaskIndex >= CurrentCard.tasks.Length - 1) // Goes to next card 
             {
-                instance.StartCoroutine(changeCard(isNext));
+                changeCard(isNext);
             }
             else
             {
@@ -101,7 +101,7 @@ public class TaskManager : MonoBehaviour {
         {
             if(TaskIndex == 0 && CardIndex > 0) // Goes to previous card 
             {
-                instance.StartCoroutine(changeCard(isNext));
+                changeCard(isNext);
             } else if(TaskIndex > 0)
             {
                 TaskIndex -= 1;
@@ -134,11 +134,16 @@ public class TaskManager : MonoBehaviour {
         return audSource.clip.length;
     }
 
-    public static IEnumerator changeCard(bool isNext)
+    public IEnumerator PlayCoroutine(string file)
+    {
+        yield return new WaitForSeconds(PlaySound(file));
+    }
+
+    public static void changeCard(bool isNext)
     {
         if (CurrentCard.finish != null)
         {
-            yield return new WaitForSeconds(PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish));
+            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish));
         }
         CardIndex += isNext ? 1 : -1;
         TaskIndex = isNext ? 1 : CurrentCard.tasks.Length - 2;
@@ -152,7 +157,7 @@ public class TaskManager : MonoBehaviour {
         if (CurrentCard != null && CurrentCard.start != null)
         {
             Debug.Log("EndCard");
-            yield return new WaitForSeconds(PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start));
+            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start));
         }
         
         if (CurrentCard != null)
@@ -164,7 +169,6 @@ public class TaskManager : MonoBehaviour {
                 changeTask(true);
             Debug.Log("now task is " + TaskIndex);
         }
-        yield return null;
     }
 
     public static bool isFinished()
