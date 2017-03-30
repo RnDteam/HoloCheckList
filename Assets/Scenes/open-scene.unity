@@ -213,6 +213,36 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114340327521992630, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_Text
+      value: "- \u05DE\u05E1\u05E4\u05E8 \u05DE\u05D8\u05D5\u05E1 324"
+      objectReference: {fileID: 0}
+    - target: {fileID: 224754963533197934, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224633894355909038, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224615705464862412, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224982103923863216, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224549311710153574, guid: d567b200647510f458cb7bf166d934e1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d567b200647510f458cb7bf166d934e1, type: 2}
   m_IsPrefabParent: 0

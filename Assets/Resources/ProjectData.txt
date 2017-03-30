@@ -88,17 +88,17 @@
 			]
 		},
 		{
-			"name": "עוד לא",
+			"name": "סיום בדיקה",
 			"tasks": [
 				{
-					"instruction": "עוד לא",
+					"instruction": "זוכו כלי המטוס בארון הכלים",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": true
 				},
 				{
-					"instruction": "עוד לא",
+					"instruction": "נבדקה כמות דלק ויזואלית על פי מחוון",
 					"hasExtraInfo": "",
-					"signedTask": false
+					"signedTask": true
 				}
 			]
 		}
