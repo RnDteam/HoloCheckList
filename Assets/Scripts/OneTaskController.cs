@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class OneTaskController : MonoBehaviour {
 
+	public static OneTaskController Instance;
+
 	public GameObject TaskParent;
 	public TaskStrip[] TaskStrips;
 	private RectTransform[] TaskStripsRectTransform = new RectTransform[2];
@@ -26,6 +28,16 @@ public class OneTaskController : MonoBehaviour {
 	private bool isChangingCard = false;
 
 	private int currentCardIndex = 0;
+
+	public bool IsChangingCard()
+	{
+		return isChangingCard;
+	}
+
+	void Awake()
+	{
+		Instance = this;
+	}
 
 	void OnEnable()
 	{
@@ -110,7 +122,7 @@ public class OneTaskController : MonoBehaviour {
 
 		Card cardNew = TaskManager.CurrentCard;
 		// TODO: get the old card from a merge
-		Card cardOld = TaskManager.CurrentCard;
+		Card cardOld = TaskManager.GetCard(currentCardIndex);
 		string firstPart = TextsBridge.ReverseHebrewName("סיימת שלב ");
 		string endPart = TextsBridge.ReverseHebrewName(", עבור לשלב ");
 		TaskStrips[0].SetTaskText(cardNew.name + endPart + cardOld.name + firstPart);

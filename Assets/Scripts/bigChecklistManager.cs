@@ -211,6 +211,11 @@ public class bigChecklistManager : MonoBehaviour {
     #region Check/Next/Prev
     public void Check()
     {
+		if (OneTaskController.Instance.IsChangingCard())
+		{
+			return;
+		}
+
         int CurTaskIndex = TaskManager.TaskIndex;
 
 		if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
@@ -235,6 +240,10 @@ public class bigChecklistManager : MonoBehaviour {
 
     public void Next()
     {
+		if (OneTaskController.Instance.IsChangingCard())
+		{
+			return;
+		}
 		if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
 
 		if (TaskManager.TaskIndex < TaskManager.CurrentCard.tasks.Length)
