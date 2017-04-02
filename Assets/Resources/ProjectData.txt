@@ -107,25 +107,25 @@
 		},
 		{
 			"name": "בית כן נסע וכן נסע שמאל",
-			"folder": "card2",
+			"folder": "card3",
 			"tasks": [
 				{
 					"instruction": "בדוק את יחידת הבלם להעדר נזילות",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-blam"
 				},
 				{
 					"instruction": "בדוק משכך להעדר נזילות",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-mishkach-nzilut"
 				},
 				{
 					"instruction": "בדוק גובה משכך 4.8 אינץ' - 8.9 אינץ'",
 					"hasExtraInfo": "ImageTargetWheel",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-gova"
 				}
 			]
 		},

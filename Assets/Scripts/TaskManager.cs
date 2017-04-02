@@ -116,6 +116,7 @@ public class TaskManager : MonoBehaviour {
         }
         if (CurrentTask != null && CurrentTask.file != null)
         {
+            Debug.Log("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
             PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
         }
 
