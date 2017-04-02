@@ -131,19 +131,19 @@
 		},
 		{
 			"name": "סיום בדיקה",
-			"folder": "card2",
+			"folder": "card4",
 			"tasks": [
 				{
 					"instruction": "זוכו כלי המטוס בארון הכלים",
 					"hasExtraInfo": "",
 					"signedTask": true,
-					"file": "vade-mafsekim"
+					"file": "dochu"
 				},
 				{
 					"instruction": "נבדקה כמות דלק ויזואלית על פי מחוון",
 					"hasExtraInfo": "",
 					"signedTask": true,
-					"file": "vade-mafsekim"
+					"file": "bdok-delek"
 				}
 			]
 		}
