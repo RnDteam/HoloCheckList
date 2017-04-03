@@ -49,7 +49,7 @@
 					"file": "vade-agina-matos"
 				},
 				{
-					"instruction": "וודא הימצאות חולין אדום",
+					"instruction": "וודא הימצאות חולץ אדום",
 					"hasExtraInfo": "",
 					"signedTask": false,
 					"file": "vade-holin-adom"
@@ -106,7 +106,7 @@
 			]
 		},
 		{
-			"name": "בית כן נסע וכן נסע שמאל",
+			"name": "בית כן נסע",
 			"folder": "card2",
 			"tasks": [
 				{
