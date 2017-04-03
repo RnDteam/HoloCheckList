@@ -20,5 +20,7 @@ public class FlashingObject : MonoBehaviour {
             renderer.enabled = !renderer.enabled;
             yield return new WaitForSeconds(FlashDelay);
         }
+
+        renderer.enabled = false;
     }
 }

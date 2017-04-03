@@ -55,7 +55,7 @@
 					"file": "choletz"
 				},
 				{
-					"instruction": "הסר את נועלי הגאים, כיסוי פליטה טכונס אוויר",
+					"instruction": "הסר את נועלי הגאים, כיסוי פליטה וכונס אוויר",
 					"hasExtraInfo": "",
 					"signedTask": false,
 					"file": "haser-noalei-hageim2"
@@ -107,7 +107,7 @@
 			]
 		},
 		{
-			"name": "בית כן נסע וכן נסע שמאל",
+			"name": "בית כן נסע",
 			"folder": "card3",
 			"start": "start-kan-nesa",
 			"finish": "finish-kan-nesa",
