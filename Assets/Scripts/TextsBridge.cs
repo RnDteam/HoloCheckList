@@ -42,14 +42,23 @@ public class Task
 
 public class TextsBridge
 {
+
 	private static Dictionary<string, string> headers = new Dictionary<string, string>();
     private static Card[] cards;
+    
+    // json file name to load
+    public static string TASK_FILE_NAME_TO_LOAD = "TasksData";
 
-	private static bool loadedTexts = false;
+    private static bool isTasksAreLoaded = false;
+    
+    public static bool IsTasksLoaded()
+    {
+        return isTasksAreLoaded;
+    }
 
-	public static void LoadCards()
+	public static Card[] LoadCards()
 	{
-        TextAsset textFile = Resources.Load<TextAsset>("ProjectData");
+        TextAsset textFile = Resources.Load<TextAsset>(TASK_FILE_NAME_TO_LOAD);
         ProjectData projectData = JsonUtility.FromJson<ProjectData>(textFile.text);
 
         headers = new Dictionary<string, string>();
@@ -79,7 +88,9 @@ public class TextsBridge
             c.name = Reverse(c.name);
         }
 
-        loadedTexts = true;
+        isTasksAreLoaded = true;
+
+        return cards;
     }
 
     static string Reverse(string s)
@@ -123,14 +134,14 @@ public class TextsBridge
 
     public static string GetText(string name)
 	{
-		if (!loadedTexts) LoadCards();
+		if (!isTasksAreLoaded) LoadCards();
 
         return headers.ContainsKey(name) ? headers[name] : string.Empty;
 	}
 
 	public static Card[] GetCards()
 	{
-		if (!loadedTexts) LoadCards();
+		if (!isTasksAreLoaded) LoadCards();
 
 		return cards;
 	}
