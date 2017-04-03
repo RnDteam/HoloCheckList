@@ -66,6 +66,7 @@
 			"name": "בדיקת תא טייס",
 			"folder": "card2",
 			"start": "start-card2-2",
+			"finish": "finish-bdika-te-tayas",
 			"tasks": [
 				{
 					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
@@ -108,6 +109,8 @@
 		{
 			"name": "בית כן נסע וכן נסע שמאל",
 			"folder": "card3",
+			"start": "start-kan-nesa",
+			"finish": "finish-kan-nesa",
 			"tasks": [
 				{
 					"instruction": "בדוק את יחידת הבלם להעדר נזילות",
@@ -132,6 +135,8 @@
 		{
 			"name": "סיום בדיקה",
 			"folder": "card4",
+			"start": "start-siyum-bdika",
+			"finish": "finish-siyum-bdika",
 			"tasks": [
 				{
 					"instruction": "זוכו כלי המטוס בארון הכלים",
