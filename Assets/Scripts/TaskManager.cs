@@ -16,7 +16,7 @@ public class TaskManager : MonoBehaviour {
 
     private static Card[] cards;
     public static Task PreviousTask;
-
+    
     public static int CardsNumber { get; private set; }
     public static int CardIndex { get; private set; }
     public static int TaskIndex { get; private set; }

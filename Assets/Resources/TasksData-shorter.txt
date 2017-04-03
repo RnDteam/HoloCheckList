@@ -1,0 +1,120 @@
+{
+	"headers": [{
+		"name": "שם מטוס",
+		"text": "קוקיה"
+	}, {
+		"name": "מספר זנב",
+		"text": "324"
+	}],
+	"cards": [
+		{
+			"name": "הכנת המטוס לבדיקה",
+			"folder": "card1",
+			"finish": "finish-card1-2",
+			"tasks": [
+				{
+					"instruction": "בדוק אישורים , היתרים ופגי תוקף של המטוס",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "bdok-ishurim"
+				},
+				{
+					"instruction": "וודא בדיקה שבועית בתוקף",
+					"hasExtraInfo": "",
+					"signedTask": true,
+					"file": "bdika-shvuit"
+				},
+				{
+					"instruction": "וודא חיבור הארקה סטטית למטוס",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "vade-hibur-stati"
+				},
+				{
+					"instruction": "וודא העדר גופים זרים בקרבת המטוס",
+					"hasExtraInfo": "",
+					"signedTask": true,
+					"file": "vade-gufim-zarim"
+				},
+				{
+					"instruction": "הסר את נועלי הגאים, כיסוי פליטה וכונס אוויר",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "haser-noalei-hageim2"
+				}
+			]
+		},
+		{
+			"name": "בדיקת תא טייס",
+			"folder": "card2",
+			"start": "start-card2-2",
+			"finish": "finish-bdika-te-tayas",
+			"tasks": [
+				{
+					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
+					"hasExtraInfo": "ImageTargetControlPanel",
+					"signedTask": false,
+					"file": "vade-mafsekim"
+				},
+				{
+					"instruction": "וודא שמנתקי המעגל נמצאים במצב לחוץ בפנים",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "vade-menatkei-magal"
+				},
+				{
+					"instruction": "הפעל בלם חניה",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "hafel-balam-hanaya2"
+				}
+			]
+		},
+		{
+			"name": "בית כן נסע",
+			"folder": "card3",
+			"start": "start-kan-nesa",
+			"finish": "finish-kan-nesa",
+			"tasks": [
+				{
+					"instruction": "בדוק את יחידת הבלם להעדר נזילות",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "bdok-blam"
+				},
+				{
+					"instruction": "בדוק משכך להעדר נזילות",
+					"hasExtraInfo": "",
+					"signedTask": false,
+					"file": "bdok-mishkach-nzilut"
+				},
+				{
+					"instruction": "בדוק גובה משכך 4.8 אינץ' - 8.9 אינץ'",
+					"hasExtraInfo": "ImageTargetWheel",
+					"signedTask": false,
+					"file": "bdok-gova"
+				}
+			]
+		},
+		{
+			"name": "סיום בדיקה",
+			"folder": "card4",
+			"start": "start-siyum-bdika",
+			"finish": "finish-siyum-bdika",
+			"tasks": [
+				{
+					"instruction": "זוכו כלי המטוס בארון הכלים",
+					"hasExtraInfo": "",
+					"signedTask": true,
+					"file": "dochu"
+				},
+				{
+					"instruction": "נבדקה כמות דלק ויזואלית על פי מחוון",
+					"hasExtraInfo": "",
+					"signedTask": true,
+					"file": "bdok-delek"
+				}
+			]
+		}
+	]
+}
