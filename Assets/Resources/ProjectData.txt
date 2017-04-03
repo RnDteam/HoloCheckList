@@ -52,7 +52,7 @@
 					"instruction": "וודא הימצאות חולץ אדום",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-holin-adom"
+					"file": "choletz"
 				},
 				{
 					"instruction": "הסר את נועלי הגאים, כיסוי פליטה וכונס אוויר",
