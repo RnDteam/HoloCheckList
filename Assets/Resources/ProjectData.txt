@@ -66,6 +66,7 @@
 			"name": "בדיקת תא טייס",
 			"folder": "card2",
 			"start": "start-card2-2",
+			"finish": "finish-bdika-te-tayas",
 			"tasks": [
 				{
 					"instruction": "וודא שכל מפסקים במצב 'חדל' OFF למעט המפסקים המסומנים",
@@ -107,43 +108,47 @@
 		},
 		{
 			"name": "בית כן נסע",
-			"folder": "card2",
+			"folder": "card3",
+			"start": "start-kan-nesa",
+			"finish": "finish-kan-nesa",
 			"tasks": [
 				{
 					"instruction": "בדוק את יחידת הבלם להעדר נזילות",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-blam"
 				},
 				{
 					"instruction": "בדוק משכך להעדר נזילות",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-mishkach-nzilut"
 				},
 				{
 					"instruction": "בדוק גובה משכך 4.8 אינץ' - 8.9 אינץ'",
 					"hasExtraInfo": "ImageTargetWheel",
 					"signedTask": false,
-					"file": "vade-mafsekim"
+					"file": "bdok-gova"
 				}
 			]
 		},
 		{
 			"name": "סיום בדיקה",
-			"folder": "card2",
+			"folder": "card4",
+			"start": "start-siyum-bdika",
+			"finish": "finish-siyum-bdika",
 			"tasks": [
 				{
 					"instruction": "זוכו כלי המטוס בארון הכלים",
 					"hasExtraInfo": "",
 					"signedTask": true,
-					"file": "vade-mafsekim"
+					"file": "dochu"
 				},
 				{
 					"instruction": "נבדקה כמות דלק ויזואלית על פי מחוון",
 					"hasExtraInfo": "",
 					"signedTask": true,
-					"file": "vade-mafsekim"
+					"file": "bdok-delek"
 				}
 			]
 		}
