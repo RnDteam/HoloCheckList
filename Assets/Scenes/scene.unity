@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.4964122, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -91,11 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &10013035 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4971127994558170, guid: e1fa5404962ef38429fbd8244c52121d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1986746204}
 --- !u!224 &125917981 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224436257321053476, guid: 715350671d8a66b4aa37e625dba67e02,
@@ -139,7 +134,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2073048334}
-  - {fileID: 10013035}
+  - {fileID: 1076349633}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -769,7 +764,7 @@ Prefab:
     - target: {fileID: 224453004602640300, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 249.79865
+      value: 255.48077
       objectReference: {fileID: 0}
     - target: {fileID: 224453004602640300, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
@@ -779,17 +774,17 @@ Prefab:
     - target: {fileID: 224453004602640300, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 239.5973
+      value: 250.96155
       objectReference: {fileID: 0}
     - target: {fileID: 224453004602640300, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 32.214764
+      value: 31.73077
       objectReference: {fileID: 0}
     - target: {fileID: 224688511490693332, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 389.5973
+      value: 400.96155
       objectReference: {fileID: 0}
     - target: {fileID: 224688511490693332, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
@@ -849,7 +844,7 @@ Prefab:
     - target: {fileID: 224976147498545354, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 249.79865
+      value: 255.48077
       objectReference: {fileID: 0}
     - target: {fileID: 224976147498545354, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
@@ -859,17 +854,17 @@ Prefab:
     - target: {fileID: 224976147498545354, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 239.5973
+      value: 250.96155
       objectReference: {fileID: 0}
     - target: {fileID: 224976147498545354, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 32.214764
+      value: 31.73077
       objectReference: {fileID: 0}
     - target: {fileID: 224494339505501380, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 389.5973
+      value: 400.96155
       objectReference: {fileID: 0}
     - target: {fileID: 224494339505501380, guid: 715350671d8a66b4aa37e625dba67e02,
         type: 2}
@@ -1733,6 +1728,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1462054826220208, guid: 715350671d8a66b4aa37e625dba67e02,
     type: 2}
   m_PrefabInternal: {fileID: 871215668}
+--- !u!224 &1076349633 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224671773917933518, guid: e1fa5404962ef38429fbd8244c52121d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1986746204}
 --- !u!1 &1189927091
 GameObject:
   m_ObjectHideFlags: 0
