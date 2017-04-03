@@ -49,10 +49,10 @@
 					"file": "vade-agina-matos"
 				},
 				{
-					"instruction": "וודא הימצאות חולין אדום",
+					"instruction": "וודא הימצאות חולץ אדום",
 					"hasExtraInfo": "",
 					"signedTask": false,
-					"file": "vade-holin-adom"
+					"file": "choletz"
 				},
 				{
 					"instruction": "הסר את נועלי הגאים, כיסוי פליטה טכונס אוויר",
