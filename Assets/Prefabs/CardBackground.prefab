@@ -229,8 +229,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 921f35388c7704e4bac173d44e9ab8e9, type: 3}
   - {fileID: 21300000, guid: 7643bc28c1253f744a3cb8fd85ee2431, type: 3}
   validated: {fileID: 21300000, guid: 5284d9f88dd1a62409e806fe59fedd5f, type: 3}
-  TasksAnimationSpeed: 1
-  CardsAnimationSpeed: 1
+  TasksAnimationSpeed: 0.5
+  CardsAnimationSpeed: 0.5
 --- !u!114 &114387821353496828
 MonoBehaviour:
   m_ObjectHideFlags: 1

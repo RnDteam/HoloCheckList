@@ -872,11 +872,6 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 56
       objectReference: {fileID: 0}
-    - target: {fileID: 114334779367289510, guid: 715350671d8a66b4aa37e625dba67e02,
-        type: 2}
-      propertyPath: delay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1088867662561764, guid: 715350671d8a66b4aa37e625dba67e02, type: 2}
       propertyPath: m_IsActive
       value: 1
