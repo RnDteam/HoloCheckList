@@ -28,27 +28,27 @@ public class bigChecklistManager : MonoBehaviour {
 
         //TaskManager.OnEndTasks += OnEndTasks;
 
-		CreateCards();
+		
+    }
+
+    public void StartCards()
+    {
+        CreateCards();
     }
 
 	void OnEnable()
 	{
-		TaskManager.OnEndTasks += OnEndTasks;
+		//TaskManager.OnEndTasks += OnEndTasks;
 		TaskManager.OnTaskChanged += OnTaskChanged;
 		TaskManager.OnCardChanged += OnCardChanged;
 	}
 
 	void OnDisable()
 	{
-		TaskManager.OnEndTasks -= OnEndTasks;
+		//TaskManager.OnEndTasks -= OnEndTasks;
 		TaskManager.OnTaskChanged -= OnTaskChanged;
 		TaskManager.OnCardChanged -= OnCardChanged;
 	}
-
-    void OnEndTasks()
-    {
-        SceneManager.LoadScene("end-scene");
-    }
 
 	void OnTaskChanged()
 	{
@@ -211,7 +211,7 @@ public class bigChecklistManager : MonoBehaviour {
     #region Check/Next/Prev
     public void Check()
     {
-		if (OneTaskController.Instance.IsChangingCard())
+		if (OneTaskController.Instance.IsChangingCard() || !gameObject.activeInHierarchy)
 		{
 			return;
 		}
@@ -240,16 +240,22 @@ public class bigChecklistManager : MonoBehaviour {
 
     public void Next()
     {
-		if (OneTaskController.Instance.IsChangingCard())
-		{
-			return;
-		}
-		if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
+#if !TASKS_DEBUG
+        if (OneTaskController.Instance.IsChangingCard())
+        {
+            return;
+        }
+#endif
+            if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
 
-		if (TaskManager.TaskIndex < TaskManager.CurrentCard.tasks.Length)
+        if (TaskManager.TaskIndex < TaskManager.CurrentCard.tasks.Length)
         {
             /*StartCoroutine(NextAnimation(false, TaskManager.TaskIndex));*/
-			TaskManager.nextTask();
+            TaskManager.nextTask();
             StartCoroutine(playCheckSound());
         }
     }

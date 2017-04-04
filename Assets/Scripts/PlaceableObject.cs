@@ -28,9 +28,12 @@ public class PlaceableObject : MonoBehaviour
 
     public void PlaceCanvas()
     {
-        isPlaced = true;
-		gameObject.GetComponentInChildren<bigChecklistManager>().Placed();
-        TaskManager.SomethingWasPlaced();
+        if (gameObject.activeInHierarchy)
+        {
+            isPlaced = true;
+            gameObject.GetComponentInChildren<bigChecklistManager>().Placed();
+            TaskManager.SomethingWasPlaced();
+        }
     }
 
     public void MoveCanvas()

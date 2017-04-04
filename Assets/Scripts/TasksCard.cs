@@ -63,11 +63,6 @@ public class TasksCard : MonoBehaviour {
 	private int prevTask = 0;
 	private bool enableTaskOnAnimationEnd = false;
 
-	void Awake()
-	{
-		distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
-	}
-
 	void Update()
 	{
 		if (animateTasks)
@@ -106,7 +101,9 @@ public class TasksCard : MonoBehaviour {
 
 	public void SetCard(int cardNumber)
 	{
-		CurrentCard = TaskManager.GetCard(cardNumber);
+        distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
+
+        CurrentCard = TaskManager.GetCard(cardNumber);
 		CardNumber = cardNumber;
 		CardName.text = CurrentCard.name;
 		transform.localPosition = BasePosition * (cardNumber+1);
