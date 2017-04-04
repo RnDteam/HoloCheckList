@@ -110,23 +110,24 @@ public class OneTaskController : MonoBehaviour {
 
 	void SetCard()
 	{
-		if (!TaskParent.activeSelf)
+		TaskStrip temp = TaskStrips[0];
+		TaskStrips[0] = TaskStrips[1];
+		TaskStrips[1] = temp;
+		temp = null;
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
 		{
-			TaskStrips[0].gameObject.SetActive(true);
-			TaskStrips[1].gameObject.SetActive(false);
+			TaskStrips[0].transform.parent.gameObject.SetActive(true);
+			TaskStrips[1].transform.parent.gameObject.SetActive(false);
 		}
 		else
 		{
-			TaskStrip temp = TaskStrips[0];
-			TaskStrips[0] = TaskStrips[1];
-			TaskStrips[1] = temp;
-			temp = null;
+			TaskStrips[0].transform.parent.gameObject.SetActive(true);
+			TaskStrips[1].transform.parent.gameObject.SetActive(true);
 		}
 		TaskStripsRectTransform[0] = TaskStrips[0].GetComponent<RectTransform>();
 		TaskStripsRectTransform[1] = TaskStrips[1].GetComponent<RectTransform>();
 
 		Card cardNew = TaskManager.CurrentCard;
-		// TODO: get the old card from a merge
 		Card cardOld = TaskManager.GetCard(currentCardIndex);
 		string firstPart = TextsBridge.ReverseHebrewName("סיימת שלב ");
 		string endPart = TextsBridge.ReverseHebrewName(", עבור לשלב ");
@@ -134,32 +135,46 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].ShowInfoIcon(false);
 		TaskStrips[0].ShowValidationIcon(false);
 		TaskStrips[0].SetValidated(false);
-		TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
+		if (TaskManager.PreviousTask != null)
+		{
+			TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
+		}
 
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		{
+			TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
+			return;
+		}
+
 		animate = true;
 		index = 0;
 		rate = 1.0f/enterSpeed;
-		curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
+		if (TaskManager.PreviousTask != null)
+		{
+			curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
+		}
 
 		timeForNextCard = RecordingsManager.Instance.GetLengthForNextCard();
 	}
 
 	void SetTask()
 	{
-		if (!TaskParent.activeSelf)
+		TaskStrip temp = TaskStrips[0];
+		TaskStrips[0] = TaskStrips[1];
+		TaskStrips[1] = temp;
+		temp = null;
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
 		{
-			TaskStrips[0].gameObject.SetActive(true);
-			TaskStrips[1].gameObject.SetActive(false);
+			TaskStrips[0].transform.parent.gameObject.SetActive(true);
+			TaskStrips[1].transform.parent.gameObject.SetActive(false);
 		}
 		else
 		{
-			TaskStrip temp = TaskStrips[0];
-			TaskStrips[0] = TaskStrips[1];
-			TaskStrips[1] = temp;
-			temp = null;
+			TaskStrips[0].transform.parent.gameObject.SetActive(true);
+			TaskStrips[1].transform.parent.gameObject.SetActive(true);
 		}
 		TaskStripsRectTransform[0] = TaskStrips[0].GetComponent<RectTransform>();
 		TaskStripsRectTransform[1] = TaskStrips[1].GetComponent<RectTransform>();
@@ -169,15 +184,27 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].ShowInfoIcon(!string.IsNullOrEmpty(task.hasExtraInfo));
 		TaskStrips[0].ShowValidationIcon(task.signedTask);
 		TaskStrips[0].SetValidated(task.isAlreadySigned);
-        TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
+		if (TaskManager.PreviousTask != null)
+		{
+			TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
+		}
 
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		{
+			TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
+			return;
+		}
+
 		animate = true;
 		index = 0;
 		rate = 1.0f/enterSpeed;
-        curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
+		if (TaskManager.PreviousTask != null)
+		{
+			curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
+		}
 	}
 
 	void Update()
