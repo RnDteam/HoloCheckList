@@ -10,7 +10,6 @@ public class OneTaskController : MonoBehaviour {
 	public GameObject TaskParent;
 	public TaskStrip[] TaskStrips;
 	private RectTransform[] TaskStripsRectTransform = new RectTransform[2];
-	private bool updateSize = false;
 
 	public Vector3 inStartPos;
 	public Vector3 inEndPos;
@@ -99,8 +98,11 @@ public class OneTaskController : MonoBehaviour {
 	IEnumerator MoveToNextTaskFromCard()
 	{
 		yield return new WaitForSeconds(2f);
-		isChangingCard = false;
-		ChangeTask();
+		if (isChangingCard)
+		{
+			isChangingCard = false;
+			ChangeTask();
+		}
 	}
 
 	void SetCard()
@@ -131,7 +133,8 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].SetValidated(false);
 		TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
 
-		updateSize = true;
+		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
+		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
 		animate = true;
 		index = 0;
@@ -163,7 +166,8 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].SetValidated(task.isAlreadySigned);
         TaskStrips[1].SetValidated(TaskManager.PreviousTask.isAlreadySigned);
 
-        updateSize = true;
+		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
+		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
 		animate = true;
 		index = 0;
@@ -179,15 +183,6 @@ public class OneTaskController : MonoBehaviour {
             {
                 if (index < 1.0f)
                 {
-                    if (index == 0)
-                    {
-                        TaskStrips[0].gameObject.SetActive(false);//SetTaskText(TaskStrips[0].TaskText.text);
-                    }
-                    else if (updateSize)
-                    {
-                        updateSize = false;
-                        TaskStrips[0].gameObject.SetActive(true);
-                    }
                     TaskStripsRectTransform[0].anchoredPosition3D = Vector3.Lerp(inStartPos, inEndPos, index);
                     TaskStripsRectTransform[1].anchoredPosition3D = Vector3.Lerp(outStartPos, outEndPos, index);
                     index += rate * Time.deltaTime;
@@ -200,7 +195,7 @@ public class OneTaskController : MonoBehaviour {
                     index = 1.0f;
 					if (isChangingCard)
 					{
-						StartCoroutine(MoveToNextTaskFromCard());
+						StartCoroutine("MoveToNextTaskFromCard");
 					}
                 }
             } else

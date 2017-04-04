@@ -123,6 +123,7 @@ MonoBehaviour:
   - MethodPurpose: Go to opening scene
     Keywords:
     - Reset App
+    - Next
     Key: 110
     Response:
       m_PersistentCalls:
@@ -273,7 +274,7 @@ Prefab:
     - target: {fileID: 224190005781638560, guid: e2fe29f8af02f684d86d6122c905ae6c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 26.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224789632832837596, guid: e2fe29f8af02f684d86d6122c905ae6c,
         type: 2}
