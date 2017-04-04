@@ -63,7 +63,6 @@ public class RecordingsManager : MonoBehaviour {
 
 	public void PlayNextCardRecording()
 	{
-		Debug.LogError("PlayNextCardRecording");
 		StopCoroutine("PlayNextCardSequence");
 		StartCoroutine("PlayNextCardSequence");
 	}

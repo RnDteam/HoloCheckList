@@ -63,6 +63,14 @@ public class TasksCard : MonoBehaviour {
 	private int prevTask = 0;
 	private bool enableTaskOnAnimationEnd = false;
 
+	public Image BackgroundImage;
+	public Image BackgroundTitleImage;
+
+	public Sprite EnabledBackground;
+	public Sprite EnabledBackgroundTitle;
+	public Sprite DisabledBackground;
+	public Sprite DisabledBackgroundTitle;
+
 	void Awake()
 	{
 		distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
@@ -104,6 +112,20 @@ public class TasksCard : MonoBehaviour {
 			}
 		}
 	}
+
+    public void SetActiveBackground(bool active)
+    {
+		if (active)
+		{
+			BackgroundImage.sprite = EnabledBackground;
+			BackgroundTitleImage.sprite = EnabledBackgroundTitle;
+		}
+		else
+		{
+			BackgroundImage.sprite = DisabledBackground;
+			BackgroundTitleImage.sprite = DisabledBackgroundTitle;
+		}
+    }
 
 	public void SetCard(int cardNumber)
 	{
@@ -205,10 +227,12 @@ public class TasksCard : MonoBehaviour {
 		if (TaskManager.CardIndex == CardNumber)
 		{
 			cardEndPos = BasePosition;
+            SetActiveBackground(true);
 		}
 		else if (TaskManager.CardIndex < CardNumber)
 		{
 			cardEndPos = BasePosition * ( CardNumber - TaskManager.CardIndex + 1 );
+            SetActiveBackground(false);
 		}
 		else
 		{

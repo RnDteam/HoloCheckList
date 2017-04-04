@@ -240,7 +240,7 @@ MonoBehaviour:
   - MethodPurpose: Next Card
     Keywords:
     - Habah
-    Key: 104
+    Key: 97
     Response:
       m_PersistentCalls:
         m_Calls:

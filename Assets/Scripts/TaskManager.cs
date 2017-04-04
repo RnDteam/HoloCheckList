@@ -88,7 +88,7 @@ public class TaskManager : MonoBehaviour {
         {
             if (TaskIndex >= CurrentCard.tasks.Length - 1) // Goes to next card 
             {
-                changeCard(isNext);
+				changeCard(isNext, false);
             }
             else
             {
@@ -98,7 +98,7 @@ public class TaskManager : MonoBehaviour {
         {
             if(TaskIndex == 0 && CardIndex > 0) // Goes to previous card 
             {
-                changeCard(isNext);
+				changeCard(isNext, false);
             } else if(TaskIndex > 0)
             {
                 TaskIndex -= 1;
@@ -127,7 +127,7 @@ public class TaskManager : MonoBehaviour {
 			{
 				OneTaskController.Instance.CancelChangingCard();
 			}
-			changeCard(true);
+			changeCard(true, true);
 			if (OnTaskChanged != null)
 				OnTaskChanged();
 		}
@@ -141,18 +141,16 @@ public class TaskManager : MonoBehaviour {
 			{
 				OneTaskController.Instance.CancelChangingCard();
 			}
-			changeCard(false);
+			changeCard(false, true);
 			if (OnTaskChanged != null)
 				OnTaskChanged();
 		}
     }
 
-    public static void changeCard(bool isNext)
+	public static void changeCard(bool isNext, bool forceResetTaskIndex)
     {
-        /*if (((isNext && CardIndex >= cards.Length - 1) || (!isNext && CardIndex == 0)))
-            return;*/
         CardIndex += isNext ? 1 : -1;
-        TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
+		TaskIndex = (isNext || forceResetTaskIndex) ? 0 : CurrentCard.tasks.Length - 1;
 
         if (isFinished())
 		{

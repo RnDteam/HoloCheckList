@@ -268,9 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e755ca28c596b341a68a6727058c8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voice: {fileID: 0}
   placeableObject: {fileID: 114418174220001184}
-  cardPrefab: {fileID: 114379482329600022, guid: b1b23cd02872c7f4f86c2fee7a8dcc63,
+  cardPrefab: {fileID: 114241538736068032, guid: b1b23cd02872c7f4f86c2fee7a8dcc63,
     type: 2}
   cardsParent: {fileID: 224578859015462896}
 --- !u!114 &114941324891073774
