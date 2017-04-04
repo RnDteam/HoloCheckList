@@ -69,9 +69,10 @@ public class RecordingsManager : MonoBehaviour {
 
 	IEnumerator PlayNextCardSequence()
 	{
-		PlayFinishCardRecording(TaskManager.CardIndex-1);
+		int cardIndex = TaskManager.CardIndex;
+		PlayFinishCardRecording(cardIndex-1);
 		yield return new WaitForSeconds(audioSource.clip.length);
-		PlayStartCardRecording(TaskManager.CardIndex);
+		PlayStartCardRecording(cardIndex);
 		yield return new WaitForSeconds(audioSource.clip.length + OneTaskController.Instance.enterSpeed);
 		PlayTaskRecording(TaskManager.CardIndex, 0);
 	}

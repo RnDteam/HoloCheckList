@@ -123,6 +123,7 @@ public class TaskManager : MonoBehaviour {
 			{
 				OneTaskController.Instance.CancelChangingCard();
 			}
+			PreviousTask = CurrentTask;
 			changeCard(true, true);
 			if (OnTaskChanged != null)
 				OnTaskChanged();
@@ -137,6 +138,7 @@ public class TaskManager : MonoBehaviour {
 			{
 				OneTaskController.Instance.CancelChangingCard();
 			}
+			PreviousTask = CurrentTask;
 			changeCard(false, true);
 			if (OnTaskChanged != null)
 				OnTaskChanged();
