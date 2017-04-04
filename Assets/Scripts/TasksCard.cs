@@ -85,6 +85,7 @@ public class TasksCard : MonoBehaviour {
 				if (enableTaskOnAnimationEnd)
 				{
 					EnableTask(prevTask);
+					RecordingsManager.Instance.PlayCurrentTaskRecording();
 				}
 			}
 		}
@@ -219,6 +220,14 @@ public class TasksCard : MonoBehaviour {
 	{
 		if (TaskManager.CardIndex != CardNumber)
 		{
+			if (TaskManager.CardIndex > CardNumber)
+			{
+				prevTask = allTasks.Count-1;
+			}
+			else
+			{
+				prevTask = 0;
+			}
 			if (!disabledTasks)
 			{
 				DisableAllTasks();
@@ -234,11 +243,22 @@ public class TasksCard : MonoBehaviour {
 
 		if (prevTask <= TaskManager.TaskIndex)
 		{
+			enableTaskOnAnimationEnd = false;
 			EnableTask(TaskManager.TaskIndex);
+			if (TaskManager.TaskIndex == 0)
+			{
+				if (TaskManager.CardIndex > 0)
+				{
+					RecordingsManager.Instance.PlayNextCardRecording();
+				}
+			}
+			else
+			{
+				RecordingsManager.Instance.PlayCurrentTaskRecording();
+			}
 		}
 		else
 		{
-			EnableTask(prevTask);
 			enableTaskOnAnimationEnd = true;
 		}
 
@@ -251,9 +271,18 @@ public class TasksCard : MonoBehaviour {
 		{
 			return;
 		}
-        for (int iter = 0; iter < allTasks.Count; iter++)
-            ChangeColor(allTasks[iter], TASK_STYLE.DESELECTED, iter);
-		ChangeColor(allTasks[tIndex], TASK_STYLE.SELECTED, tIndex);
+
+		for (int i=0; i<allTasks.Count; i++)
+		{
+			if (i==tIndex)
+			{
+				ChangeColor(allTasks[tIndex], TASK_STYLE.SELECTED, tIndex);
+			}
+			else
+			{
+				ChangeColor(allTasks[i], TASK_STYLE.DESELECTED, i);
+			}
+		}
 	}
 
 	public void DisableAllTasks()
