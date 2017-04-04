@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 75bbf09e19191344ca6d56dc7c166d5b
-timeCreated: 1490875227
-licenseType: Pro
+guid: e0fdfb0fab6ba56439378dd9a572cb7c
+timeCreated: 1491308822
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 4
@@ -66,7 +66,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Android
+  - buildTarget: Windows Store Apps
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
@@ -74,7 +74,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Windows Store Apps
+  - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
@@ -94,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: 
+  spritePackingTag: BackgroundG
   userData: 
   assetBundleName: 
   assetBundleVariant: 

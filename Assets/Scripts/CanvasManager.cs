@@ -38,7 +38,7 @@ public class CanvasManager : MonoBehaviour {
             TaskManager.InitTaskManager();
             cardsCanvas.GetComponentInChildren<bigChecklistManager>().StartCards();
             trackedObjectManager.CheckCurrentTask();
-
+            RecordingsManager.Instance.PlayPlaceRecording();
             openCanvas.SetActive(false);
             cardsCanvas.SetActive(true);
             endCanvas.SetActive(false);
@@ -52,6 +52,7 @@ public class CanvasManager : MonoBehaviour {
             openCanvas.SetActive(false);
             cardsCanvas.SetActive(false);
             endCanvas.SetActive(true);
+            RecordingsManager.Instance.PlayDoneRecording();
         }
     }
 }

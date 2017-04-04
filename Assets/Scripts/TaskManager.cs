@@ -20,8 +20,6 @@ public class TaskManager : MonoBehaviour {
     public static int CardIndex { get; private set; }
     public static int TaskIndex { get; private set; }
     public static int TasksToSign { get; private set; }
-    private static AudioSource audSource;
-    private static GameObject asgo;
 
     public static Task CurrentTask
     {
@@ -42,9 +40,7 @@ public class TaskManager : MonoBehaviour {
 	
     void Awake () {
         instance = this;
-        asgo = new GameObject("RecordController");
-        audSource = asgo.AddComponent<AudioSource>();
-        asgo.transform.position = Vector3.zero;
+        //InitTaskManager();
     }
 
     public static void InitTaskManager()
@@ -65,7 +61,7 @@ public class TaskManager : MonoBehaviour {
 
     private void Start()
     {
-        StartCoroutine(PlayCoroutine("haklatot\\other\\say-place"));
+        //if(PreviousTask == null) PreviousTask = CurrentTask;
         if (OnStartTasks != null) 
             OnStartTasks();
     }
@@ -80,14 +76,6 @@ public class TaskManager : MonoBehaviour {
         return changeTask(false);
     }
 
-    public static void SomethingWasPlaced()
-    {
-        if (CurrentTask != null && CurrentTask.file != null)
-        {
-            PlaySound("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file);
-        }
-    }
-
     public static int changeTask(bool isNext)
     {
         PreviousTask = CurrentTask;
@@ -96,7 +84,7 @@ public class TaskManager : MonoBehaviour {
         {
             if (TaskIndex >= CurrentCard.tasks.Length - 1) // Goes to next card 
             {
-                changeCard(isNext);
+				changeCard(isNext, false);
             }
             else
             {
@@ -106,20 +94,13 @@ public class TaskManager : MonoBehaviour {
         {
             if(TaskIndex == 0 && CardIndex > 0) // Goes to previous card 
             {
-                changeCard(isNext);
+				changeCard(isNext, false);
             } else if(TaskIndex > 0)
             {
                 TaskIndex -= 1;
             }
 
             CurrentTask.isAlreadySigned = false;
-        }
-        if (CurrentTask != null && CurrentTask.file != null)
-        {
-            if (TaskIndex == 0)
-                instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file, false));
-            else
-                instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentTask.file));
         }
 
         if (OnTaskChanged != null)
@@ -134,60 +115,49 @@ public class TaskManager : MonoBehaviour {
         CurrentTask.isAlreadySigned = true;
     }
 
-    private static float PlaySound(string file)
+    public void NextCard()
     {
-        audSource.Stop();
-        audSource.clip = (AudioClip)Resources.Load(file);
-        audSource.Play();
-        return audSource.clip.length;
+		if (CardIndex < cards.Length - 1)
+		{
+			if (OneTaskController.Instance.IsChangingCard())
+			{
+				OneTaskController.Instance.CancelChangingCard();
+			}
+			changeCard(true, true);
+			if (OnTaskChanged != null)
+				OnTaskChanged();
+		}
     }
 
-    public IEnumerator PlayCoroutine(string file, bool interrupt = true)
+    public void PrevCard()
     {
-        while (!interrupt && audSource.isPlaying)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        yield return new WaitForSeconds(PlaySound(file));
+		if (CardIndex > 0)
+		{
+			if (OneTaskController.Instance.IsChangingCard())
+			{
+				OneTaskController.Instance.CancelChangingCard();
+			}
+			changeCard(false, true);
+			if (OnTaskChanged != null)
+				OnTaskChanged();
+		}
     }
 
-    private IEnumerator PlayDone()
+	public static void changeCard(bool isNext, bool forceResetTaskIndex)
     {
-        while (audSource.isPlaying)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        yield return PlayCoroutine("haklatot\\other\\done", false);
-        while (audSource.isPlaying)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
-        OnEndTasks();
-        yield return null;
-    }
-
-    public static void changeCard(bool isNext)
-    {
-        if (CurrentCard.finish != null && CurrentCard.tasks.Length - 1 == TaskIndex)
-        {
-            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish, false));
-        }
         CardIndex += isNext ? 1 : -1;
-        TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
+		TaskIndex = (isNext || forceResetTaskIndex) ? 0 : CurrentCard.tasks.Length - 1;
 
         if (isFinished())
 		{
-            instance.StartCoroutine(instance.PlayDone());
+			if (OnEndTasks != null)
+				OnEndTasks();
 		}
 		else
 		{
 			if (OnCardChanged != null)
 				OnCardChanged();
 		}
-        if (CurrentCard != null && CurrentCard.start != null && TaskIndex == 0)
-        {
-            instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start, false));
-        }
     }
 
     public static bool isFinished()

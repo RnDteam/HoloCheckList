@@ -63,6 +63,19 @@ public class TasksCard : MonoBehaviour {
 	private int prevTask = 0;
 	private bool enableTaskOnAnimationEnd = false;
 
+	public Image BackgroundImage;
+	public Image BackgroundTitleImage;
+
+	public Sprite EnabledBackground;
+	public Sprite EnabledBackgroundTitle;
+	public Sprite DisabledBackground;
+	public Sprite DisabledBackgroundTitle;
+
+	//void Awake()
+	//{
+	//	distanceBetweenTasks = TaskPrefab.GetComponent<RectTransform>().rect.height;
+	//}
+
 	void Update()
 	{
 		if (animateTasks)
@@ -80,6 +93,7 @@ public class TasksCard : MonoBehaviour {
 				if (enableTaskOnAnimationEnd)
 				{
 					EnableTask(prevTask);
+					RecordingsManager.Instance.PlayCurrentTaskRecording();
 				}
 			}
 		}
@@ -98,6 +112,20 @@ public class TasksCard : MonoBehaviour {
 			}
 		}
 	}
+
+    public void SetActiveBackground(bool active)
+    {
+		if (active)
+		{
+			BackgroundImage.sprite = EnabledBackground;
+			BackgroundTitleImage.sprite = EnabledBackgroundTitle;
+		}
+		else
+		{
+			BackgroundImage.sprite = DisabledBackground;
+			BackgroundTitleImage.sprite = DisabledBackgroundTitle;
+		}
+    }
 
 	public void SetCard(int cardNumber)
 	{
@@ -201,10 +229,12 @@ public class TasksCard : MonoBehaviour {
 		if (TaskManager.CardIndex == CardNumber)
 		{
 			cardEndPos = BasePosition;
+            SetActiveBackground(true);
 		}
 		else if (TaskManager.CardIndex < CardNumber)
 		{
 			cardEndPos = BasePosition * ( CardNumber - TaskManager.CardIndex + 1 );
+            SetActiveBackground(false);
 		}
 		else
 		{
@@ -216,6 +246,14 @@ public class TasksCard : MonoBehaviour {
 	{
 		if (TaskManager.CardIndex != CardNumber)
 		{
+			if (TaskManager.CardIndex > CardNumber)
+			{
+				prevTask = allTasks.Count-1;
+			}
+			else
+			{
+				prevTask = 0;
+			}
 			if (!disabledTasks)
 			{
 				DisableAllTasks();
@@ -231,11 +269,22 @@ public class TasksCard : MonoBehaviour {
 
 		if (prevTask <= TaskManager.TaskIndex)
 		{
+			enableTaskOnAnimationEnd = false;
 			EnableTask(TaskManager.TaskIndex);
+			if (TaskManager.TaskIndex == 0)
+			{
+				if (TaskManager.CardIndex > 0)
+				{
+					RecordingsManager.Instance.PlayNextCardRecording();
+				}
+			}
+			else
+			{
+				RecordingsManager.Instance.PlayCurrentTaskRecording();
+			}
 		}
 		else
 		{
-			EnableTask(prevTask);
 			enableTaskOnAnimationEnd = true;
 		}
 
@@ -248,14 +297,17 @@ public class TasksCard : MonoBehaviour {
 		{
 			return;
 		}
-		ChangeColor(allTasks[tIndex], TASK_STYLE.SELECTED, tIndex);
-		if (tIndex < allTasks.Count-1)
+
+		for (int i=0; i<allTasks.Count; i++)
 		{
-			ChangeColor(allTasks[tIndex+1], TASK_STYLE.DESELECTED, tIndex+1);
-		}
-		if (tIndex > 0)
-		{
-			ChangeColor(allTasks[tIndex-1], TASK_STYLE.DESELECTED, tIndex-1);
+			if (i==tIndex)
+			{
+				ChangeColor(allTasks[tIndex], TASK_STYLE.SELECTED, tIndex);
+			}
+			else
+			{
+				ChangeColor(allTasks[i], TASK_STYLE.DESELECTED, i);
+			}
 		}
 	}
 
