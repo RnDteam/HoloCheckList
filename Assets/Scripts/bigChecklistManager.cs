@@ -74,6 +74,7 @@ public class bigChecklistManager : MonoBehaviour {
 		for(int nCardIndex = 0; nCardIndex < CardsNumber; nCardIndex++)
 		{
 			displayedCards[nCardIndex] = Instantiate(cardPrefab, cardsParent, true);
+            displayedCards[nCardIndex].name = "card" + nCardIndex.ToString();
 			//displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position * (nCardIndex + 1);
 			//displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
 			displayedCards[nCardIndex].transform.SetAsFirstSibling();
