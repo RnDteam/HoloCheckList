@@ -42,8 +42,15 @@ public class bigChecklistManager : MonoBehaviour {
 
     void OnEndTasks()
     {
-        SceneManager.LoadScene("end-scene");
+		StartCoroutine(EndTasksSequence());
     }
+
+	IEnumerator EndTasksSequence()
+	{
+		RecordingsManager.Instance.PlayDoneRecording();
+		yield return new WaitForSeconds(RecordingsManager.Instance.GetLengthForCurrentClip());
+		SceneManager.LoadScene("end-scene");
+	}
 
 	void OnTaskChanged()
 	{

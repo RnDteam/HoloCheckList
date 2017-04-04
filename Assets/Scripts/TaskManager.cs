@@ -124,7 +124,12 @@ public class TaskManager : MonoBehaviour {
         CardIndex += isNext ? 1 : -1;
         TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
 
-        if (!isFinished())
+        if (isFinished())
+		{
+			if (OnEndTasks != null)
+				OnEndTasks();
+		}
+		else
 		{
 			if (OnCardChanged != null)
 				OnCardChanged();

@@ -87,4 +87,13 @@ public class RecordingsManager : MonoBehaviour {
 	{
 		return ((AudioClip)Resources.Load(path)).length;
 	}
+
+	public float GetLengthForCurrentClip()
+	{
+		if (audioSource.clip)
+		{
+			return audioSource.clip.length;
+		}
+		return 0;
+	}
 }
