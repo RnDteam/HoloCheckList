@@ -29,6 +29,9 @@ public class OneTaskController : MonoBehaviour {
 	private bool isChangingCard = false;
 
 	private int currentCardIndex = 0;
+	private int currentTaskIndex = 0;
+
+	private bool cardChanged = false;
 
 	public bool IsChangingCard()
 	{
@@ -73,6 +76,7 @@ public class OneTaskController : MonoBehaviour {
 
 	void ChangeCard()
 	{
+		cardChanged = true;
 		if (TaskManager.CardIndex > currentCardIndex)
 		{
 			isChangingCard = true;
@@ -110,12 +114,15 @@ public class OneTaskController : MonoBehaviour {
 
 	void SetCard()
 	{
+		bool showOneTask = false;
+
 		TaskStrip temp = TaskStrips[0];
 		TaskStrips[0] = TaskStrips[1];
 		TaskStrips[1] = temp;
 		temp = null;
-		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask || (currentCardIndex == TaskManager.CardIndex && currentTaskIndex == TaskManager.TaskIndex))
 		{
+			showOneTask = true;
 			TaskStrips[0].transform.parent.gameObject.SetActive(true);
 			TaskStrips[1].transform.parent.gameObject.SetActive(false);
 		}
@@ -143,7 +150,9 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
-		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		currentTaskIndex = TaskManager.TaskIndex;
+
+		if (showOneTask)
 		{
 			TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
 			return;
@@ -162,12 +171,15 @@ public class OneTaskController : MonoBehaviour {
 
 	void SetTask()
 	{
+		bool showOneTask = false;
+
 		TaskStrip temp = TaskStrips[0];
 		TaskStrips[0] = TaskStrips[1];
 		TaskStrips[1] = temp;
 		temp = null;
-		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask || (!cardChanged && currentCardIndex == TaskManager.CardIndex && currentTaskIndex == TaskManager.TaskIndex))
 		{
+			showOneTask = true;
 			TaskStrips[0].transform.parent.gameObject.SetActive(true);
 			TaskStrips[1].transform.parent.gameObject.SetActive(false);
 		}
@@ -176,6 +188,7 @@ public class OneTaskController : MonoBehaviour {
 			TaskStrips[0].transform.parent.gameObject.SetActive(true);
 			TaskStrips[1].transform.parent.gameObject.SetActive(true);
 		}
+		cardChanged = false;
 		TaskStripsRectTransform[0] = TaskStrips[0].GetComponent<RectTransform>();
 		TaskStripsRectTransform[1] = TaskStrips[1].GetComponent<RectTransform>();
 
@@ -192,7 +205,9 @@ public class OneTaskController : MonoBehaviour {
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutHorizontal();
 		TaskStrips[0].TaskText.GetComponent<ContentSizeFitter>().SetLayoutVertical();
 
-		if (TaskManager.PreviousTask == null || TaskManager.CurrentTask == TaskManager.PreviousTask)
+		currentTaskIndex = TaskManager.TaskIndex;
+
+		if (showOneTask)
 		{
 			TaskStripsRectTransform[0].anchoredPosition3D = inEndPos;
 			return;

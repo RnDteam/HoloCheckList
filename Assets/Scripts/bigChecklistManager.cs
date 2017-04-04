@@ -115,7 +115,7 @@ public class bigChecklistManager : MonoBehaviour {
 
         int CurTaskIndex = TaskManager.TaskIndex;
 
-		if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
+		if (!PlaceableObject.isPlaced || TaskManager.CurrentCard == null) return;
 
 		if (CurTaskIndex < TaskManager.CurrentCard.tasks.Length)
         {
@@ -147,7 +147,7 @@ public class bigChecklistManager : MonoBehaviour {
             return;
         }
 #endif
-            if (!placeableObject.isPlaced || TaskManager.CurrentCard == null) return;
+            if (!PlaceableObject.isPlaced || TaskManager.CurrentCard == null) return;
 
         if (TaskManager.TaskIndex < TaskManager.CurrentCard.tasks.Length)
         {

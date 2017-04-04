@@ -117,7 +117,7 @@ public class TaskManager : MonoBehaviour {
 
     public void NextCard()
     {
-		if (CardIndex < cards.Length - 1)
+		if (PlaceableObject.isPlaced && CardIndex < cards.Length - 1)
 		{
 			if (OneTaskController.Instance.IsChangingCard())
 			{
@@ -131,7 +131,7 @@ public class TaskManager : MonoBehaviour {
 
     public void PrevCard()
     {
-		if (CardIndex > 0)
+		if (PlaceableObject.isPlaced && CardIndex > 0)
 		{
 			if (OneTaskController.Instance.IsChangingCard())
 			{

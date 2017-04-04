@@ -7,10 +7,11 @@ public class PlaceableObject : MonoBehaviour
     public Vector3 offsetVector;
     private Quaternion defaultRotation;
     public float speed;
-    public bool isPlaced;
+    public static bool isPlaced;
 
     void Start()
     {
+		isPlaced = false;
         //offsetVector = transform.position - Camera.main.transform.position;
         defaultRotation = transform.rotation;
     }
