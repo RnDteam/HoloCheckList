@@ -8,7 +8,6 @@ public delegate void TaskChange();
 public class TaskManager : MonoBehaviour {
 
     private static TaskManager instance;
-    public bool IsFullPreflight;
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
     public static event TaskChange OnEndTasks;
@@ -25,7 +24,7 @@ public class TaskManager : MonoBehaviour {
     public static Task CurrentTask
     {
         get {
-			return (CardIndex < cards.Length && TaskIndex < CurrentCard.tasks.Length) ? cards[CardIndex].tasks[TaskIndex] : null;
+			return (cards != null && CardIndex < cards.Length && TaskIndex < CurrentCard.tasks.Length) ? cards[CardIndex].tasks[TaskIndex] : null;
 		}
     }
 
@@ -41,20 +40,17 @@ public class TaskManager : MonoBehaviour {
 	
     void Awake () {
         instance = this;
-        InitTaskManager();
+        //InitTaskManager();
     }
 
-    private static void InitTaskManager()
+    public static void InitTaskManager()
     {
-        if(!TextsBridge.IsTasksLoaded())
-        {
-            TextsBridge.SetTaskFileName(instance.IsFullPreflight);
-        }
-
         cards = TextsBridge.GetCards();
 
         if (cards != null)
         {
+            PreviousTask = CurrentTask;
+
             PrepareTaskParameters();
             CardsNumber = cards.Length;
             PreviousTask = CurrentTask;
@@ -65,7 +61,7 @@ public class TaskManager : MonoBehaviour {
 
     private void Start()
     {
-        if(PreviousTask == null) PreviousTask = CurrentTask;
+        //if(PreviousTask == null) PreviousTask = CurrentTask;
         if (OnStartTasks != null) 
             OnStartTasks();
     }

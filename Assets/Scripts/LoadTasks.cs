@@ -7,12 +7,9 @@ public class LoadTasks : MonoBehaviour {
 
     public bool IsFullPreflight;
     public Text preflightDisplay;
-    private Card[] cards;
 
 	void Start () {
         SetTaskFileName();
-
-        cards = TextsBridge.GetCards();
     }
 
     public void SetFullPreflight()
@@ -31,12 +28,5 @@ public class LoadTasks : MonoBehaviour {
     {
         TextsBridge.SetTaskFileName(IsFullPreflight);
         preflightDisplay.text = "(" + (IsFullPreflight ? "אלמ ךרעמ" : "יקלח ךרעמ") + ")";
-
-        LoadCards();
-    }
-
-    public void LoadCards()
-    {
-        cards = TextsBridge.LoadCards();
     }
 }

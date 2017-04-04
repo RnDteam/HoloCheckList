@@ -24,7 +24,6 @@ public class TrackedObjectsContainer : MonoBehaviour {
     private void Start()
     {
 		DisableAllTrackedObjects();
-        CheckCurrentTask();
     }
 
     private void OnEnable()
@@ -74,7 +73,7 @@ public class TrackedObjectsContainer : MonoBehaviour {
 		}
 	}
 
-    void CheckCurrentTask()
+    public void CheckCurrentTask()
     {
 		string extraInfoName = "";
 		if (TaskManager.CurrentTask != null)
