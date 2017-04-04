@@ -184,7 +184,7 @@ public class TaskManager : MonoBehaviour {
 
     public static void changeCard(bool isNext, bool playRecordings = true)
     {
-        if ((isNext && CardIndex >= cards.Length - 1) || (!isNext && CardIndex == 0))
+        if (((isNext && CardIndex >= cards.Length - 1) || (!isNext && CardIndex == 0)) && !playRecordings)
             return;
         if (CurrentCard.finish != null && CurrentCard.tasks.Length - 1 == TaskIndex && playRecordings)
         {
@@ -200,6 +200,7 @@ public class TaskManager : MonoBehaviour {
 
         if (isFinished())
 		{
+            Debug.Log("done");
             instance.StartCoroutine(instance.PlayDone());
 		}
 		else
