@@ -24,6 +24,8 @@ public class OneTaskController : MonoBehaviour {
     public float delay;
     private float curDelay;
 
+	private float timeForNextCard = 2f;
+
 	private bool isChangingCard = false;
 
 	private int currentCardIndex = 0;
@@ -97,7 +99,7 @@ public class OneTaskController : MonoBehaviour {
 
 	IEnumerator MoveToNextTaskFromCard()
 	{
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(timeForNextCard);
 		if (isChangingCard)
 		{
 			isChangingCard = false;
@@ -140,6 +142,8 @@ public class OneTaskController : MonoBehaviour {
 		index = 0;
 		rate = 1.0f/enterSpeed;
 		curDelay = TaskManager.PreviousTask.isAlreadySigned ? delay : 0;
+
+		timeForNextCard = RecordingsManager.Instance.GetLengthForNextCard();
 	}
 
 	void SetTask()

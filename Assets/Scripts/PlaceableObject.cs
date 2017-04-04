@@ -30,7 +30,6 @@ public class PlaceableObject : MonoBehaviour
     {
         isPlaced = true;
 		gameObject.GetComponentInChildren<bigChecklistManager>().Placed();
-        TaskManager.SomethingWasPlaced();
     }
 
     public void MoveCanvas()
