@@ -167,14 +167,31 @@ public class TaskManager : MonoBehaviour {
         yield return null;
     }
 
-    public static void changeCard(bool isNext)
+    public void NextCard()
     {
-        if (CurrentCard.finish != null && CurrentCard.tasks.Length - 1 == TaskIndex)
+        changeCard(true, false);
+    }
+
+    public void PrevCard()
+    {
+        changeCard(false, false);
+    }
+
+    public static void changeCard(bool isNext, bool playRecordings = true)
+    {
+        if ((isNext && CardIndex >= cards.Length - 1) || (!isNext && CardIndex == 0))
+            return;
+        if (CurrentCard.finish != null && CurrentCard.tasks.Length - 1 == TaskIndex && playRecordings)
         {
             instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.finish, false));
         }
         CardIndex += isNext ? 1 : -1;
         TaskIndex = isNext ? 0 : CurrentCard.tasks.Length - 1;
+        if (!playRecordings)
+        {
+            TaskIndex = 0;
+            OnTaskChanged();
+        }
 
         if (isFinished())
 		{
@@ -185,7 +202,7 @@ public class TaskManager : MonoBehaviour {
 			if (OnCardChanged != null)
 				OnCardChanged();
 		}
-        if (CurrentCard != null && CurrentCard.start != null && TaskIndex == 0)
+        if (CurrentCard != null && CurrentCard.start != null && TaskIndex == 0 && playRecordings)
         {
             instance.StartCoroutine(instance.PlayCoroutine("haklatot\\" + CurrentCard.folder + "\\" + CurrentCard.start, false));
         }

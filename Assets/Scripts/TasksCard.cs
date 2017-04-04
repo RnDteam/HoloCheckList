@@ -251,15 +251,9 @@ public class TasksCard : MonoBehaviour {
 		{
 			return;
 		}
+        for (int iter = 0; iter < allTasks.Count; iter++)
+            ChangeColor(allTasks[iter], TASK_STYLE.DESELECTED, iter);
 		ChangeColor(allTasks[tIndex], TASK_STYLE.SELECTED, tIndex);
-		if (tIndex < allTasks.Count-1)
-		{
-			ChangeColor(allTasks[tIndex+1], TASK_STYLE.DESELECTED, tIndex+1);
-		}
-		if (tIndex > 0)
-		{
-			ChangeColor(allTasks[tIndex-1], TASK_STYLE.DESELECTED, tIndex-1);
-		}
 	}
 
 	public void DisableAllTasks()
