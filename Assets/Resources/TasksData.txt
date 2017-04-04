@@ -93,7 +93,7 @@
 					"file": "hafel-balam-hanaya2"
 				},
 				{
-					"instruction": "הכנס מתח פנימי למטוס וודא מתח מצבר לא נמוך מ24 וולט",
+					"instruction": "הכנס מתח פנימי למטוס וודא מתח מצבר לא נמוך מ- 24 וולט",
 					"hasExtraInfo": "",
 					"signedTask": false,
 					"file": "hakhnes-metah-pnimi2"

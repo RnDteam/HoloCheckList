@@ -29,7 +29,7 @@ public class LoadTasks : MonoBehaviour {
 
     public void SetTaskFileName()
     {
-        TextsBridge.TASK_FILE_NAME_TO_LOAD = IsFullPreflight ? "TasksData" : "TasksData-shorter";
+        TextsBridge.SetTaskFileName(IsFullPreflight);
         preflightDisplay.text = "(" + (IsFullPreflight ? "אלמ ךרעמ" : "יקלח ךרעמ") + ")";
 
         LoadCards();

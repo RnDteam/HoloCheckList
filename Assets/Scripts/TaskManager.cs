@@ -8,7 +8,7 @@ public delegate void TaskChange();
 public class TaskManager : MonoBehaviour {
 
     private static TaskManager instance;
-
+    public bool IsFullPreflight;
     public static event TaskChange OnStartTasks;
     public static event TaskChange OnTaskChanged;
     public static event TaskChange OnEndTasks;
@@ -42,15 +42,20 @@ public class TaskManager : MonoBehaviour {
 	}
 	
     void Awake () {
+        instance = this;
         InitTaskManager();
-        asgo = new GameObject();
+        asgo = new GameObject("RecordController");
         audSource = asgo.AddComponent<AudioSource>();
         asgo.transform.position = Vector3.zero;
-        instance = this;
     }
 
     private static void InitTaskManager()
     {
+        if(!TextsBridge.IsTasksLoaded())
+        {
+            TextsBridge.SetTaskFileName(instance.IsFullPreflight);
+        }
+
         cards = TextsBridge.GetCards();
 
         if (cards != null)

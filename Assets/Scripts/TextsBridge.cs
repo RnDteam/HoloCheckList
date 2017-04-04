@@ -48,7 +48,11 @@ public class TextsBridge
     
     // json file name to load
     public static string TASK_FILE_NAME_TO_LOAD = "TasksData";
-
+    public static void SetTaskFileName(bool isFullPreflight)
+    {
+        TASK_FILE_NAME_TO_LOAD = isFullPreflight ? "TasksData" : "TasksData-shorter";
+        LoadCards();
+    }
     private static bool isTasksAreLoaded = false;
     
     public static bool IsTasksLoaded()
