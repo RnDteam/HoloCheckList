@@ -104,6 +104,14 @@ public class TasksCard : MonoBehaviour {
 		}
 	}
 
+    public void SetActiveBackground(bool active)
+    {
+        gameObject.transform.Find("Background").gameObject.SetActive(active);
+        gameObject.transform.Find("TitleBackground").gameObject.SetActive(active);
+        gameObject.transform.Find("BackgroundNotActive").gameObject.SetActive(!active);
+        gameObject.transform.Find("TitleBackgroundNotActive").gameObject.SetActive(!active);
+    }
+
 	public void SetCard(int cardNumber)
 	{
 		CurrentCard = TaskManager.GetCard(cardNumber);
@@ -204,10 +212,12 @@ public class TasksCard : MonoBehaviour {
 		if (TaskManager.CardIndex == CardNumber)
 		{
 			cardEndPos = BasePosition;
+            SetActiveBackground(true);
 		}
 		else if (TaskManager.CardIndex < CardNumber)
 		{
 			cardEndPos = BasePosition * ( CardNumber - TaskManager.CardIndex + 1 );
+            SetActiveBackground(false);
 		}
 		else
 		{

@@ -75,9 +75,11 @@ public class bigChecklistManager : MonoBehaviour {
 		{
 			displayedCards[nCardIndex] = Instantiate(cardPrefab, cardsParent, true);
             displayedCards[nCardIndex].name = "card" + nCardIndex.ToString();
-			//displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position * (nCardIndex + 1);
-			//displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
-			displayedCards[nCardIndex].transform.SetAsFirstSibling();
+            if (nCardIndex != 0)
+                displayedCards[nCardIndex].SetActiveBackground(false);
+            //displayedCards[nCardIndex].transform.localPosition = cardPrefab.transform.position * (nCardIndex + 1);
+            //displayedCards[nCardIndex].transform.localScale = cardPrefab.transform.localScale;
+            displayedCards[nCardIndex].transform.SetAsFirstSibling();
 			displayedCards[nCardIndex].SetCard(nCardIndex);
 			//displayedCards[nCardIndex].GetComponent<SpriteRenderer>().sortingOrder = CardsNumber - nCardIndex - 1;
 		}
