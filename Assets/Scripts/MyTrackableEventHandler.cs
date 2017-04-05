@@ -46,6 +46,7 @@ namespace Vuforia
         /// 
         private bool isFirst = true;
         public GameObject flashingObejct;
+        public GameObject rulerText;
 
         public void OnTrackableStateChanged(
                                         TrackableBehaviour.Status previousStatus,
@@ -59,7 +60,7 @@ namespace Vuforia
 
                 if (isFirst)
                 {
-                    GetComponent<FlashingObject>().Flash(flashingObejct);
+                    GetComponent<FlashingObject>().Flash(flashingObejct, rulerText);
                     isFirst = false;
                 }
             }
